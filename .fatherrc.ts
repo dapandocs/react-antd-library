@@ -14,17 +14,5 @@ export default defineConfig({
       // @ts-ignore
       "antd"
     ],
-    [
-      "import",
-      { "libraryName": "ahooks", "libraryDirectory": "es", "style": true },
-      // @ts-ignore
-      "ahooks"
-    ],
-    [
-      "import",
-      { "libraryName": "lodash", "libraryDirectory": "fp", "style": true },
-      // @ts-ignore
-      "lodash"
-    ]
   ]
 });

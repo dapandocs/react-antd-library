@@ -1,6 +1,6 @@
 {
   "name": "@react-spy/antd",
-  "version": "0.0.1",
+  "version": "0.0.6",
   "description": "An enterprise-class UI design language and React components implementation",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -39,6 +39,10 @@
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:react-spy/antd.git"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
