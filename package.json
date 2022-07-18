@@ -1,0 +1,60 @@
+{
+  "name": "@react-spy/antd",
+  "version": "0.0.1",
+  "description": "An enterprise-class UI design language and React components implementation",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "dev": "father dev",
+    "build": "father build",
+    "build:deps": "father prebundle",
+    "prepublishOnly": "npm run build"
+  },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "IE 11",
+    "not IE 10"
+  ],
+  "keywords": [
+    "antd",
+    "Ant Design",
+    "form",
+    "component",
+    "react",
+    "react-component",
+    "ui"
+  ],
+  "authors": [
+    "spy"
+  ],
+  "license": "MIT",
+  "files": [
+    "es",
+    "dist",
+    "lib"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.182",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "father": "^4.0.0-alpha.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "dependencies": {
+    "ahooks": "^3.5.2",
+    "antd": "^4.21.7",
+    "lodash": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  }
+}
