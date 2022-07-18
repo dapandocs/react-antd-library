@@ -10,8 +10,9 @@ import { useSetState } from 'ahooks';
 export const SelectTransfer = () => {
     const [state, setState] = useSetState({
         visible: false,
+        keys: ["1", "2"],
     });
-    const { visible } = state;
+    const { visible, keys } = state;
     return (
         <>
             <Select>
@@ -33,9 +34,9 @@ export const SelectTransfer = () => {
                         { id: '2', name: '测试2' },
                         { id: '3', name: '测试3' },
                     ]}
-                    // targetKeys={["1"]}
-                    selectedList={[ { id: '1', name: '测试1' },]}
-                    limitMaxCount={1}
+                    value={keys}
+                    onChange={(v: any) => setState({ keys: v })}
+                    limitMaxCount={2}
                 />
             </Modal>
         </>
