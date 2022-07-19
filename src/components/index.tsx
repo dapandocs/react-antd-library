@@ -1,2 +1,3 @@
 export * from './AntdTransfer';
-export * from './SelectTransfer';
+export * from './SelectTransferModal';
+export * from './ButtonTransferModal';

@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import {
-  SelectTransfer,
+  SelectTransferModal,
+  ButtonTransferModal,
 } from '../../../../src';
 // import { SelectTransfer } from '@react-spy/antd';
 import { useSetState } from 'ahooks';
@@ -20,11 +21,6 @@ const allData = [
 
 export default () => {
 
-  const [state, setState] = useSetState({
-    keys: ['1', '2'],
-  });
-  const { keys } = state;
-
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -33,13 +29,30 @@ export default () => {
 
   return (
     <Form layout="vertical" form={form}>
+      <ButtonTransferModal
+        dataSource={allData}
+        onOkChange={(v, o) => {
+          console.log(v, o);
+        }}
+        antdButtonProps={{
+          children: <span>人员选择</span>,
+          type: "primary"
+        }}
+        antdModalProps={{
+          title: "人员选择"
+        }}
+      />
       <Form.Item name="test" label="测试人员">
-        <SelectTransfer
+        <SelectTransferModal
           dataSource={allData}
           onChange={(v: any, p: any) => {
-            setState({ keys: v });
+            // setState({ keys: v });
+            console.log(v, p);
           }}
           limitMaxCount={3}
+          onOkChange={(v, o) => {
+            console.log(v, o);
+          }}
         />
       </Form.Item>
     </Form>

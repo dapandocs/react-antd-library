@@ -15,7 +15,7 @@ export interface AntdTransferProps {
 
     onChange?: (targetKeys: string[], options: any[]) => void; // 外部控制穿梭框右侧的id集合
 
-    antdProps?: TransferProps<any>, // antd组件的属性
+    antdProps?: Omit<TransferProps<any>, "dataSource">; // antd组件的属性
 }
 
 export interface TransferItem {
