@@ -2,6 +2,7 @@ import React from 'react';
 import uniqBy from 'lodash/uniqBy';
 import { Transfer, TransferProps } from 'antd';
 import { useSetState, useControllableValue, useDeepCompareEffect } from 'ahooks';
+import styles from './AntdTransfer.less';
 
 export interface AntdTransferProps {
     idKey?: string; // 穿梭框对应对应的id名称
@@ -12,9 +13,7 @@ export interface AntdTransferProps {
 
     limitMaxCount?: number; // 允许最多选取的个数，0 代表不限制
 
-    onChange?: (targetKeys: string[]) => void; // 外部控制穿梭框右侧的id集合
-
-    getTargetList?: (keys: any[], list: any[]) => void; // 获取右侧数据的函数
+    onChange?: (targetKeys: string[], options: any[]) => void; // 外部控制穿梭框右侧的id集合
 
     antdProps?: TransferProps<any>, // antd组件的属性
 }
@@ -38,7 +37,6 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
         limitMaxCount = 0,
         dataSource = [],
         value = [],
-        getTargetList,
         antdProps = {},
     } = props;
 
@@ -52,12 +50,14 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
     });
 
     useDeepCompareEffect(() => {
-        if (Array.isArray(dataSource) && dataSource.length && value?.length) {
+        if (Array.isArray(dataSource) && dataSource.length && value?.length && limitMaxCount) {
             // 得到左侧数据
             const sourceSelectedList = dataSource.filter(item => !value.includes(item[idKey]));
             // 得到可选择的个数: 减去右侧
             const canSelectCount = limitMaxCount - value.length;
             isDisabled(sourceSelectedList, canSelectCount);
+        } else {
+            setState({ list: [...dataSource] });
         }
     }, [value]);
 
@@ -66,17 +66,16 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
      * @param targetKeys 右侧的id集合
      */
     const onChange = (targetKeys: string[]) => {
-        // 此时左侧的数据
-        const sourceSelectedList = dataSource.filter(item => !targetKeys.includes(item[idKey]));
-        // 得到可选择的个数: 减去右侧
-        const canSelectCount = limitMaxCount - targetKeys.length;
+        if (limitMaxCount) {
+            // 此时左侧的数据
+            const sourceSelectedList = dataSource.filter(item => !targetKeys.includes(item[idKey]));
+            // 得到可选择的个数: 减去右侧
+            const canSelectCount = limitMaxCount - targetKeys.length;
 
-        isDisabled(sourceSelectedList, canSelectCount);
-        setTKeys(targetKeys);
-        if (typeof getTargetList === 'function') {
-            const targetList = dataSource.filter(item => targetKeys.includes(item[idKey]));
-            getTargetList(targetKeys, targetList);
+            isDisabled(sourceSelectedList, canSelectCount);
         }
+        const targetList = dataSource.filter(item => targetKeys.includes(item[idKey]));
+        setTKeys(targetKeys, targetList);
     };
 
     /**
@@ -88,7 +87,7 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
         sourceSelectedKeys: string[],
         targetSelectedKeys: string[],
     ) => {
-        if (sourceSelectedKeys.length) {
+        if (limitMaxCount) {
             // 得到可选择的个数: 减去右侧、左侧已选择的个数
             const canSelectCount = limitMaxCount - tKeys.length - sourceSelectedKeys.length;
             // 此时左侧的数据
@@ -129,11 +128,9 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
         setState({ list: uniqBy([...dataSource, ...sourList], idKey) });
     };
 
-    const onSearch = (dir: any, value: any) => {
-        // console.log('search:', dir, value);
-    };
     return (
         <Transfer
+            className={styles.custom_transfer}
             showSearch
             listStyle={{
                 width: '45%',
@@ -146,7 +143,6 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
             }}
             showSelectAll={false}
             titles={['待选区', '已选区']}
-            onSearch={onSearch}
             render={(item: any) => item[nameKey]}
             // 以上属性可覆盖
             {...antdProps}
