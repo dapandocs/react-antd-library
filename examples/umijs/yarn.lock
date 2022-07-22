@@ -935,10 +935,10 @@
   resolved "https://registry.npmmirror.com/@qixian.cs/path-to-regexp/-/path-to-regexp-6.1.0.tgz#6b84ad01596332aba95fa29d2e70104698cd5c45"
   integrity sha512-2jIiLiVZB1jnY7IIRQKtoV8Gnr7XIhk4mC88ONGunZE3hYt5IHUG4BE/6+JiTBjjEWQLBeWnZB8hGpppkufiVw==
 
-"@react-spy/antd@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.npmjs.org/@react-spy/antd/-/antd-0.0.6.tgz#1651ad745fdbf805a78feed5f88c52f6f6451f98"
-  integrity sha512-lWdembHgdo6zUPI60TNfSs2muW4XFahu8Fr7xvRrve6IPMkiMw/tH/ZBg3WoJX2rMI84hrU4KwnmJQvTdmhfOQ==
+"@react-spy/antd@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.npmmirror.com/@react-spy/antd/-/antd-0.0.7.tgz#4a649e980112868065ad2363ab69fb3c77539821"
+  integrity sha512-Iza0vJTyROhGNE9lxoIAg5sY7Q2f847o2Hww0VochOHXcCTdM1YwxYiIHG5L6ajpgZqmQg5OMIri2a8pJtN87w==
   dependencies:
     ahooks "^3.5.2"
     antd "^4.21.7"
