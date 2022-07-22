@@ -59,7 +59,6 @@ export default () => {
         </Form.Item>
         <Form.Item name="st" label="测试人员2" initialValue={["1", "2", "3"]}>
           <AntdTransfer
-            type="auto"
             idKey='id'
             nameKey='name'
             dataSource={allData}

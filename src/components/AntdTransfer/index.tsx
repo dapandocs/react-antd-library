@@ -11,10 +11,10 @@ import {
 export type AntdTransferProps = AntdTransferComponentProps;
 export type TransferItem = TransferComponentItem;
 
-export const AntdTransfer = ({
+export const AntdTransfer: React.FC<AntdTransferProps & { type?: "primary" | "auto" }> = ({
     type = "primary",
     ...restProps
-}: AntdTransferProps & { type?: "primary" | "auto" }) => {
+}) => {
     if (type = "auto") {
         return <AntdAutoTransfer {...restProps} />
     }
