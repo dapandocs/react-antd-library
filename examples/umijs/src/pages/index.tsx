@@ -3,6 +3,7 @@ import {
   SelectTransferModal,
   ButtonTransferModal,
   AntdTransfer,
+  AntdProgress,
 } from '../../../../src';
 // import { SelectTransfer } from '@react-spy/antd';
 import { useSetState } from 'ahooks';
@@ -29,7 +30,7 @@ export default () => {
   }, []);
 
   return (
-    <>
+    <div style={{ padding: 24 }}>
       <Form layout="vertical" form={form}>
         <ButtonTransferModal
           dataSource={allData}
@@ -66,7 +67,10 @@ export default () => {
           />
         </Form.Item>
       </Form>
-    </>
+      <AntdProgress
+      //  value={100}
+      />
+    </div>
 
   );
 }
