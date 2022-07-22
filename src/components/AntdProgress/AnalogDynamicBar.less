@@ -1,22 +1,22 @@
-@keyframes flipInY {
+@keyframes flipInX {
     from {
-      transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
       animation-timing-function: ease-in;
       opacity: 0;
     }
   
     40% {
-      transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
       animation-timing-function: ease-in;
     }
   
     60% {
-      transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
       opacity: 1;
     }
   
     80% {
-      transform: perspective(400px) rotate3d(0, 1, 0, -5deg);
+      transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
     }
   
     to {
@@ -24,13 +24,14 @@
     }
   }
   
-  .flipInY {
+  .flipInX {
     backface-visibility: visible !important;
-    animation-name: flipInY;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-duration: 1s;
-    animation-duration:1s;
+    animation-name: flipInX;
+    -webkit-animation-duration: 3s;
+    animation-duration: 3s;
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both;
+    // 循环
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
   }

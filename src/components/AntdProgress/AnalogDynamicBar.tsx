@@ -31,7 +31,7 @@ export const AnalogDynamicBar = (props: any) => {
         <div>
             {
                 percent &&
-                <div className='flipInY'>下载进度：{percent}%</div>
+                <div className='flipInX'>下载进度：{percent}%</div>
             }
             <Progress
                 size="default"
