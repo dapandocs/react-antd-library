@@ -57,7 +57,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
 
     const selectRef = useRef<any>();
 
-    const [targetKeys, setTargetKeys] = useControllableValue<any>(props, {
+    const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props, {
         defaultValue: [],
     });
 
@@ -139,7 +139,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
                 <AntdTransfer
                     idKey={idKey}
                     nameKey={nameKey}
-                    type = "primary"
+                    type={type}
                     dataSource={dataSource}
                     value={targetKeys}
                     onChange={(v: any[], options: any[]) => {

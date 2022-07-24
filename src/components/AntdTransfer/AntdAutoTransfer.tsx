@@ -45,7 +45,7 @@ export const AntdAutoTransfer: React.FC<AntdAutoTransferProps> = props => {
         antdProps = {},
     } = props;
 
-    const [state, setState] = useSetState<any>({
+    const [state = [], setState] = useSetState<any>({
         list: [],
     });
     const { list } = state;

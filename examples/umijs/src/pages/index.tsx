@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
-// import {
-//   SelectTransferModal,
-// } from '../../../../src';
-import { SelectTransferModal } from '@react-spy/antd';
+import React from 'react';
+import {
+  SelectTransferModal,
+} from '../../../../src';
+// import { SelectTransferModal } from '@react-spy/antd';
 import {
   Form,
   Input,
@@ -39,6 +39,7 @@ export default () => {
         <SelectTransferModal
           dataSource={list}
           limitMaxCount={3}
+          // type="auto"
           antdSelectProps={{
             placeholder: '请选择负责人',
           }}

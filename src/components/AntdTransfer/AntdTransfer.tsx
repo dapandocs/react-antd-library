@@ -45,7 +45,7 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
     });
     const { list } = state;
 
-    const [tKeys, setTKeys] = useControllableValue<any>(props, {
+    const [tKeys = [], setTKeys] = useControllableValue<any>(props, {
         defaultValue: [],
     });
 
@@ -90,6 +90,7 @@ export const AntdTransfer: React.FC<AntdTransferProps> = props => {
         if (limitMaxCount) {
             // 得到可选择的个数: 减去右侧、左侧已选择的个数
             const canSelectCount = limitMaxCount - tKeys.length - sourceSelectedKeys.length;
+
             // 此时左侧的数据
             const sourceSelectedList = dataSource.filter((item: ItemProps) => !tKeys.includes(item[idKey]));
             if (canSelectCount > 0 && sourceSelectedList.length >= canSelectCount) {
