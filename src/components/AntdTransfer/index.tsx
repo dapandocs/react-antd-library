@@ -15,7 +15,7 @@ export const AntdTransfer: React.FC<AntdTransferProps & { type?: "primary" | "au
     type = "primary",
     ...restProps
 }) => {
-    if (type = "auto") {
+    if (type === "auto") {
         return <AntdAutoTransfer {...restProps} />
     }
     return <AntdTransferComponent {...restProps} />

@@ -1,76 +1,81 @@
 import { useEffect } from 'react';
-import {
-  SelectTransferModal,
-  ButtonTransferModal,
-  AntdTransfer,
-  AntdProgress,
-} from '../../../../src';
-// import { SelectTransfer } from '@react-spy/antd';
-import { useSetState } from 'ahooks';
+// import {
+//   SelectTransferModal,
+// } from '../../../../src';
+import { SelectTransferModal } from '@react-spy/antd';
 import {
   Form,
+  Input,
+  Select,
+  Button,
+  Space,
 } from 'antd';
 
-const allData = [
-  { id: '1', name: '马云' },
-  { id: '2', name: '马化腾' },
-  { id: '3', name: '李嘉诚' },
-  { id: '4', name: '刘亦菲' },
-  { id: '5', name: '赵丽颖' },
-  { id: '6', name: '杨 幂' },
-  { id: '7', name: '王洋' },
+const list = [
+  { id: '1', name: '张三' },
+  { id: '2', name: '李四' },
+  { id: '3', name: '小明' },
+  { id: '4', name: '小红' },
+  { id: '5', name: '小兰' },
 ];
 
 export default () => {
 
   const [form] = Form.useForm();
 
-  useEffect(() => {
-    form.setFieldsValue({ test: ["2", "3", "4"] });
-  }, []);
 
   return (
-    <div style={{ padding: 24 }}>
-      <Form layout="vertical" form={form}>
-        <ButtonTransferModal
-          dataSource={allData}
-          onOkChange={(v, o) => {
-            console.log(v, o);
-          }}
-          antdButtonProps={{
-            children: <span>人员选择</span>,
-            type: "primary"
-          }}
-          antdModalProps={{
-            title: "人员选择"
+    <Form layout="vertical" form={form} style={{ padding: "5% 25%" }}>
+      <Form.Item name="userName" label="员工姓名">
+        <Input placeholder='请输入员工姓名' />
+      </Form.Item>
+      <Form.Item name="userSex" label="员工性格">
+        <Select placeholder="请选择员工性别">
+          <Select.Option value="male">男</Select.Option>
+          <Select.Option value="female">女</Select.Option>
+        </Select>
+      </Form.Item>
+      <Form.Item name="manageName" label="负责人">
+        <SelectTransferModal
+          dataSource={list}
+          limitMaxCount={3}
+          antdSelectProps={{
+            placeholder: '请选择负责人',
           }}
         />
-        <Form.Item name="test" label="测试人员">
-          <SelectTransferModal
-            dataSource={allData}
-            onChange={(v: any, p: any) => {
-              // setState({ keys: v });
-              console.log(v, p);
+      </Form.Item>
+      <Form.Item>
+        <Space>
+          <Button
+            onClick={() => {
+              form.resetFields();
             }}
-            limitMaxCount={3}
-            onOkChange={(v, o) => {
-              console.log(v, o);
+          >
+            重置
+          </Button>
+          <Button
+            type="primary"
+            onClick={async () => {
+              const values = await form.validateFields();
+              console.log(values);
             }}
-          />
-        </Form.Item>
-        <Form.Item name="st" label="测试人员2" initialValue={["1", "2", "3"]}>
-          <AntdTransfer
-            idKey='id'
-            nameKey='name'
-            dataSource={allData}
-          // limitMaxCount={3}
-          />
-        </Form.Item>
-      </Form>
-      <AntdProgress
-      //  value={100}
-      />
-    </div>
-
+          >
+            提交
+          </Button>
+          <Button
+            type="link"
+            onClick={() => {
+              form.setFieldsValue({
+                userName: "王强",
+                userSex: "male",
+                manageName: ["2"]
+              });
+            }}
+          >
+            填充
+          </Button>
+        </Space>
+      </Form.Item>
+    </Form>
   );
 }

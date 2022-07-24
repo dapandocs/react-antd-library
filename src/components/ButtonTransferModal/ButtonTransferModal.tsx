@@ -23,7 +23,8 @@ export interface ButtonTransferProps {
     limitMaxCount?: number; // 允许最多选取的个数，0 代表不限制
     antdButtonProps?: ButtonProps; // antd下拉框属性
     antdModalProps?: ModalProps; // antd弹窗属性
-    antdTransferProps?: TransferProps<any>; // antd穿梭框属性
+    antdTransferProps?: Omit<TransferProps<any>, "dataSource">; // antd穿梭框属性
+    type?: "primary" | "auto"; // antd穿梭框操作方式
 };
 
 export const ButtonTransferModal = (props: ButtonTransferProps) => {
@@ -35,6 +36,7 @@ export const ButtonTransferModal = (props: ButtonTransferProps) => {
         antdButtonProps = {},
         antdModalProps = {},
         antdTransferProps = {},
+        type = 'primary',
         onOkChange,
     } = props;
     const [state, setState] = useSetState<any>({
@@ -80,6 +82,7 @@ export const ButtonTransferModal = (props: ButtonTransferProps) => {
                 <AntdTransfer
                     idKey={idKey}
                     nameKey={nameKey}
+                    type={type}
                     dataSource={dataSource}
                     value={targetKeys}
                     onChange={(v: any[], options: any[]) => {

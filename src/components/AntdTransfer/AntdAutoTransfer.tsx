@@ -7,7 +7,7 @@ import React from 'react';
 import uniqBy from 'lodash/uniqBy';
 import { Transfer, TransferProps } from 'antd';
 import { useSetState, useControllableValue, useDeepCompareEffect } from 'ahooks';
-import styles from './AntdTransfer.less';
+import './AntdTransfer.less';
 
 export interface AntdAutoTransferProps {
     idKey?: string; // 穿梭框对应对应的id名称
@@ -136,7 +136,7 @@ export const AntdAutoTransfer: React.FC<AntdAutoTransferProps> = props => {
 
     return (
         <Transfer
-            className={styles.custom_transfer}
+            className="ant-transfer-center"
             showSearch
             listStyle={{
                 width: '45%',
