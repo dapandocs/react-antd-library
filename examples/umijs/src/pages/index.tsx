@@ -39,9 +39,10 @@ export default () => {
         <SelectTransferModal
           dataSource={list}
           limitMaxCount={3}
-          // type="auto"
+          type="auto"
           antdSelectProps={{
             placeholder: '请选择负责人',
+            allowClear: true,
           }}
         />
       </Form.Item>
@@ -69,7 +70,7 @@ export default () => {
               form.setFieldsValue({
                 userName: "王强",
                 userSex: "male",
-                manageName: ["2"]
+                manageName: ["2","3"]
               });
             }}
           >
