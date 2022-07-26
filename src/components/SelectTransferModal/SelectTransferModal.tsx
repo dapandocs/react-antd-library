@@ -91,7 +91,8 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
         setState({
             visible: false,
             selectedKeys: targetKeys,
-            isOkConfirm: true
+            isOkConfirm: true,
+            isTargetKeysChange: false // 重置状态
         });
         if (typeof onOkChange === "function") {
             onOkChange(targetKeys, selectedLists);
@@ -133,7 +134,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
                 // 以下属性不支持覆盖
                 destroyOnClose
                 visible={visible}
-                onCancel={() => setState({ visible: false })}
+                onCancel={() => setState({ visible: false, isTargetKeysChange: false })}
                 onOk={onOk}
             >
                 <AntdTransfer
