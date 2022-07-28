@@ -33,6 +33,15 @@ export default () => {
                     antdButtonProps={{
                         children: "上传附件按钮"
                     }}
+                    antdUploadProps={{
+                        showUploadList:{
+                            downloadIcon:true,
+                        },
+                        onDownload:()=>{
+                            console.log(33);
+                        }
+                    }}
+                    uploadButtonRender={false}
                 />
             </Form.Item>
             <Form.Item>

@@ -13,12 +13,16 @@ import {
 } from 'antd';
 import { useControllableValue } from 'ahooks';
 
-export interface ButtonUploadProps extends UploadProps {
+export interface ButtonUploadProps {
     limitMaxCount?: number; // 允许最多选取的个数，0 代表不限制
     limitMaxSize?: number; // 允许最大上传大小，0 代表不限制
     acceptUploadType?: string[]; // 可上传的类型 eg:["gif", "zip"]
-    isShowUploadEntry?: boolean; // 是否显示上传按钮
-    antdButtonProps?: ButtonProps; // 按钮的属性
+    isShowUploadEntry?: boolean; // 是否显示上传入口
+    uploadButtonRender?: React.ReactNode; // 自定义上传按钮
+    antdButtonProps?: ButtonProps; // antd按钮的属性
+    antdUploadProps?: UploadProps; // antd上传的属性
+    value?: any[]; // 等价fileList,外部可控
+    onChange?: (fileList: any) => void; // 上传附件后的回调函数
 }
 
 export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
@@ -29,22 +33,18 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
         acceptUploadType = [],
         isShowUploadEntry = true,
         antdButtonProps = {},
-        ...restProps
+        antdUploadProps = {},
+        uploadButtonRender,
     } = props;
 
-    const [fileList = [{
-        uid: '1',
-        name: 'xxx.png',
-        status: 'done',
-        response: 'Server Error 500', // custom error message to show
-        url: 'http://www.baidu.com/xxx.png',
-    }], setFileList] = useControllableValue(props);
+    const [fileList = [], setFileList] = useControllableValue(props);
+
+    const isLimitCount = limitMaxCount > 0 && fileList.length >= limitMaxCount;
 
     // 文件上传之前的回调函数
     const beforeUpload = (file: any) => {
         // 判断文件个数是否超出限制
-        const isMoreCount = limitMaxCount > 0 && fileList.length >= limitMaxCount;
-        if (isMoreCount) {
+        if (isLimitCount) {
             message.info(`上传失败：文件最多上传 ${limitMaxCount} 个`);
             return;
         }
@@ -55,18 +55,24 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
             return;
         }
         setFileList([...fileList, file]);
-    }
+    };
 
     return (
         <Upload
             accept={acceptUploadType.map(item => `.${item}`).join(",")}
-            {...restProps}
+            listType="picture"
+            {...antdUploadProps}
             fileList={fileList}
             beforeUpload={beforeUpload}
         >
             {
-                isShowUploadEntry &&
-                <Button children="上传文件" {...antdButtonProps} />
+                isShowUploadEntry && uploadButtonRender ?
+                    uploadButtonRender :
+                    <Button
+                        children="上传文件"
+                        {...antdButtonProps}
+                        disabled={isLimitCount}
+                    />
             }
         </Upload>
     );
