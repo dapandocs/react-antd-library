@@ -10,6 +10,7 @@ import {
     ButtonProps,
     Button,
     message,
+    UploadFile,
 } from 'antd';
 import { useControllableValue } from 'ahooks';
 
@@ -25,6 +26,7 @@ export interface ButtonUploadProps {
     onChange?: (fileList: any) => void; // 上传附件后的回调函数
 }
 
+
 export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
 
     const {
@@ -37,7 +39,7 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
         uploadButtonRender,
     } = props;
 
-    const [fileList = [], setFileList] = useControllableValue(props);
+    const [fileList = [], setFileList] = useControllableValue<Array<UploadFile>>(props);
 
     const isLimitCount = limitMaxCount > 0 && fileList.length >= limitMaxCount;
 
