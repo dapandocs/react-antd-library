@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import {
-    Input,
-    InputProps,
+    InputNumber,
+    InputNumberProps,
 } from 'antd';
 import cls from 'classnames';
 import {
@@ -11,7 +11,7 @@ import {
 } from './index';
 import './styles.less';
 
-const PreviewInput: React.FC<InputProps & PreviewTextProps> = (props) => {
+const PreviewInputNumber: React.FC<InputNumberProps & PreviewTextProps> = (props) => {
     const {
         previewMode,
         previewPlaceholder,
@@ -21,7 +21,7 @@ const PreviewInput: React.FC<InputProps & PreviewTextProps> = (props) => {
     } = props;
     const contextValue = useContext(PreviewTextContext);
     if (contextValue?.previewMode === "form" || previewMode === "form") {
-        return <Input {...restProps} />;
+        return <InputNumber {...restProps} />;
     }
     return (
         <div
@@ -30,10 +30,19 @@ const PreviewInput: React.FC<InputProps & PreviewTextProps> = (props) => {
         >
             <span>{props.addonBefore}</span>
             <span>{props.prefix}</span>
-            <span>{usePlaceholder(props.value, (previewPlaceholder || contextValue?.previewPlaceholder))}</span>
-            <span>{props.suffix}</span>
+            <span>
+                {usePlaceholder(
+                    props.formatter
+                        ? props.formatter(String(props.value), {
+                            userTyping: false,
+                            input: '',
+                        })
+                        : props.value,
+                    (previewPlaceholder || contextValue?.previewPlaceholder))
+                }
+            </span>
             <span>{props.addonAfter}</span>
         </div>
     );
 };
-export default PreviewInput;
+export default PreviewInputNumber;

@@ -1,52 +1,121 @@
 import React, { useEffect } from "react";
+import { useSetState } from 'ahooks';
 import {
     PreviewText
 } from '../../../../../src';
-import { Input, Form, Button } from 'antd';
+import { Space, Form, Button } from 'antd';
 import styles from './index.less';
 
+const {
+    Input,
+    InputNumber,
+    Select,
+    TreeSelect,
+} = PreviewText;
+
 const PreviewTextPage = (props: any) => {
+
+    const [state, setState] = useSetState<any>({
+        previewMode: "form",
+    });
+    const { previewMode } = state;
 
     const [form] = Form.useForm();
 
     useEffect(() => {
         form.setFieldsValue({
-            test: "1000"
+            input: "1000"
         });
     }, []);
 
     return (
         <div style={{ padding: "5% 15%" }}>
-            <PreviewText mode="text">
+            <PreviewText previewMode={previewMode} previewStyle={{ color: "blue" }}>
                 <Form layout="horizontal" form={form}>
-                    <Form.Item label="测试" name="test">
-                        <PreviewText.Input
+                    <Form.Item label="Input输入框" name="input">
+                        <Input
                             placeholder="请输入"
                             suffix="万元"
+                            // previewStyle={{ color: "#eee" }}
                             previewPlaceholder="预览"
-                            // className={styles.font}
-                            style={{ color: "red" }}
                         />
                     </Form.Item>
-                    <Form.Item label="测试2" name="test2" labelCol={{ span: 24 }}>
-                        <PreviewText.Input
+                    <Form.Item
+                        label="InputNumber数字输入框"
+                        name="inputNumber"
+                        labelCol={{ span: 24 }}
+                        initialValue={100}
+                    >
+                        <InputNumber
                             placeholder="请输入"
-                            suffix="万元"
+                            style={{ width: "100%" }}
                             previewPlaceholder="预览"
-                            className={styles.font}
-                            mode="form"
+                            formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            parser={value => value!.replace(/\$\s?|(,*)/g, '')}
                         />
+                    </Form.Item>
+                    <Form.Item
+                        label="Select下拉框"
+                        name="select"
+                        // initialValue={[{
+                        //     label: "选项1",
+                        //     value: "1"
+                        // }, {
+                        //     label: "选项2",
+                        //     value: "2"
+                        // }]}
+                    >
+                        <Select mode="multiple" labelInValue>
+                            <Select.Option value="1">选项1</Select.Option>
+                            <Select.Option value="2">选项2</Select.Option>
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        label="TreeSelect下拉框"
+                        name="treeSelect"
+                        initialValue={{
+                            label: "parent 1-0",
+                            value: "parent 1-0"
+                        }}
+                    >
+                        <TreeSelect
+                            showSearch
+                            style={{ width: '100%' }}
+                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                            placeholder="Please select"
+                            allowClear
+                            treeDefaultExpandAll
+                            labelInValue
+                        >
+                            <TreeSelect.TreeNode value="parent 1" title="parent 1">
+                                <TreeSelect.TreeNode value="parent 1-0" title="parent 1-0">
+                                    <TreeSelect.TreeNode value="leaf1" title="leaf1" />
+                                    <TreeSelect.TreeNode value="leaf2" title="leaf2" />
+                                </TreeSelect.TreeNode>
+                                <TreeSelect.TreeNode value="parent 1-1" title="parent 1-1">
+                                    <TreeSelect.TreeNode value="leaf3" title={<b style={{ color: '#08c' }}>leaf3</b>} />
+                                </TreeSelect.TreeNode>
+                            </TreeSelect.TreeNode>
+                        </TreeSelect>
                     </Form.Item>
                 </Form>
             </PreviewText>
-            <Button
-                onClick={async () => {
-                    const values = await form.validateFields();
-                    console.log("values", values);
-                }}
-            >
-                提交
-            </Button>
+            <Space>
+                <Button
+                    onClick={async () => {
+                        const values = await form.validateFields();
+                        console.log("values", values);
+                    }}
+                >
+                    提交
+                </Button>
+                <Button
+                    onClick={() => setState({ previewMode: previewMode === "form" ? "text" : "form" })}
+                >
+                    切换
+                </Button>
+            </Space>
+
         </div>
     );
 };
