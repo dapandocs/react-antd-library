@@ -8,6 +8,10 @@ import PreviewInput from "./Input";
 import PreviewInputNumber from "./InputNumber";
 import PreviewSelect from './Select';
 import PreviewTreeSelect from './TreeSelect';
+import PreviewCascader from './Cascader';
+import PreviewDatePicker from './DatePicker';
+import PreviewDateRangePicker from './DateRangePicker';
+import PreviewTimePicker from './TimePicker';
 
 export interface PreviewTextProps {
     previewPlaceholder?: string;
@@ -23,6 +27,10 @@ interface CompoundedComponent
     InputNumber: typeof PreviewInputNumber;
     Select: typeof PreviewSelect;
     TreeSelect: typeof PreviewTreeSelect;
+    Cascader: typeof PreviewCascader;
+    DatePicker: typeof PreviewDatePicker;
+    DateRangePicker: typeof PreviewDateRangePicker;
+    TimePicker: typeof PreviewTimePicker;
 }
 
 export const usePlaceholder = (value: any, text: string | undefined) => {
@@ -60,5 +68,9 @@ PText.Input = PreviewInput;
 PText.InputNumber = PreviewInputNumber;
 PText.Select = PreviewSelect;
 PText.TreeSelect = PreviewTreeSelect;
+PText.Cascader = PreviewCascader;
+PText.DatePicker = PreviewDatePicker;
+PText.DateRangePicker = PreviewDateRangePicker;
+PText.TimePicker = PreviewTimePicker;
 
 export const PreviewText = PText;

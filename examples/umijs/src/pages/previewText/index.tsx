@@ -11,7 +11,46 @@ const {
     InputNumber,
     Select,
     TreeSelect,
+    Cascader,
+    DatePicker,
+    DateRangePicker,
+    TimePicker,
 } = PreviewText;
+
+const options = [
+    {
+        value: 'zhejiang',
+        label: 'Zhejiang',
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'Hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'West Lake',
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        value: 'jiangsu',
+        label: 'Jiangsu',
+        children: [
+            {
+                value: 'nanjing',
+                label: 'Nanjing',
+                children: [
+                    {
+                        value: 'zhonghuamen',
+                        label: 'Zhong Hua Men',
+                    },
+                ],
+            },
+        ],
+    },
+];
 
 const PreviewTextPage = (props: any) => {
 
@@ -57,13 +96,13 @@ const PreviewTextPage = (props: any) => {
                     <Form.Item
                         label="Select下拉框"
                         name="select"
-                        // initialValue={[{
-                        //     label: "选项1",
-                        //     value: "1"
-                        // }, {
-                        //     label: "选项2",
-                        //     value: "2"
-                        // }]}
+                    // initialValue={[{
+                    //     label: "选项1",
+                    //     value: "1"
+                    // }, {
+                    //     label: "选项2",
+                    //     value: "2"
+                    // }]}
                     >
                         <Select mode="multiple" labelInValue>
                             <Select.Option value="1">选项1</Select.Option>
@@ -97,6 +136,44 @@ const PreviewTextPage = (props: any) => {
                                 </TreeSelect.TreeNode>
                             </TreeSelect.TreeNode>
                         </TreeSelect>
+                    </Form.Item>
+                    <Form.Item
+                        label="Cascader级联选择"
+                        name="cascader"
+                    >
+                        <Cascader
+                            options={options}
+                            placeholder="Please select"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="DatePicker日期选择框"
+                        name="datePicker"
+                    >
+                        <DatePicker
+                            placeholder="请选择日期"
+                            style={{ width: '100%' }}
+                            picker="quarter"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="RangePicker日期选择框"
+                        name="rangePicker"
+                    >
+                        <DateRangePicker
+                            style={{ width: '100%' }}
+                            picker="time"
+                            use12Hours 
+                            format="h:mm:ss A"
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        label="TimePicker时间选择框"
+                        name="timePicker"
+                    >
+                        <TimePicker
+                            style={{ width: '100%' }}
+                        />
                     </Form.Item>
                 </Form>
             </PreviewText>
