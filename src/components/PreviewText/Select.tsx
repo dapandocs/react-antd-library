@@ -77,7 +77,7 @@ const PSelect: React.FC<SelectProps & PreviewTextProps> = (props) => {
     );
 };
 
-const PreviewSelect = PSelect as unknown as CompoundedComponentSelect;
+const PreviewSelect = PSelect as CompoundedComponentSelect;
 PreviewSelect.Option = Select.Option;
 PreviewSelect.OptGroup = Select.OptGroup;
 

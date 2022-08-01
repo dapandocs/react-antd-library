@@ -70,7 +70,7 @@ const Text: React.FC<React.PropsWithChildren<PreviewTextProps>> = (props) => {
         </PreviewTextContext.Provider>
     )
 }
-export const PreviewText = Text as unknown as CompoundedComponent;
+export const PreviewText = Text as CompoundedComponent;
 
 PreviewText.Input = PreviewInput;
 PreviewText.InputNumber = PreviewInputNumber;

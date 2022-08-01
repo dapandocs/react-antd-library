@@ -85,6 +85,6 @@ const PtSelect: React.FC<TreeSelectProps & PreviewTextProps> = (props) => {
         </div>
     );
 };
-const PreviewTreeSelect = PtSelect as unknown as CompoundedComponentTreeSelectProps;
+const PreviewTreeSelect = PtSelect as CompoundedComponentTreeSelectProps;
 PreviewTreeSelect.TreeNode = TreeSelect.TreeNode;
 export default PreviewTreeSelect;
