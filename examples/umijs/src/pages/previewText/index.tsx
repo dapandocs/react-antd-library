@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useSetState } from 'ahooks';
-import {
-    PreviewText
-} from '../../../../../src';
+// import {
+//     PreviewText
+// } from '../../../../../src';
+// import { PreviewText } from '../../../../../es';
+import { PreviewText } from '@react-spy/antd';
 import { Space, Form, Button } from 'antd';
 import styles from './index.less';
 
@@ -197,7 +199,7 @@ const PreviewTextPage = (props: any) => {
                     <Form.Item
                         label="Radio单选框"
                         name="radio"
-                        // initialValue={["A"]}
+                    // initialValue={["A"]}
                     >
                         {/* <RadioGroup>
                             <Radio value="A">A</Radio>

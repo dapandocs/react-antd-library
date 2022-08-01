@@ -935,13 +935,14 @@
   resolved "https://registry.npmmirror.com/@qixian.cs/path-to-regexp/-/path-to-regexp-6.1.0.tgz#6b84ad01596332aba95fa29d2e70104698cd5c45"
   integrity sha512-2jIiLiVZB1jnY7IIRQKtoV8Gnr7XIhk4mC88ONGunZE3hYt5IHUG4BE/6+JiTBjjEWQLBeWnZB8hGpppkufiVw==
 
-"@react-spy/antd@^0.0.11":
-  version "0.0.11"
-  resolved "https://registry.npmjs.org/@react-spy/antd/-/antd-0.0.11.tgz#1ae90465744b377ae0bfb0167d3afbe46007c7bb"
-  integrity sha512-T/eYDipvtJcQK4mAUlH+Aa8X/KPRoEBgw50iK/4L4p2adBwP+MJUQgm2ghENiYeyIMYxOpMyHrzzTzgCm7Copw==
+"@react-spy/antd@^0.0.13":
+  version "0.0.13"
+  resolved "https://registry.npmjs.org/@react-spy/antd/-/antd-0.0.13.tgz#88be152fc9550b6796b4759af54dd724cfa9f908"
+  integrity sha512-lVYDrZcgQZmmFohVZuSISNZ1thVRh7muwSVaPb5fD9dbtpuSH71IxZ2u2aqEleKoYMtudmeNDYl3gYz8XvsqVw==
   dependencies:
     ahooks "^3.5.2"
     antd "^4.21.7"
+    classnames "^2.3.1"
     lodash "^4.17.21"
 
 "@rollup/pluginutils@^4.1.2":

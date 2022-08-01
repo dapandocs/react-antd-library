@@ -70,19 +70,17 @@ const Text: React.FC<React.PropsWithChildren<PreviewTextProps>> = (props) => {
         </PreviewTextContext.Provider>
     )
 }
-const PText = Text as unknown as CompoundedComponent;
+export const PreviewText = Text as unknown as CompoundedComponent;
 
-PText.Input = PreviewInput;
-PText.InputNumber = PreviewInputNumber;
-PText.Select = PreviewSelect;
-PText.TreeSelect = PreviewTreeSelect;
-PText.Cascader = PreviewCascader;
-PText.DatePicker = PreviewDatePicker;
-PText.DateRangePicker = PreviewDateRangePicker;
-PText.TimePicker = PreviewTimePicker;
-PText.Checkbox = PreviewCheckbox;
-PText.CheckboxGroup = PreviewCheckboxGroup;
-PText.Radio = PreviewRadio;
-PText.RadioGroup = PreviewRadioGroup;
-
-export const PreviewText = PText;
+PreviewText.Input = PreviewInput;
+PreviewText.InputNumber = PreviewInputNumber;
+PreviewText.Select = PreviewSelect;
+PreviewText.TreeSelect = PreviewTreeSelect;
+PreviewText.Cascader = PreviewCascader;
+PreviewText.DatePicker = PreviewDatePicker;
+PreviewText.DateRangePicker = PreviewDateRangePicker;
+PreviewText.TimePicker = PreviewTimePicker;
+PreviewText.Checkbox = PreviewCheckbox;
+PreviewText.CheckboxGroup = PreviewCheckboxGroup;
+PreviewText.Radio = PreviewRadio;
+PreviewText.RadioGroup = PreviewRadioGroup;
