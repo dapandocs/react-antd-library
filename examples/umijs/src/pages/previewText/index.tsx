@@ -15,6 +15,10 @@ const {
     DatePicker,
     DateRangePicker,
     TimePicker,
+    Checkbox,
+    CheckboxGroup,
+    Radio,
+    RadioGroup,
 } = PreviewText;
 
 const options = [
@@ -66,6 +70,8 @@ const PreviewTextPage = (props: any) => {
             input: "1000"
         });
     }, []);
+
+    const plainOptions = ['Apple', 'Pear', 'Orange'];
 
     return (
         <div style={{ padding: "5% 15%" }}>
@@ -163,7 +169,7 @@ const PreviewTextPage = (props: any) => {
                         <DateRangePicker
                             style={{ width: '100%' }}
                             picker="time"
-                            use12Hours 
+                            use12Hours
                             format="h:mm:ss A"
                         />
                     </Form.Item>
@@ -174,6 +180,31 @@ const PreviewTextPage = (props: any) => {
                         <TimePicker
                             style={{ width: '100%' }}
                         />
+                    </Form.Item>
+                    <Form.Item
+                        label="Checkbox多选框"
+                        name="checkbox"
+                        initialValue={["Apple"]}
+                    >
+                        {/* <Checkbox value="A">A</Checkbox> */}
+                        {/* <CheckboxGroup>
+                            <Checkbox value="A">A</Checkbox>
+                            <Checkbox value="B">B</Checkbox>
+                            <Checkbox value="C">C</Checkbox>
+                        </CheckboxGroup> */}
+                        <CheckboxGroup options={plainOptions} />
+                    </Form.Item>
+                    <Form.Item
+                        label="Radio单选框"
+                        name="radio"
+                        // initialValue={["A"]}
+                    >
+                        {/* <RadioGroup>
+                            <Radio value="A">A</Radio>
+                            <Radio value="B">B</Radio>
+                            <Radio value="C">C</Radio>
+                        </RadioGroup> */}
+                        <RadioGroup options={plainOptions} />
                     </Form.Item>
                 </Form>
             </PreviewText>

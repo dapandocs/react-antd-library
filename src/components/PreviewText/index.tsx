@@ -12,6 +12,10 @@ import PreviewCascader from './Cascader';
 import PreviewDatePicker from './DatePicker';
 import PreviewDateRangePicker from './DateRangePicker';
 import PreviewTimePicker from './TimePicker';
+import PreviewCheckbox from './Checkbox';
+import PreviewCheckboxGroup from './CheckboxGroup';
+import PreviewRadio from './Radio';
+import PreviewRadioGroup from './RadioGroup';
 
 export interface PreviewTextProps {
     previewPlaceholder?: string;
@@ -31,6 +35,10 @@ interface CompoundedComponent
     DatePicker: typeof PreviewDatePicker;
     DateRangePicker: typeof PreviewDateRangePicker;
     TimePicker: typeof PreviewTimePicker;
+    Checkbox: typeof PreviewCheckbox;
+    CheckboxGroup: typeof PreviewCheckboxGroup;
+    Radio: typeof PreviewRadio;
+    RadioGroup: typeof PreviewRadioGroup;
 }
 
 export const usePlaceholder = (value: any, text: string | undefined) => {
@@ -72,5 +80,9 @@ PText.Cascader = PreviewCascader;
 PText.DatePicker = PreviewDatePicker;
 PText.DateRangePicker = PreviewDateRangePicker;
 PText.TimePicker = PreviewTimePicker;
+PText.Checkbox = PreviewCheckbox;
+PText.CheckboxGroup = PreviewCheckboxGroup;
+PText.Radio = PreviewRadio;
+PText.RadioGroup = PreviewRadioGroup;
 
 export const PreviewText = PText;
