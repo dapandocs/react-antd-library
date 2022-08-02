@@ -3,7 +3,7 @@ import {
     SelectTransferModal,
     ButtonUpload,
 } from '../../../../../src';
-// import { SelectTransferModal } from '@react-spy/antd';
+// import { ButtonUpload } from '@react-spy/antd';
 import {
     Form,
     Input,
@@ -11,6 +11,7 @@ import {
     Button,
     Space,
 } from 'antd';
+import CustomButton from './CustomButton';
 
 const list = [
     { id: '1', name: '张三' },
@@ -31,13 +32,16 @@ export default () => {
                     acceptUploadType={[]}
                     // isShowUploadEntry={false}
                     antdButtonProps={{
-                        children: "上传附件按钮"
+                        children: "上传附件按钮",
+                        type: "primary"
                     }}
                     antdUploadProps={{
-                        showUploadList:{
-                            downloadIcon:true,
+                        showUploadList: {
+                            showDownloadIcon: true,
+                            showRemoveIcon: true,
                         },
-                        onDownload:()=>{
+                        // listType:"text",
+                        onDownload: () => {
                             console.log(33);
                         }
                     }}
@@ -74,6 +78,7 @@ export default () => {
                     >
                         填充
                     </Button>
+                    <CustomButton />
                 </Space>
             </Form.Item>
         </Form>

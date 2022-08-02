@@ -39,7 +39,11 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
         uploadButtonRender,
     } = props;
 
-    const [fileList = [], setFileList] = useControllableValue<Array<UploadFile>>(props);
+    const [fileList = [{
+        uid: '2',
+        name: 'yyy.png',
+        status: 'done',
+      }], setFileList] = useControllableValue<Array<UploadFile>>(props);
 
     const isLimitCount = limitMaxCount > 0 && fileList.length >= limitMaxCount;
 
@@ -63,6 +67,7 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
         <Upload
             accept={acceptUploadType.map(item => `.${item}`).join(",")}
             listType="picture"
+            method="POST"
             {...antdUploadProps}
             fileList={fileList}
             beforeUpload={beforeUpload}

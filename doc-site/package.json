@@ -30,6 +30,9 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "@react-spy/antd": "^0.0.13",
+    "antd": "^4.22.3",
     "react": "^18.0.0"
   },
   "devDependencies": {
