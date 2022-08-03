@@ -23,12 +23,11 @@ export interface ButtonUploadProps {
     antdButtonProps?: ButtonProps; // antd按钮的属性
     antdUploadProps?: UploadProps; // antd上传的属性
     value?: any[]; // 等价fileList,外部可控
-    onChange?: (fileList: any) => void; // 上传附件后的回调函数
+    onChange?: (fileList: any) => void; // 上传附件后或者移除后的回调函数
 }
 
 
 export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
-
     const {
         limitMaxCount = 0,
         limitMaxSize = 0,
@@ -39,11 +38,7 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
         uploadButtonRender,
     } = props;
 
-    const [fileList = [{
-        uid: '2',
-        name: 'yyy.png',
-        status: 'done',
-      }], setFileList] = useControllableValue<Array<UploadFile>>(props);
+    const [fileList = [], setFileList] = useControllableValue<Array<UploadFile>>(props);
 
     const isLimitCount = limitMaxCount > 0 && fileList.length >= limitMaxCount;
 
@@ -63,23 +58,31 @@ export const ButtonUpload: React.FC<ButtonUploadProps> = (props) => {
         setFileList([...fileList, file]);
     };
 
+    // 删除
+    const onRemove = (file: any) => {
+        const index = fileList.indexOf(file);
+        const newFileList = fileList.slice();
+        newFileList.splice(index, 1);
+        setFileList(newFileList);
+    }
     return (
         <Upload
             accept={acceptUploadType.map(item => `.${item}`).join(",")}
             listType="picture"
             method="POST"
+            onRemove={onRemove}
             {...antdUploadProps}
             fileList={fileList}
             beforeUpload={beforeUpload}
         >
             {
-                isShowUploadEntry && uploadButtonRender ?
+                isShowUploadEntry ? uploadButtonRender ?
                     uploadButtonRender :
                     <Button
                         children="上传文件"
                         {...antdButtonProps}
                         disabled={isLimitCount}
-                    />
+                    /> : null
             }
         </Upload>
     );

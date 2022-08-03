@@ -81,59 +81,238 @@ export default () => {
 };
 ```
 
-### 自定义上传按钮组件
+### 仅支持下载
 
 ```tsx
 /**
- * title: 自定义上传按钮组件
+ * title: 仅支持下载
  * transform: true
- * desc: 可以根据业务需要扩展组件。
+ * desc: 通过isShowUploadEntry属性控制是否显示上传按钮,默认为true。
  */
 import React from 'react';
-import { ButtonUpload } from "@react-spy/antd";
-import "./index.md.less";
+import { message } from 'antd';
+import { ButtonUpload } from '@react-spy/antd';
+
+const fileList = [
+    {
+        uid: '1',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+        uid: '2',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+        uid: '3',
+        name: 'zzz.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+];
 
 export default () => {
-  return (
-    <ButtonUpload
-       uploadButtonRender={
-          <div className='button'>
-              <div className="button__content">Hover me and Click me</div>
-          </div>
-       }
-    />
-  );
+    return (
+        <ButtonUpload
+            value={fileList}
+            isShowUploadEntry={false}
+            antdUploadProps={{
+                showUploadList: {
+                    showDownloadIcon: true,
+                    showRemoveIcon: false,
+                },
+                onDownload: (file) => {
+                    const { name } = file;
+                    message.success(`您点击了${name}的下载按钮`);
+                }
+            }}
+        />
+    );
+};
+```
+
+### 限制上传文件的格式
+
+```tsx
+/**
+ * title: 限制上传文件的格式
+ * transform: true
+ * desc: 通过acceptUploadType属性限制限制上传文件大小,默认为 [ ]，不限制。
+ */
+import React from 'react';
+import { ButtonUpload } from '@react-spy/antd';
+
+export default () => {
+    return (
+        <ButtonUpload
+            acceptUploadType={["png"]}
+            antdButtonProps={{
+                children: "上传附件（仅支持png图片）",
+                type: "dashed",
+            }}
+        />
+    );
+};
+```
+
+### 限制上传大小
+
+```tsx
+/**
+ * title: 限制上传大小
+ * transform: true
+ * desc: 通过limitMaxSize属性限制限制上传文件大小,默认为 0，不限制。
+ */
+import React from 'react';
+import { ButtonUpload } from '@react-spy/antd';
+
+export default () => {
+
+    return (
+        <ButtonUpload
+            limitMaxSize={1}
+            antdButtonProps={{
+                children: "上传附件（Max：1MB）",
+                type: "dashed",
+            }}
+        />
+    );
+};
+```
+
+### 限制上传数量
+
+```tsx
+/**
+ * title: 限制上传数量
+ * transform: true
+ * desc: 通过limitMaxCount属性限制上传数量,默认为 0，不限制。
+ */
+import React, { useState } from 'react';
+import { ButtonUpload } from '@react-spy/antd';
+
+const fList = [
+    {
+        uid: '1',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+];
+
+export default () => {
+
+    const [fileList, setFileList] = useState(fList);
+
+    // 文件发生改变后的回调函数
+    const onChange = (fileList: any) => {
+        setFileList(fileList);
+    };
+
+    return (
+        <ButtonUpload
+            value={fileList}
+            // 限制上传文件个数
+            limitMaxCount={2}
+            antdButtonProps={{
+                children: "上传附件（Max：2）",
+                type: "dashed",
+            }}
+            onChange={onChange}
+        />
+    );
+};
+```
+
+### 配合Form表单使用
+
+```tsx
+/**
+ * title: 配合Form表单使用
+ * transform: true
+ * desc:  配合Form组件，轻松收集、修改附件数据，可同Input、Select组件一样将其看成表单。
+ */
+import React, { useEffect } from 'react';
+import { Form, Space, Button, message } from 'antd';
+import { ButtonUpload } from '@react-spy/antd';
+
+const fileList = [
+    {
+        uid: '1',
+        name: 'xxx.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+        uid: '2',
+        name: 'yyy.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+        uid: '3',
+        name: 'zzz.png',
+        status: 'done',
+        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+];
+
+export default () => {
+
+    const [form] = Form.useForm();
+
+    useEffect(() => {
+        form.setFieldsValue({ file: fileList });
+    }, []);
+
+    return (
+        <Form
+            layout="vertical"
+            form={form}
+        >
+            <Form.Item name="file" label="附件">
+                <ButtonUpload
+                    antdButtonProps={{
+                        children: "上传附件",
+                        type: "dashed",
+                    }}
+                />
+            </Form.Item>
+            <Form.Item>
+                <Space>
+                    <Button
+                        type="primary"
+                        onClick={async () => {
+                            const values = await form.validateFields();
+                            message.success("数据已打印到控制台");
+                            console.log(values);
+                        }}
+                    >
+                        提交
+                    </Button>
+                    <Button onClick={() => form.resetFields()}>重置</Button>
+                </Space>
+            </Form.Item>
+        </Form>
+    );
 };
 ```
 
 ## API
 
-### ArrayCards
+### ButtonUpload
 
-| 参数       | 说明           | 类型                         | 默认值 |
-| ---------- | -------------- | ---------------------------- | ------ |
-| url        | 跳转地址       | string                       |        |
-| width      | 窗口宽度       | number                       |        |
-| height     | 窗口高度       | number                       |        |
-| target     | 打开窗口的方式 | _blank、_self、_parent、_top | _blank |
-| name       | 窗口名称       | string                       |        |
-| otherSpecs | 其他参数       | OtherSpecs                   |        |
-
-### OtherSpecs
-
-| 参数        | 说明                     | 类型                        | 默认值 |
-| ----------- | ------------------------ | --------------------------- | ------ |
-| channelmode | 设置与当前窗口的通道模式 | "0" 、 "1" 、 "yes" 、 "no" | "0"    |
-| directories | 设置与当前窗口的目录     | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| fullscreen  | 设置与当前窗口的全屏模式 | "0" 、 "1" 、 "yes" 、 "no" | "0"    |
-| width       | 设置与当前窗口的宽度     | string                      |        |
-| height      | 设置与当前窗口的高度     | string                      |        |
-| top         | 设置与当前窗口的顶部位置 | string                      |        |
-| left        | 设置与当前窗口的左边位置 | string                      |        |
-| location    | 设置与当前窗口的地址     | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| menubar     | 设置与当前窗口的菜单栏   | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| resizable   | 设置与当前窗口的大小     | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| scrollbars  | 设置与当前窗口的滚动条   | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| status      | 设置与当前窗口的状态栏   | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| titlebar    | 设置与当前窗口的标题栏   | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
-| toolbar     | 设置与当前窗口的工具栏   | "0" 、 "1" 、 "yes" 、 "no" | "1"    |
+| 参数               | 说明                 | 类型                                                                     | 默认值 |
+| ------------------ | -------------------- | ------------------------------------------------------------------------ | ------ |
+| acceptUploadType   | 限制上传格式         | string[]                                                                 | [ ]    |
+| value              | 附件列表             | Array<{}>                                                                | [ ]    |
+| limitMaxCount      | 限制上传个数         | number                                                                   | 0      |
+| limitMaxSize       | 限制上传单个文件大小 | number                                                                   | 0      |
+| isShowUploadEntry  | 是否显示上传入口     | boolean                                                                  | true   |
+| uploadButtonRender | 自定义上传按钮       | ReactNode                                                                |        |
+| antdButtonProps    | antd Button属性      | [ButtonProps](https://ant-design.antgroup.com/components/button-cn/#API) |        |
+| antdUploadProps    | antd Upload属性      | [UploadProps](https://ant-design.antgroup.com/components/upload-cn/#API) |        |
+| onChange           | 附件发生改变后的回调 | (file: fileList) => void                                                 |        |
