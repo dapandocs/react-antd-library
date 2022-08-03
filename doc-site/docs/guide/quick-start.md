@@ -1,7 +1,10 @@
-# @react-spy/antd
-
-[![NPM version](https://img.shields.io/npm/v/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
-[![NPM downloads](http://img.shields.io/npm/dm/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
+---
+title: 快速上手
+order: 0
+nav:
+  title: 文档
+  order: 0
+---
 
 # 快速开始
 

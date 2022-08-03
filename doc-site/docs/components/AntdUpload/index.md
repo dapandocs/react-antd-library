@@ -81,6 +81,31 @@ export default () => {
 };
 ```
 
+### 自定义上传按钮组件
+
+```tsx
+/**
+ * title: 自定义上传按钮组件
+ * transform: true
+ * desc: 可以根据业务需要扩展组件。
+ */
+import React from 'react';
+import { ButtonUpload } from "@react-spy/antd";
+import "./index.md.less";
+
+export default () => {
+  return (
+    <ButtonUpload
+       uploadButtonRender={
+          <div className='button'>
+              <div className="button__content">Hover me and Click me</div>
+          </div>
+       }
+    />
+  );
+};
+```
+
 ### 仅支持下载
 
 ```tsx
