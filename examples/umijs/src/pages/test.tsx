@@ -1,43 +1,26 @@
 import React from 'react';
-import { message } from 'antd';
-import { ButtonUpload } from '@react-spy/antd';
+import { AntdTransfer } from '@react-spy/antd';
 
-const fileList = [
-    {
-        uid: '1',
-        name: 'xxx.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-        uid: '2',
-        name: 'yyy.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-        uid: '3',
-        name: 'zzz.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-];
+const data = Array.from({ length: 20 }).map((_, index) => ({
+    key: `${index}`,
+    title: `张三${index + 1}`,
+    description: `description of content${index + 1}`,
+}));
 
 export default () => {
+
+    const style = { color: "red", fontSize: 17 };
+    
     return (
-        <ButtonUpload
-            value={fileList}
-            isShowUploadEntry={false}
-            antdUploadProps={{
-                showUploadList: {
-                    showDownloadIcon: true,
-                    showRemoveIcon: false,
-                },
-                onDownload: (file) => {
-                    const { name } = file;
-                    message.success(`您点击了${name}的下载按钮`);
-                }
+        <AntdTransfer
+            antdProps={{
+                showSearch: false,
+                titles: [
+                    <span style={style}>待选区</span>,
+                    <span style={style}>已选区</span>,
+                ]
             }}
+            dataSource={data}
         />
     );
 };

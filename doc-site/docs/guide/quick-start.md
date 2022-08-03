@@ -49,7 +49,7 @@ $ yarn add @react-spy/antd
  */
 import React from 'react';
 import { ButtonUpload } from "@react-spy/antd";
-import "../components/AntdUpload/index.md.less";
+import "../components/AntdUpload.md.less";
 
 export default () => {
   return (

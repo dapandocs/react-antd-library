@@ -57,9 +57,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
 
     const selectRef = useRef<any>();
 
-    const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props, {
-        defaultValue: [],
-    });
+    const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props);
 
     useDeepCompareEffect(() => {
         if (Array.isArray(targetKeys)) {

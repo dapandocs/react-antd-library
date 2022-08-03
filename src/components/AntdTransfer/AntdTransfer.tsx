@@ -5,8 +5,8 @@ import { useSetState, useControllableValue, useDeepCompareEffect } from 'ahooks'
 import './AntdTransfer.less';
 
 export interface AntdTransferProps {
-    idKey?: string; // 穿梭框对应对应的id名称
-    nameKey?: string; // 穿梭框对应的name名称
+    idKey?: string; // 穿梭框对应对应的key名称
+    nameKey?: string; // 穿梭框对应的title名称
 
     dataSource: Array<TransferItem>; // 穿梭框左侧的总数据
     value?: string[]; // 穿梭框右侧对应的id集合

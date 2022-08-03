@@ -9,9 +9,7 @@ import { useInterval, useControllableValue } from 'ahooks';
 import "./AnalogDynamicBar.less";
 
 export const AnalogDynamicBar = (props: any) => {
-    const [percent, setPercent] = useControllableValue(props, {
-        defaultValue: 0,
-    });
+    const [percent = 0, setPercent] = useControllableValue(props);
 
     const clear = useInterval(() => {
         const randomNum = Math.random() * 10;

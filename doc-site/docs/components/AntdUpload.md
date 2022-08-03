@@ -2,8 +2,8 @@
   title: AntdUpload 上传
   order: 0
   nav:
-     title: 组件
-     path: /components/antd-upload
+    title: 组件
+    order: 0
 ---
 
 # AntdUpload 上传
@@ -91,7 +91,7 @@ export default () => {
  */
 import React from 'react';
 import { ButtonUpload } from "@react-spy/antd";
-import "./index.md.less";
+import "./AntdUpload.md.less";
 
 export default () => {
   return (

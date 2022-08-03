@@ -50,9 +50,7 @@ export const AntdAutoTransfer: React.FC<AntdAutoTransferProps> = props => {
     });
     const { list } = state;
 
-    const [tKeys, setTKeys] = useControllableValue<any>(props, {
-        defaultValue: [],
-    });
+    const [tKeys = [], setTKeys] = useControllableValue<any>(props);
 
     useDeepCompareEffect(() => {
         if (Array.isArray(dataSource) && dataSource.length && value?.length && limitMaxCount) {

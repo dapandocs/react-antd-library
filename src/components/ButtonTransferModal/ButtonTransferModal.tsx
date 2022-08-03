@@ -49,9 +49,7 @@ export const ButtonTransferModal = (props: ButtonTransferProps) => {
         targetLists,
     } = state;
 
-    const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props, {
-        defaultValue: []
-    });
+    const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props);
 
     const onOk = () => {
         setState({ visible: false });
