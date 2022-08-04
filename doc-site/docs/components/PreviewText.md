@@ -1,3 +1,53 @@
+---
+  title: PreviewText 表单阅读态
+  order: 1
+---
+
+# PreviewText 表单阅读态
+
+>PreviewText 表单阅读态，主要是实现Input、Select、Tree等组件表单态与其阅读态互相切换。
+
+## 代码演示
+
+### PreviewText.Input
+
+```tsx
+/**
+ * title: PreviewText.Input
+ * transform: true
+ * desc: PreviewText.Input 和 [Antd Input](https://ant-design.antgroup.com/components/input-cn/)用法完全一致，可以使用Antd Input组件的所有API。
+ */
+import React, { useState } from 'react';
+import { Button, Space } from 'antd';
+import { PreviewText } from '@react-spy/antd';
+
+const { Input } = PreviewText;
+
+export default () => {
+
+    const [isPreviewText, setIsPreviewText] = useState(false);
+
+    return (
+        <Space direction="vertical" >
+            <Input
+                value="Hello World!"
+                allowClear
+                previewMode={isPreviewText ? "text" : "form"}
+            />
+            <Button onClick={() => setIsPreviewText(!isPreviewText)}>切换</Button>
+        </Space>
+    );
+};
+```
+
+### PreviewText.Select
+
+```tsx
+/**
+ * title: PreviewText.Select
+ * transform: true
+ * desc: PreviewText.Select 和 [Antd Select](https://ant-design.antgroup.com/components/select-cn/)用法完全一致，可以使用Antd Select组件的所有API。
+ */
 import React, { useState, useEffect } from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
@@ -29,8 +79,10 @@ export default () => {
                         style={{ width: 300 }}
                         placeholder="请选择"
                         labelInValue
-                        options={[{ label: "男", value: "male" }, { label: "女", value: "female" }]}
-                    />
+                    >
+                        <Select.Option value="male">男</Select.Option>
+                        <Select.Option value="female">女</Select.Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     label="个人喜好"
@@ -67,3 +119,4 @@ export default () => {
         </PreviewText>
     );
 };
+```

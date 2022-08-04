@@ -218,7 +218,7 @@ export default () => {
 | idKey         | 穿梭框对应对应的key名称                                           | string                                                                       | key    |
 | nameKey       | 穿梭框对应的title名称                                             | string                                                                       | title  |
 | limitMaxCount | 限制上传个数                                                      | number                                                                       | 0      |
-| dataSource    | 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外 | number                                                                       | [ ]    |
+| dataSource    | 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外 | Array<{}>                                                                       | [ ]    |
 | value         | 穿梭框右侧的targetKeys                                            | string[]                                                                     | [ ]    |
 | onChange      | 选项在两栏之间转移时的回调函数                                    | (targetKeys: string[], options: any[])=>void                                 |        |
 | antdProps     | antd Transfer属性                                                 | [TransferProps](https://ant-design.antgroup.com/components/transfer-cn/#API) |        |
