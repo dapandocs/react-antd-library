@@ -33,7 +33,7 @@ const PreviewInputNumber: React.FC<InputNumberProps & PreviewTextProps> = (props
             <span>
                 {usePlaceholder(
                     props.formatter
-                        ? props.formatter(String(props.value), {
+                        ? props.formatter(String(props.value ? props.value : ""), {
                             userTyping: false,
                             input: '',
                         })
