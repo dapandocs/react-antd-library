@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Space, Form, message } from 'antd';
+import moment from 'moment';
 import { PreviewText } from '@react-spy/antd';
 
-const { Radio, RadioGroup } = PreviewText;
+const { TimePicker, TimeRangePicker } = PreviewText;
 
 export default () => {
 
@@ -12,8 +13,8 @@ export default () => {
 
     useEffect(() => {
         form.setFieldsValue({
-            skills: ["0", "1"],
-            likes: ["0"],
+            time: moment('12:00:00', 'HH:mm:ss'),
+            ranageTime: [moment('12:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
         });
     }, []);
 
@@ -21,35 +22,16 @@ export default () => {
         <PreviewText previewMode={isPreviewText ? "text" : "form"}>
             <Form form={form}>
                 <Form.Item
-                    label="技能"
-                    name="skills"
+                    label="时间"
+                    name="time"
                 >
-                    <RadioGroup>
-                        <Radio value="0">会做饭</Radio>
-                        <Radio value="1">会开车</Radio>
-                        <Radio value="2">会打篮球</Radio>
-                    </RadioGroup>
+                    <TimePicker placeholder='请选择' />
                 </Form.Item>
                 <Form.Item
-                    label="个人喜好"
-                    name="likes"
+                    label="时间周期"
+                    name="ranageTime"
                 >
-                    <RadioGroup
-                        options={[
-                            {
-                                label: "看书",
-                                value: "0",
-                            },
-                            {
-                                label: "跑步",
-                                value: "1",
-                            },
-                            {
-                                label: "打豆豆",
-                                value: "2",
-                            }
-                        ]}
-                    />
+                    <TimeRangePicker placeholder={["请选择开始时间", "请选择结束时间"]} />
                 </Form.Item>
                 <Space>
                     <Button onClick={() => setIsPreviewText(!isPreviewText)} type="dashed">切换</Button>
@@ -57,8 +39,11 @@ export default () => {
                     <Button
                         type="primary"
                         onClick={async () => {
-                            const { skills, likes } = await form.validateFields();
-                            message.success(`技能：${skills.join(",")} --------- 喜好：${likes.join(",")}`);
+                            const { time, ranageTime } = await form.validateFields();
+                            if (time && ranageTime) {
+                                const format = "HH:mm:ss";
+                                message.success(`时间: ${moment(time).format(format)} 时间周期: ${moment(ranageTime[0]).format(format)} ~ ${moment(ranageTime[1]).format(format)}`);
+                            }
                         }}
                     >
                         查询

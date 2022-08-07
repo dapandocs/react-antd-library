@@ -538,3 +538,144 @@ export default () => {
     );
 };
 ```
+
+### PreviewText.DatePicker
+
+```tsx
+/**
+ * title: PreviewText.DatePicker 、 PreviewText.RangePicker
+ * transform: true
+ * desc: PreviewText.DatePicker 和 [Antd DatePicker](https://ant-design.antgroup.com/components/date-picker-cn/)用法完全一致，可以使用Antd DatePicker组件的所有API。
+ */
+import React, { useState, useEffect } from 'react';
+import { Button, Space, Form, message } from 'antd';
+import moment from 'moment';
+import { PreviewText } from '@react-spy/antd';
+
+const { DatePicker, DateRangePicker } = PreviewText;
+
+export default () => {
+
+    const [isPreviewText, setIsPreviewText] = useState(false);
+
+    const [form] = Form.useForm();
+
+    useEffect(() => {
+        form.setFieldsValue({
+            date: moment('2020-01-01'),
+            ranageDate: [moment('2020-01-01'), moment('2020-01-02')],
+            year: moment('2020'),
+        });
+    }, []);
+
+    return (
+        <PreviewText previewMode={isPreviewText ? "text" : "form"}>
+            <Form form={form}>
+                <Form.Item
+                    label="日期"
+                    name="date"
+                >
+                    <DatePicker placeholder='请选择' />
+                </Form.Item>
+                <Form.Item
+                    label="年份"
+                    name="year"
+                >
+                    <DatePicker
+                        picker='year'
+                        placeholder='请选择'
+                    />
+                </Form.Item>
+                <Form.Item
+                    label="日期周期"
+                    name="ranageDate"
+                >
+                    <DateRangePicker placeholder={["开始日期", "结束日期"]} />
+                </Form.Item>
+                <Space>
+                    <Button onClick={() => setIsPreviewText(!isPreviewText)} type="dashed">切换</Button>
+                    <Button onClick={() => form.resetFields()}>重置</Button>
+                    <Button
+                        type="primary"
+                        onClick={async () => {
+                            const { date, year, ranageDate } = await form.validateFields();
+                            if (date && year && ranageDate) {
+                                const format = "YYYY-MM-DD";
+                                message.success(`日期: ${moment(date).format(format)} 
+                                年份: ${moment(year).format("YYYY")} 日期周期: ${moment(ranageDate[0]).format(format)} ~ ${moment(ranageDate[1]).format(format)}`);
+                            }
+                        }}
+                    >
+                        查询
+                    </Button>
+                </Space>
+            </Form>
+        </PreviewText>
+    );
+};
+```
+
+### PreviewText.TimePicker
+
+```tsx
+/**
+ * title: PreviewText.TimePicker 、 PreviewText.TimeRangePicker
+ * transform: true
+ * desc: PreviewText.TimePicker 和 [Antd TimePicker](https://ant-design.antgroup.com/components/time-picker-cn/)用法完全一致，可以使用Antd TimePicker组件的所有API。
+ */
+import React, { useState, useEffect } from 'react';
+import { Button, Space, Form, message } from 'antd';
+import moment from 'moment';
+import { PreviewText } from '@react-spy/antd';
+
+const { TimePicker, TimeRangePicker } = PreviewText;
+
+export default () => {
+
+    const [isPreviewText, setIsPreviewText] = useState(false);
+
+    const [form] = Form.useForm();
+
+    useEffect(() => {
+        form.setFieldsValue({
+            time: moment('12:00:00', 'HH:mm:ss'),
+            ranageTime: [moment('12:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],
+        });
+    }, []);
+
+    return (
+        <PreviewText previewMode={isPreviewText ? "text" : "form"}>
+            <Form form={form}>
+                <Form.Item
+                    label="时间"
+                    name="time"
+                >
+                    <TimePicker placeholder='请选择' />
+                </Form.Item>
+                <Form.Item
+                    label="时间周期"
+                    name="ranageTime"
+                >
+                    <TimeRangePicker placeholder={["请选择开始时间", "请选择结束时间"]} />
+                </Form.Item>
+                <Space>
+                    <Button onClick={() => setIsPreviewText(!isPreviewText)} type="dashed">切换</Button>
+                    <Button onClick={() => form.resetFields()}>重置</Button>
+                    <Button
+                        type="primary"
+                        onClick={async () => {
+                            const { time, ranageTime } = await form.validateFields();
+                            if (time && ranageTime) {
+                                const format = "HH:mm:ss";
+                                message.success(`时间: ${moment(time).format(format)} 时间周期: ${moment(ranageTime[0]).format(format)} ~ ${moment(ranageTime[1]).format(format)}`);
+                            }
+                        }}
+                    >
+                        查询
+                    </Button>
+                </Space>
+            </Form>
+        </PreviewText>
+    );
+};
+```

@@ -9,7 +9,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@react-spy/antd": "^0.0.15",
+    "@react-spy/antd": "^0.0.16",
     "@umijs/max": "^4.0.7",
     "antd": "^4.21.7"
   },
