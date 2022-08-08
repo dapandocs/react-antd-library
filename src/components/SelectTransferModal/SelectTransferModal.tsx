@@ -19,7 +19,7 @@ export interface SelectTransferModalProps {
     dataSource?: Array<TransferItem>; // 穿梭框左侧的总数据
     value?: string[]; // 穿梭框右侧对应的id集合
     onChange?: (targetKeys: string[], options: any[]) => void; // 选项在两栏之间转移时的回调函数,可以在外部通过value影响targetKeys的值
-    onOkChange?: (targetKeys: string[], options: any[]) => void; // 点击确定时的回调函数
+    onOk?: (targetKeys: string[], options: any[]) => void; // 点击确定时的回调函数
     limitMaxCount?: number; // 允许最多选取的个数，0 代表不限制
     antdSelectProps?: SelectProps; // antd下拉框属性
     antdModalProps?: ModalProps; // antd弹窗属性
@@ -29,15 +29,15 @@ export interface SelectTransferModalProps {
 
 export const SelectTransferModal = (props: SelectTransferModalProps) => {
     const {
-        idKey = 'id',
-        nameKey = 'name',
+        idKey = 'key',
+        nameKey = 'title',
         dataSource = [],
         limitMaxCount = 0,
         antdSelectProps = {},
         antdModalProps = {},
         antdTransferProps = {},
         type = "primary",
-        onOkChange,
+        onOk,
     } = props;
     const [state, setState] = useSetState<any>({
         visible: false,
@@ -85,15 +85,15 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
         selectRef.current.blur();
     };
 
-    const onOk = () => {
+    const handleSubmit = () => {
         setState({
             visible: false,
             selectedKeys: targetKeys,
             isOkConfirm: true,
             isTargetKeysChange: false // 重置状态
         });
-        if (typeof onOkChange === "function") {
-            onOkChange(targetKeys, selectedLists);
+        if (typeof onOk === "function") {
+            onOk(targetKeys, selectedLists);
         };
     };
 
@@ -133,7 +133,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
                 destroyOnClose
                 visible={visible}
                 onCancel={() => setState({ visible: false, isTargetKeysChange: false })}
-                onOk={onOk}
+                onOk={handleSubmit}
             >
                 <AntdTransfer
                     idKey={idKey}

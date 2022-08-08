@@ -1,8 +1,3 @@
----
-  title: PreviewText 表单阅读态
-  order: 1
----
-
 # PreviewText 表单阅读态
 
 >PreviewText 表单阅读态，主要是实现Input、Select、Tree等组件表单态与其阅读态互相切换。

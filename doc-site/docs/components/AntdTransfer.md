@@ -1,8 +1,3 @@
----
-  title: AntdTransfer 穿梭框
-  order: 1
----
-
 # AntdTransfer 穿梭框
 
 > 双栏穿梭选择框，比起 Select 和 TreeSelect，穿梭框占据更大的空间，可以展示可选项的更多信息。
