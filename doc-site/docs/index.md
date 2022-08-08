@@ -3,6 +3,8 @@ hero:
   title: Ant Design Library
   desc: 一款基于antd库再封装，更贴合业务，用于快速开发
   actions:
+    - text: 组件预览
+      link: /components/antd-upload
     - text: 快速开始
       link: /guide/quick-start
 features:
