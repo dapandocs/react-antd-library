@@ -28,7 +28,7 @@ export default () => {
     const [form] = Form.useForm();
 
     return (
-        <Form form={form} layout="vertical">
+        <Form form={form}>
             <Form.Item
                 label="晋级名单"
                 name="personList"
@@ -42,8 +42,8 @@ export default () => {
                     onClick={async () => {
                         const { personList } = await form.validateFields();
                         if (Array.isArray(personList)) {
-                            const personNameList = list.filter(item => personList.includes(item.id))
-                                .map(item => item.name)
+                            const personNameList = list.filter(item => personList.includes(item.key))
+                                .map(item => item.title)
                                 .join('，');
                             message.success(`晋级名单：${personNameList}`);
                         }
