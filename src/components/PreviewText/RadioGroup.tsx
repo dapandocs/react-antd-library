@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     Radio,
     RadioGroupProps,
@@ -18,7 +18,7 @@ const PreviewRadioGroup: React.FC<RadioGroupProps & PreviewTextProps> = (props) 
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
 
     const getOptions = () => {
         if (Array.isArray(props?.options) && props.options) {

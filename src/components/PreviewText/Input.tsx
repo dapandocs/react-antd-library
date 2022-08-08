@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     Input,
     InputProps,
@@ -19,7 +19,7 @@ const PreviewInput: React.FC<InputProps & PreviewTextProps> = (props) => {
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     if (contextValue?.previewMode === "form" || previewMode === "form") {
         return <Input {...restProps} />;
     }

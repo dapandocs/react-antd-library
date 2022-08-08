@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     TreeSelect,
     TreeSelectProps,
@@ -22,7 +22,7 @@ const PtSelect: React.FC<TreeSelectProps & PreviewTextProps> = (props) => {
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     const dataSource = props?.treeData?.length ? props.treeData : [];
     const getSelected = () => {
         const value = props.value;

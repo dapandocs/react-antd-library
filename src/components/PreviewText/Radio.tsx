@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     Radio,
     RadioProps,
@@ -18,7 +18,7 @@ const PreviewRadio: React.FC<RadioProps & PreviewTextProps> = (props) => {
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     if (contextValue?.previewMode === "form" || previewMode === "form") {
         return <Radio {...restProps} />;
     }

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     TimePicker,
     TimeRangePickerProps,
@@ -16,7 +16,7 @@ const PreviewTimeRangePicker: React.FC<TimeRangePickerProps & PreviewTextProps> 
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     const getLabels = () => {
         const labels = formatMomentValue(
             props.value,

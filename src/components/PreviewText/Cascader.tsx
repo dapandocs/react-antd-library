@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     Cascader,
 } from 'antd';
@@ -16,7 +16,7 @@ const PreviewCascader: React.FC<CascaderProps<any> & PreviewTextProps> = (props)
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     const dataSource: any[] = props?.options?.length ? props.options : [];
     const findSelectedItem = (
         items: DefaultOptionType[],

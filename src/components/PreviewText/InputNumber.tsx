@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     InputNumber,
     InputNumberProps,
@@ -19,7 +19,7 @@ const PreviewInputNumber: React.FC<InputNumberProps & PreviewTextProps> = (props
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     if (contextValue?.previewMode === "form" || previewMode === "form") {
         return <InputNumber {...restProps} />;
     }

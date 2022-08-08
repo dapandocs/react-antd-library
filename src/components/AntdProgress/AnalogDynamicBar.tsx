@@ -3,7 +3,7 @@
  * @description 实际开发中，可能后端无法提供下载进度，因此可以使用这个组件来模拟进度
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Progress } from 'antd';
 import { useInterval, useControllableValue } from 'ahooks';
 import "./AnalogDynamicBar.less";
@@ -20,7 +20,7 @@ export const AnalogDynamicBar = (props: any) => {
         }
     }, 1000);
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (Number(percent) > 90) {
             clear();
         }

@@ -2,7 +2,7 @@
  * 选择组件
  * @description Select + Transfer + Modal 组合
  */
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import {
     Modal,
     Select,
@@ -55,7 +55,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
         isTargetKeysChange,
     } = state;
 
-    const selectRef = useRef<any>();
+    const selectRef = React.useRef<any>();
 
     const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props);
 
@@ -72,7 +72,7 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
         }
     }, [targetKeys]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         // 点击确认按钮后重置状态
         if (isOkConfirm) {
             setState({ isOkConfirm: false });

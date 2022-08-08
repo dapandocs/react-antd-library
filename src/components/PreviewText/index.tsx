@@ -3,7 +3,7 @@
  * @description 表单预览文本组件
  */
 
-import React, { createContext } from 'react';
+import React from 'react';
 import PreviewInput from "./Input";
 import PreviewInputNumber from "./InputNumber";
 import PreviewSelect from './Select';
@@ -50,7 +50,7 @@ export const usePlaceholder = (value: any, text: string | undefined) => {
     return value;
 }
 
-export const PreviewTextContext = createContext<PreviewTextProps | null>(null);
+export const PreviewTextContext = React.createContext<PreviewTextProps | null>(null);
 
 const Text: React.FC<React.PropsWithChildren<PreviewTextProps>> = (props) => {
     const {

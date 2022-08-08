@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
     DatePicker,
 } from 'antd';
@@ -16,7 +16,7 @@ const PreviewDateRangePicker: React.FC<RangePickerProps & PreviewTextProps> = (p
         previewStyle,
         ...restProps
     } = props;
-    const contextValue = useContext(PreviewTextContext);
+    const contextValue = React.useContext(PreviewTextContext);
     const getLabels = () => {
         const labels = formatMomentValue(
             props.value,

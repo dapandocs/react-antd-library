@@ -10,8 +10,8 @@ import {
     ButtonProps,
     Button,
     message,
-    UploadFile,
 } from 'antd';
+import { UploadFile } from 'antd/lib/upload/interface';
 import { useControllableValue } from 'ahooks';
 
 export interface ButtonUploadProps {
