@@ -12,7 +12,7 @@
  * transform: true
  * desc: PreviewText.Input 和 [Antd Input](https://ant-design.antgroup.com/components/input-cn/)用法完全一致，可以使用Antd Input组件的所有API。
  */
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Space } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -20,7 +20,7 @@ const { Input } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     return (
         <Space direction="vertical" >
@@ -43,7 +43,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.InputNumber 和 [Antd InputNumber](https://ant-design.antgroup.com/components/input-number-cn/)用法完全一致，可以使用Antd InputNumber组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -51,11 +51,11 @@ const { InputNumber } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             age: 28,
             money: 10000,
@@ -115,7 +115,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.Cascader 和 [Antd Cascader](https://ant-design.antgroup.com/components/cascader-cn/)用法完全一致，可以使用Antd Cascader组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -146,11 +146,11 @@ const options = [
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             city: [
                 'zhejiang',
@@ -199,7 +199,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.Select 和 [Antd Select](https://ant-design.antgroup.com/components/select-cn/)用法完全一致，可以使用Antd Select组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -207,11 +207,11 @@ const { Select } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             sex: { label: "男", value: "male" },
             likes: [{ label: "看书", value: "0" }, { label: "跑步", value: "1" }],
@@ -280,7 +280,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.TreeSelect 和 [Antd TreeSelect](https://ant-design.antgroup.com/components/tree-select-cn/)用法完全一致，可以使用Antd TreeSelect组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -288,11 +288,11 @@ const { TreeSelect } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             type: {
                 label: "苹果",
@@ -382,7 +382,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.Checkbox 和 [Antd Checkbox](https://ant-design.antgroup.com/components/checkbox-cn/)用法完全一致，可以使用Antd Checkbox组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -390,11 +390,11 @@ const { Checkbox, CheckboxGroup } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             skills: ["0", "1"],
             likes: ["0"],
@@ -462,7 +462,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.Radio 和 [Antd Radio](https://ant-design.antgroup.com/components/radio-cn/)用法完全一致，可以使用Antd Radio组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import { PreviewText } from '@react-spy/antd';
 
@@ -470,11 +470,11 @@ const { Radio, RadioGroup } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             skills: "0",
             likes: "0",
@@ -542,7 +542,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.DatePicker 和 [Antd DatePicker](https://ant-design.antgroup.com/components/date-picker-cn/)用法完全一致，可以使用Antd DatePicker组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import moment from 'moment';
 import { PreviewText } from '@react-spy/antd';
@@ -551,11 +551,11 @@ const { DatePicker, DateRangePicker } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             date: moment('2020-01-01'),
             ranageDate: [moment('2020-01-01'), moment('2020-01-02')],
@@ -618,7 +618,7 @@ export default () => {
  * transform: true
  * desc: PreviewText.TimePicker 和 [Antd TimePicker](https://ant-design.antgroup.com/components/time-picker-cn/)用法完全一致，可以使用Antd TimePicker组件的所有API。
  */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import moment from 'moment';
 import { PreviewText } from '@react-spy/antd';
@@ -627,11 +627,11 @@ const { TimePicker, TimeRangePicker } = PreviewText;
 
 export default () => {
 
-    const [isPreviewText, setIsPreviewText] = useState(false);
+    const [isPreviewText, setIsPreviewText] = React.useState(false);
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             time: moment('12:00:00', 'HH:mm:ss'),
             ranageTime: [moment('12:00:00', 'HH:mm:ss'), moment('23:59:59', 'HH:mm:ss')],

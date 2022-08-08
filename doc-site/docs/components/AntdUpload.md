@@ -215,7 +215,7 @@ export default () => {
  * transform: true
  * desc: 通过limitMaxCount属性限制上传数量,默认为 0，不限制。
  */
-import React, { useState } from 'react';
+import React from 'react';
 import { ButtonUpload } from '@react-spy/antd';
 
 const fList = [
@@ -229,7 +229,7 @@ const fList = [
 
 export default () => {
 
-    const [fileList, setFileList] = useState(fList);
+    const [fileList, setFileList] = React.useState(fList);
 
     // 文件发生改变后的回调函数
     const onChange = (fileList: any) => {
@@ -259,7 +259,7 @@ export default () => {
  * transform: true
  * desc:  配合Form组件，轻松收集、修改附件数据，可同Input、Select组件一样将其看成表单。
  */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, Space, Button, message } from 'antd';
 import { ButtonUpload } from '@react-spy/antd';
 
@@ -288,7 +288,7 @@ export default () => {
 
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({ file: fileList });
     }, []);
 

@@ -6,27 +6,23 @@ nav:
   order: 0
 ---
 
-# 快速开始
+# @react-spy/antd
 
-## 安装依赖
+[![NPM version](https://img.shields.io/npm/v/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
+[![NPM downloads](http://img.shields.io/npm/dm/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
 
-### 安装Antd
+## 📚 文档
 
-第一步：如果您还没安装antd，请先安装antd。如果您已经安装了antd，可以跳过这一步。
+- [文档地址](https://antd-react-spy.vercel.app/)
 
+## ✨ 特性
 
-```bash
-$ npm install antd --save
-```
-或者
-```bash
-$ yarn add antd
-```
+- 基于 antd 封装，开箱即用
+- 包含大量提炼业务组件
+- 包含丰富的基础 demo 样式
+- 使用 TypeScript 构建，提供完整的类型定义文件
 
-### 安装 @react-spy/antd
-
-第二部：安装@react-spy/antd
-
+## 📦 安装
 
 ```bash
 $ npm install @react-spy/antd --save
@@ -36,7 +32,7 @@ $ npm install @react-spy/antd --save
 $ yarn add @react-spy/antd
 ```
 
-## 体验组件
+## 🔨 简单使用
 
 ### 自定义上传按钮组件
 

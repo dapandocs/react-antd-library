@@ -154,7 +154,7 @@ export default () => {
  * transform: true
  * desc: 配合Form组件，轻松收集、修改附件数据，可同Input、Select组件一样将其看成表单。
  */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Form, Space, Button, message } from 'antd';
 import { AntdTransfer } from '@react-spy/antd';
 
@@ -167,7 +167,7 @@ const data = Array.from({ length: 20 }).map((_, index) => ({
 export default () => {
     const [form] = Form.useForm();
 
-    useEffect(() => {
+    React.useEffect(() => {
         form.setFieldsValue({
             waitingList: ['1', '2', '3'],
         });
