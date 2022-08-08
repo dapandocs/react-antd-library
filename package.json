@@ -44,6 +44,7 @@
     "type": "git",
     "url": "git@github.com:react-spy/antd.git"
   },
+  "homepage": "https://antd-react-spy.vercel.app",
   "devDependencies": {
     "@types/lodash": "^4.14.182",
     "@types/react": "^18.0.15",

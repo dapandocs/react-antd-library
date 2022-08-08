@@ -679,3 +679,14 @@ export default () => {
     );
 };
 ```
+
+## API
+
+### PreviewText
+
+| 参数               | 说明                   | 类型              | 默认值 |
+| ------------------ | ---------------------- | ----------------- | ------ |
+| previewPlaceholder | 预览值为空时显示       | string            | N/A    |
+| previewMode        | 预览的模式             | `text` \| `form ` | form   |
+| previewClassName   | 预览样式className 属性 | string            | -      |
+| previewStyle       | 预览样式style 属性     | string            | -      |
