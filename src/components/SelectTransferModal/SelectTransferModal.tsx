@@ -132,7 +132,15 @@ export const SelectTransferModal = (props: SelectTransferModalProps) => {
                 // 以下属性不支持覆盖
                 destroyOnClose
                 visible={visible}
-                onCancel={() => setState({ visible: false, isTargetKeysChange: false })}
+                onCancel={() => {
+                    setState({ visible: false, isTargetKeysChange: false });
+                    if (selectedKeys?.length === 0) {
+                        setTargetKeys([]);
+                    } else {
+                        const keys = targetKeys?.filter((i: string) => selectedKeys.includes(i));
+                        setTargetKeys(keys);
+                    }
+                }}
                 onOk={handleSubmit}
             >
                 <AntdTransfer
