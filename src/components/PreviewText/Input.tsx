@@ -28,11 +28,11 @@ const PreviewInput: React.FC<InputProps & PreviewTextProps> = (props) => {
             className={cls("ant-preview-container", contextValue?.previewClassName, previewClassName)}
             style={previewStyle || contextValue?.previewStyle}
         >
-            <span>{props.addonBefore}</span>
-            <span>{props.prefix}</span>
+            {props.addonBefore && <span>{props.addonBefore}</span>}
+            {props.prefix && <span>{props.prefix}</span>}
             <span>{usePlaceholder(props.value, (previewPlaceholder || contextValue?.previewPlaceholder))}</span>
-            <span>{props.suffix}</span>
-            <span>{props.addonAfter}</span>
+            {props.suffix && <span>{props.suffix}</span>}
+            {props.addonAfter && <span>{props.addonAfter}</span>}
         </div>
     );
 };

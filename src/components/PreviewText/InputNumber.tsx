@@ -28,8 +28,8 @@ const PreviewInputNumber: React.FC<InputNumberProps & PreviewTextProps> = (props
             className={cls("ant-preview-container", contextValue?.previewClassName, previewClassName)}
             style={previewStyle || contextValue?.previewStyle}
         >
-            <span>{props.addonBefore}</span>
-            <span>{props.prefix}</span>
+            {props.addonBefore && <span>{props.addonBefore}</span>}
+            {props.prefix && <span>{props.prefix}</span>}
             <span>
                 {usePlaceholder(
                     props.formatter
@@ -41,7 +41,7 @@ const PreviewInputNumber: React.FC<InputNumberProps & PreviewTextProps> = (props
                     (previewPlaceholder || contextValue?.previewPlaceholder))
                 }
             </span>
-            <span>{props.addonAfter}</span>
+            {props.addonAfter && <span>{props.addonAfter}</span>}
         </div>
     );
 };
