@@ -19,7 +19,7 @@ export interface ButtonTransferProps {
     dataSource?: Array<TransferItem>; // 穿梭框左侧的总数据
     value?: string[]; // 穿梭框右侧对应的id集合
     onChange?: (targetKeys: string[], options: any[]) => void; // 选项在两栏之间转移时的回调函数,可以在外部通过value影响targetKeys的值
-    onOkChange?: (targetKeys: string[], options: any[]) => void; // 点击确定时的回调函数
+    onOk?: (targetKeys: string[], options: any[]) => void; // 点击确定时的回调函数
     limitMaxCount?: number; // 允许最多选取的个数，0 代表不限制
     antdButtonProps?: ButtonProps; // antd下拉框属性
     antdModalProps?: ModalProps; // antd弹窗属性
@@ -37,7 +37,7 @@ export const ButtonTransferModal = (props: ButtonTransferProps) => {
         antdModalProps = {},
         antdTransferProps = {},
         type = 'primary',
-        onOkChange,
+        onOk,
     } = props;
     const [state, setState] = useSetState<any>({
         visible: false,
@@ -51,10 +51,10 @@ export const ButtonTransferModal = (props: ButtonTransferProps) => {
 
     const [targetKeys = [], setTargetKeys] = useControllableValue<any>(props);
 
-    const onOk = () => {
+    const handleSubmit = () => {
         setState({ visible: false });
-        if (typeof onOkChange === "function") {
-            onOkChange(targetKeys, targetLists);
+        if (typeof onOk === "function") {
+            onOk(targetKeys, targetLists);
         };
     };
 
@@ -75,7 +75,7 @@ export const ButtonTransferModal = (props: ButtonTransferProps) => {
                 destroyOnClose
                 visible={visible}
                 onCancel={() => setState({ visible: false })}
-                onOk={onOk}
+                onOk={handleSubmit}
             >
                 <AntdTransfer
                     idKey={idKey}

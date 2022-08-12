@@ -1,6 +1,6 @@
-# SelectTransferModal 弹框式选择器
+# ButtonTransferModal 弹框式选择器
 
->SelectTransferModal 弹框式选择器，主要实现在满足表单布局的同时，又可以兼顾展示可选项的更多信息。
+>ButtonTransferModal 弹框式选择器，主要实现在满足非表单布局的同时，又可以兼顾展示可选项的更多信息。
 
 ## 代码演示
 
@@ -12,8 +12,8 @@
  * transform: true
  */
 import React from 'react';
-import { Button, Space, Form, message } from 'antd';
-import { SelectTransferModal } from '@react-spy/antd';
+import { Tag, Space } from 'antd';
+import { ButtonTransferModal } from '@react-spy/antd';
 
 const list = [
     { key: '1', title: '张三' },
@@ -24,35 +24,28 @@ const list = [
 ];
 
 export default () => {
-
-    const [form] = Form.useForm();
+    const [selectedList, setSelectedList] = React.useState<any>([]);
 
     return (
-        <Form form={form}>
-            <Form.Item
-                label="晋级名单"
-                name="personList"
-            >
-                <SelectTransferModal dataSource={list} />
-            </Form.Item>
-            <Space>
-                <Button onClick={() => form.resetFields()}>重置</Button>
-                <Button
-                    type="primary"
-                    onClick={async () => {
-                        const { personList } = await form.validateFields();
-                        if (Array.isArray(personList)) {
-                            const personNameList = list.filter(item => personList.includes(item.key))
-                                .map(item => item.title)
-                                .join('，');
-                            message.success(`晋级名单：${personNameList}`);
-                        }
-                    }}
-                >
-                    查询
-                </Button>
-            </Space>
-        </Form>
+        <Space direction="vertical">
+            <ButtonTransferModal
+                dataSource={list}
+                idKey="key"
+                nameKey="title"
+                antdButtonProps={{
+                    type: 'primary',
+                    children: '选择名单',
+                }}
+                onOk={(v: any[], l: any[]) => setSelectedList(l)}
+            />
+            <div>
+                {
+                    selectedList.map((item: any) => {
+                        return <Tag key={item.key} color="#f50">{item.title}</Tag>;
+                    })
+                }
+            </div>
+        </Space>
     );
 };
 ```

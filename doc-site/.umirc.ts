@@ -57,6 +57,10 @@ export default defineConfig({
             title: "SelectTransferModal 弹框式选择器",
             path: "/components/select-transfer-modal",
           },
+          {
+            title: "ButtonTransferModal 弹框式选择器",
+            path: "/components/button-transfer-modal",
+          },
         ]
       },
     ]
