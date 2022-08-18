@@ -4,3 +4,4 @@ export * from './ButtonTransferModal';
 export * from './AntdProgress';
 export * from './AntdUpload';
 export * from './PreviewText';
+export * from './EllipsisText';
