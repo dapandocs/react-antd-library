@@ -2,7 +2,7 @@ import React from 'react';
 import useResizeEffect from '../../hooks/useResizeEffect';
 import { useIsomorphicLayoutEffect, useControllableValue } from 'ahooks'
 
-export type EllipsisProps = {
+export type EllipsisTextProps = {
     content: string
     direction?: 'start' | 'end' | 'middle'
     rows?: number
@@ -19,7 +19,7 @@ type EllipsisedValue = {
     tailing?: string
 }
 
-export const EllipsisText: React.FC<EllipsisProps> = props => {
+export const EllipsisText: React.FC<EllipsisTextProps> = props => {
     const rootRef = React.useRef<HTMLDivElement>(null)
 
     const [ellipsised, setEllipsised] = React.useState<EllipsisedValue>({})
