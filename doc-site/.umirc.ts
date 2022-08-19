@@ -48,6 +48,10 @@ export default defineConfig({
             title: "PreviewText 表单阅读态",
             path: "/components/preview-text",
           },
+          {
+            title: "EllipsisText 文本省略",
+            path: "/components/ellipsis-text",
+          },
         ]
       },
       {
