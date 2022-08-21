@@ -1,6 +1,6 @@
 {
   "name": "@react-spy/antd",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "An enterprise-class UI design language and React components implementation",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -21,12 +21,10 @@
   ],
   "keywords": [
     "antd",
-    "Ant Design",
-    "form",
-    "component",
-    "react",
+    "SiderBar",
+    "EllipsisText",
     "react-component",
-    "ui"
+    "PreviewText"
   ],
   "authors": [
     "spy"

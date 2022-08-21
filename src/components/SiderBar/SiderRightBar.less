@@ -1,0 +1,106 @@
+:root {
+    --sider-bar-height: 100vh;
+}
+
+#antd-layout-right {
+    position: relative;
+    width: 100%;
+    height: var(--sider-bar-height);
+
+    .antd-sider {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        z-index: 88;
+        background-color: #fff;
+        height: var(--sider-bar-height);
+    }
+
+    .antd-sider-resizer {
+        position: absolute;
+        width: 1px;
+        z-index: 88;
+        top: 0;
+        bottom: 0;
+        cursor: ew-resize;
+        user-select: none;
+        background-color: #eff0f0;
+        height: var(--sider-bar-height);
+
+        &:hover {
+            background-color: #8a8f8d;
+        }
+    }
+
+    .antd-sider-disable-resizer {
+        position: absolute;
+        width: 1px;
+        z-index: 88;
+        top: 0;
+        bottom: 0;
+        background-color: red;
+        user-select: none;
+        background-color: #eff0f0;
+        height: var(--sider-bar-height);
+    }
+
+    .antd-resize-mask {
+        background: rgba(0, 0, 0, 0);
+        position: fixed;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        cursor: ew-resize;
+    }
+
+    .antd-sider-icon-right {
+        position: absolute;
+        top: 48px;
+        width: 32px;
+        height: 32px;
+        display: block;
+        z-index: 100;
+        overflow: hidden;
+
+        .antd-right-collage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            font-size: 16px;
+            padding-left: 4px;
+            border: 1px solid #ccc;
+            box-shadow:
+                4.5px 5.4px 5.3px rgba(0, 0, 0, 0.012),
+                15.2px 18.1px 17.9px rgba(0, 0, 0, 0.018),
+                68px 81px 80px rgba(0, 0, 0, 0.03);
+            ;
+
+        }
+
+        .antd-right-expand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            padding-right: 4px;
+            border-radius: 20%;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            box-shadow:
+                4.5px 5.4px 5.3px rgba(0, 0, 0, 0.012),
+                15.2px 18.1px 17.9px rgba(0, 0, 0, 0.018),
+                68px 81px 80px rgba(0, 0, 0, 0.03);
+        }
+    }
+}
