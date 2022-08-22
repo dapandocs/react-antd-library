@@ -15,6 +15,9 @@ export type SiderLeftBarProps = {
     // 分割线的样式
     splitLineStyle?: React.CSSProperties;
     splitLineClassName?: string;
+    // 侧边栏的样式
+    siderStyle?: React.CSSProperties;
+    siderClassName?: string;
     siderRender?: React.ReactNode;
     contentRender?: React.ReactNode;
     siderWidth?: number;
@@ -35,6 +38,8 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
         isResizable = false,
         splitLineStyle = {},
         splitLineClassName = "",
+        siderStyle = {},
+        siderClassName = "",
         siderRender,
         contentRender,
         layoutHeight = "100vh"
@@ -86,8 +91,8 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
     return (
         <div id="antd-layout-left" {...layoutProps}>
             <div
-                className="antd-sider"
-                style={{ width: pxWidth }}
+                className={cls("antd-sider", siderClassName)}
+                style={{ ...siderStyle, width: pxWidth }}
                 onMouseOver={() => setState({ isOvering: true })}
                 onMouseOut={() => setState({ isOvering: false })}
             >
@@ -114,7 +119,7 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
                         }
                     </div> :
                     <div
-                        style={splitLineStyle}
+                        style={{ left: siderWidth, ...splitLineStyle }}
                         className={cls("antd-sider-disable-resizer", splitLineClassName)}
                     />
             }

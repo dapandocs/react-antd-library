@@ -9,8 +9,7 @@
 ```tsx
 /**
  * title: 基本用法
- * transform: true
- * compact: true
+ * iframe: 500
  */
 import React from 'react';
 import { SiderBar } from '@react-spy/antd';
@@ -44,13 +43,84 @@ export default () => {
     );
     return (
         <SiderBar
-            // direction='right'
             siderRender={siderHtml}
             contentRender={contentHtml}
         />
     );
 };
+```
+### 侧边栏的位置方向
 
+```tsx
+/**
+ * title: 侧边栏的位置方向
+ * iframe: 500
+ */
+import React from 'react';
+import { SiderBar } from '@react-spy/antd';
+
+export default () => {
+    const siderHtml = (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 16,
+                fontWeight: "bold",
+                height: "100vh",
+            }}>
+            我是侧边栏
+        </div>
+    );
+    const contentHtml = (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 16,
+                fontWeight: "bold",
+                height: "100vh",
+            }}>
+            我是内容栏
+        </div>
+    );
+    return (
+        <SiderBar
+            direction='right'
+            siderRender={siderHtml}
+            contentRender={contentHtml}
+        />
+    );
+};
+```
+
+### 侧边栏的模式
+```tsx
+/**
+ * title: 侧边栏的模式--侧边(sider)和覆盖(overlay)
+ * iframe: 500
+ */
+import React from 'react';
+import { SiderBar } from '@react-spy/antd';
+
+export default () => {
+    const siderHtml = (
+        <div style={{ fontSize: 16, fontWeight: "bold", padding: 24 }}>我是侧边栏</div>
+    );
+    const contentHtml = (
+        <div style={{ fontSize: 16, fontWeight: "bold", padding: 24 }}>我是内容栏;我是内容栏;我是内容栏;我是内容栏;我是内容栏;我是内容栏;我是内容栏;</div>
+    );
+    return (
+        <SiderBar
+            mode="overlay"
+            siderStyle={{ backgroundColor: "#eee" }}
+            siderRender={siderHtml}
+            contentRender={contentHtml}
+        />
+    );
+};
 ```
 
 ## API

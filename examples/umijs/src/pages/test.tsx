@@ -4,34 +4,15 @@ import { SiderBar } from '../../../../src'
 
 export default () => {
     const siderHtml = (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: 16,
-                fontWeight: "bold",
-                height: "100vh",
-            }}>
-            我是侧边栏
-        </div>
+        <div style={{ fontSize: 16, fontWeight: "bold", padding: 24 }}>我是侧边栏</div>
     );
     const contentHtml = (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: 16,
-                fontWeight: "bold",
-                height: "100vh",
-            }}>
-            我是内容栏
-        </div>
+        <div style={{ fontSize: 16, fontWeight: "bold", padding: 24 }}>我是内容栏;我是内容栏;我是内容栏;我是内容栏;我是内容栏;我是内容栏;我是内容栏;</div>
     );
     return (
         <SiderBar
-            direction='right'
+            mode="overlay"
+            siderStyle={{ backgroundColor: "#eee" }}
             siderRender={siderHtml}
             contentRender={contentHtml}
         />
