@@ -1,6 +1,6 @@
 {
   "name": "@react-spy/antd",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "An enterprise-class UI design language and React components implementation",
   "main": "lib/index.js",
   "module": "es/index.js",

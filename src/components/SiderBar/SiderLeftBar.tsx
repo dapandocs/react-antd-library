@@ -7,6 +7,8 @@ import './SiderLeftBar.less';
 export type SiderLeftBarProps = {
     siderMinWidth?: number;
     siderMaxWidth?: number;
+    // 是否开启操作助手
+    isHasHandle?: boolean;
     // 布局的高度
     layoutHeight?: number | string;
     mode?: "side" | "overlay";
@@ -42,7 +44,8 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
         siderClassName = "",
         siderRender,
         contentRender,
-        layoutHeight = "100vh"
+        layoutHeight = "100vh",
+        isHasHandle = true,
     } = props;
     const [state, setState] = useSetState<State>({
         dragging: false,
@@ -56,7 +59,9 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
     } = state;
 
     const ref = React.useRef<HTMLDivElement>(null);
-    const [siderWidth = 248, setSiderWidth] = useControllableValue(props);
+    const [siderWidth = 248, setSiderWidth] = useControllableValue(props, {
+        valuePropName: 'siderWidth',
+    });
     const pxWidth = `${siderWidth}px`;
     const previous = usePrevious(siderWidth);
 
@@ -123,31 +128,34 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
                         className={cls("antd-sider-disable-resizer", splitLineClassName)}
                     />
             }
-            <div
-                className="antd-sider-icon-left"
-                style={{ left: siderWidth - 16 }}
-                onMouseOver={() => setState({ isOvering: true })}
-                onMouseOut={() => setState({ isOvering: false })}
-            >
+            {
+                isHasHandle &&
                 <div
-                    style={{ display: isOvering && siderWidth !== 0 ? 'flex' : 'none' }}
-                    onClick={() => setSiderWidth(0)}
-                    className="antd-left-collage"
+                    className="antd-sider-icon-left"
+                    style={{ left: siderWidth - 16 }}
+                    onMouseOver={() => setState({ isOvering: true })}
+                    onMouseOut={() => setState({ isOvering: false })}
                 >
-                    <Tooltip title="折叠" placement="rightTop">
-                        {`<<`}
-                    </Tooltip>
+                    <div
+                        style={{ display: isOvering && siderWidth !== 0 ? 'flex' : 'none' }}
+                        onClick={() => setSiderWidth(0)}
+                        className="antd-left-collage"
+                    >
+                        <Tooltip title="折叠" placement="rightTop">
+                            {`<<`}
+                        </Tooltip>
+                    </div>
+                    <div
+                        style={{ display: siderWidth === 0 ? 'flex' : 'none' }}
+                        onClick={() => setSiderWidth(previous)}
+                        className="antd-left-expand"
+                    >
+                        <Tooltip title="展开" placement="rightTop">
+                            {`>>`}
+                        </Tooltip>
+                    </div>
                 </div>
-                <div
-                    style={{ display: siderWidth === 0 ? 'flex' : 'none' }}
-                    onClick={() => setSiderWidth(previous)}
-                    className="antd-left-expand"
-                >
-                    <Tooltip title="展开" placement="rightTop">
-                        {`>>`}
-                    </Tooltip>
-                </div>
-            </div>
+            }
         </div>
     );
 }
