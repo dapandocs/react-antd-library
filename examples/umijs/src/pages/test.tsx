@@ -1,6 +1,6 @@
 import React from 'react';
 // import { SiderBar } from '@react-spy/antd';
-import { SiderBar } from '../../../../src';
+import { SiderBar } from '../../../../src'
 
 export default () => {
     const siderHtml = (
@@ -31,7 +31,7 @@ export default () => {
     );
     return (
         <SiderBar
-            isResizable
+            direction='right'
             siderRender={siderHtml}
             contentRender={contentHtml}
         />

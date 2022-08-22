@@ -121,7 +121,7 @@ export const SiderRightBar: React.FC<SiderRightBarProps> = (props) => {
                         }
                     </div> :
                     <div
-                        style={splitLineStyle}
+                        style={{ right: siderWidth, ...splitLineStyle }}
                         className={cls("antd-sider-disable-resizer", splitLineClassName)}
                     />
             }

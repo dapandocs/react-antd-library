@@ -52,6 +52,10 @@ export default defineConfig({
             title: "EllipsisText 文本省略",
             path: "/components/ellipsis-text",
           },
+          {
+            title: "SiderBar 伸缩侧边栏",
+            path: "/components/sider-bar",
+          },
         ]
       },
       {
