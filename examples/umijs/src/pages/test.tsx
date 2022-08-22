@@ -1,5 +1,6 @@
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+// import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from '../../../../src';
 
 export default () => {
     const siderHtml = (
@@ -29,12 +30,25 @@ export default () => {
         </div>
     );
     return (
-        <div style={{ position: "fixed" }}>
-            <SiderBar
-                isResizable
-                siderRender={siderHtml}
-                contentRender={contentHtml}
-            />
-        </div>
+        <SiderBar
+            isResizable
+            siderRender={siderHtml}
+            contentRender={contentHtml}
+        />
     );
 };
+
+// import React from 'react';
+// import {
+//     Tooltip,
+//     Button,
+// } from 'antd';
+
+// const Test = ()=>{
+//     return (
+//         <Tooltip title="测试">
+//             <Button>测试</Button>
+//         </Tooltip>
+//     );
+// };
+// export default Test;

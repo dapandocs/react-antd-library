@@ -124,22 +124,24 @@ export const SiderLeftBar: React.FC<SiderLeftBarProps> = (props) => {
                 onMouseOver={() => setState({ isOvering: true })}
                 onMouseOut={() => setState({ isOvering: false })}
             >
-                {
-                    isOvering && siderWidth !== 0 &&
-                    <div onClick={() => setSiderWidth(0)} className="antd-left-collage">
-                        <Tooltip title="折叠" placement="rightTop">
-                            {`<<`}
-                        </Tooltip>
-                    </div>
-                }
-                {
-                    siderWidth === 0 &&
-                    <div onClick={() => setSiderWidth(previous)} className="antd-left-expand">
-                        <Tooltip title="展开" placement="rightTop">
-                            {`>>`}
-                        </Tooltip>
-                    </div>
-                }
+                <div
+                    style={{ display: isOvering && siderWidth !== 0 ? 'flex' : 'none' }}
+                    onClick={() => setSiderWidth(0)}
+                    className="antd-left-collage"
+                >
+                    <Tooltip title="折叠" placement="rightTop">
+                        {`<<`}
+                    </Tooltip>
+                </div>
+                <div
+                    style={{ display: siderWidth === 0 ? 'flex' : 'none' }}
+                    onClick={() => setSiderWidth(previous)}
+                    className="antd-left-expand"
+                >
+                    <Tooltip title="展开" placement="rightTop">
+                        {`>>`}
+                    </Tooltip>
+                </div>
             </div>
         </div>
     );
