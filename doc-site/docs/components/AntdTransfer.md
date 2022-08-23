@@ -13,7 +13,7 @@
  * desc: 最基本的用法，传入dataSource即可。
  */
 import React from 'react';
-import { AntdTransfer } from '@react-spy/antd';
+import { AntdTransfer } from 'react-antd-library';
 
 const data = Array.from({ length: 20 }).map((_, index) => ({
     key: `${index}`,
@@ -37,7 +37,7 @@ export default () => {
  * desc:  通过idKey、nameKey属性来更改默认数据源的key、title的名称。
  */
 import React from 'react';
-import { AntdTransfer } from '@react-spy/antd';
+import { AntdTransfer } from 'react-antd-library';
 
 const data = Array.from({ length: 20 }).map((_, index) => ({
     id: `${index}`,
@@ -65,7 +65,7 @@ export default () => {
  * desc: 通过limitMaxCount属性来限制可选择的数量。
  */
 import React from 'react';
-import { AntdTransfer } from '@react-spy/antd';
+import { AntdTransfer } from 'react-antd-library';
 
 const data = Array.from({ length: 20 }).map((_, index) => ({
     key: `${index}`,
@@ -92,7 +92,7 @@ export default () => {
  * desc: 通过属性type='auto'，选择后自动移入右侧框。
  */
 import React from 'react';
-import { AntdTransfer } from '@react-spy/antd';
+import { AntdTransfer } from 'react-antd-library';
 
 const data = Array.from({ length: 20 }).map((_, index) => ({
     key: `${index}`,
@@ -119,7 +119,7 @@ export default () => {
  * desc: 可以使用Antd Transfer组件的属性。。
  */
 import React from 'react';
-import { AntdTransfer } from '@react-spy/antd';
+import { AntdTransfer } from 'react-antd-library';
 
 const data = Array.from({ length: 20 }).map((_, index) => ({
     key: `${index}`,
@@ -156,7 +156,7 @@ export default () => {
  */
 import React from 'react';
 import { Form, Space, Button, message } from 'antd';
-import { AntdTransfer } from '@react-spy/antd';
+import { AntdTransfer } from 'react-antd-library';
 
 const data = Array.from({ length: 20 }).map((_, index) => ({
     key: `${index}`,

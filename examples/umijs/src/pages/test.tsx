@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Space } from 'antd';
-// import { SiderBar } from '@react-spy/antd';
+// import { SiderBar } from 'react-antd-library';
 import { SiderBar } from '../../../../src'
 
 export default () => {

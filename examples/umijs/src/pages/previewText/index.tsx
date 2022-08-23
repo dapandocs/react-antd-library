@@ -4,7 +4,7 @@ import {
     PreviewText
 } from '../../../../../src';
 // import { PreviewText } from '../../../../../es';
-// import { PreviewText } from '@react-spy/antd';
+// import { PreviewText } from 'react-antd-library';
 import { Space, Form, Button } from 'antd';
 import styles from './index.less';
 

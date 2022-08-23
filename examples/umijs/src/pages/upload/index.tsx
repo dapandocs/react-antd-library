@@ -3,7 +3,7 @@ import {
     SelectTransferModal,
     ButtonUpload,
 } from '../../../../../src';
-// import { ButtonUpload } from '@react-spy/antd';
+// import { ButtonUpload } from 'react-antd-library';
 import {
     Form,
     Input,

@@ -14,7 +14,7 @@
  */
 import React from 'react';
 import { Button, Space } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { Input } = PreviewText;
 
@@ -45,7 +45,7 @@ export default () => {
  */
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { InputNumber } = PreviewText;
 
@@ -117,7 +117,7 @@ export default () => {
  */
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { Cascader } = PreviewText;
 
@@ -201,7 +201,7 @@ export default () => {
  */
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { Select } = PreviewText;
 
@@ -282,7 +282,7 @@ export default () => {
  */
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { TreeSelect } = PreviewText;
 
@@ -384,7 +384,7 @@ export default () => {
  */
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { Checkbox, CheckboxGroup } = PreviewText;
 
@@ -464,7 +464,7 @@ export default () => {
  */
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { Radio, RadioGroup } = PreviewText;
 
@@ -545,7 +545,7 @@ export default () => {
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import moment from 'moment';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { DatePicker, DateRangePicker } = PreviewText;
 
@@ -621,7 +621,7 @@ export default () => {
 import React from 'react';
 import { Button, Space, Form, message } from 'antd';
 import moment from 'moment';
-import { PreviewText } from '@react-spy/antd';
+import { PreviewText } from 'react-antd-library';
 
 const { TimePicker, TimeRangePicker } = PreviewText;
 

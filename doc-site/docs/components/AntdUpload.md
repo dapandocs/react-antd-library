@@ -20,7 +20,7 @@
  * desc: 经典款式，用户点击按钮弹出文件选择框。
  */
 import React from 'react';
-import { ButtonUpload } from "@react-spy/antd";
+import { ButtonUpload } from "react-antd-library";
 
 export default () => {
   return (
@@ -39,7 +39,7 @@ export default () => {
  */
 import React from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { ButtonUpload } from "@react-spy/antd";
+import { ButtonUpload } from "react-antd-library";
 
 export default () => {
   return (
@@ -63,7 +63,7 @@ export default () => {
  */
 import React from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { ButtonUpload } from "@react-spy/antd";
+import { ButtonUpload } from "react-antd-library";
 
 export default () => {
   return (
@@ -89,7 +89,7 @@ export default () => {
  * desc: 可以根据业务需要扩展组件。
  */
 import React from 'react';
-import { ButtonUpload } from "@react-spy/antd";
+import { ButtonUpload } from "react-antd-library";
 import "./AntdUpload.md.less";
 
 export default () => {
@@ -115,7 +115,7 @@ export default () => {
  */
 import React from 'react';
 import { message } from 'antd';
-import { ButtonUpload } from '@react-spy/antd';
+import { ButtonUpload } from 'react-antd-library';
 
 const fileList = [
     {
@@ -167,7 +167,7 @@ export default () => {
  * desc: 通过acceptUploadType属性限制限制上传文件大小,默认为 [ ]，不限制。
  */
 import React from 'react';
-import { ButtonUpload } from '@react-spy/antd';
+import { ButtonUpload } from 'react-antd-library';
 
 export default () => {
     return (
@@ -191,7 +191,7 @@ export default () => {
  * desc: 通过limitMaxSize属性限制限制上传文件大小,默认为 0，不限制。
  */
 import React from 'react';
-import { ButtonUpload } from '@react-spy/antd';
+import { ButtonUpload } from 'react-antd-library';
 
 export default () => {
 
@@ -216,7 +216,7 @@ export default () => {
  * desc: 通过limitMaxCount属性限制上传数量,默认为 0，不限制。
  */
 import React from 'react';
-import { ButtonUpload } from '@react-spy/antd';
+import { ButtonUpload } from 'react-antd-library';
 
 const fList = [
     {
@@ -261,7 +261,7 @@ export default () => {
  */
 import React from 'react';
 import { Form, Space, Button, message } from 'antd';
-import { ButtonUpload } from '@react-spy/antd';
+import { ButtonUpload } from 'react-antd-library';
 
 const fileList = [
     {

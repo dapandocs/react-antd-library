@@ -1,7 +1,7 @@
-# @react-spy/antd
+# react-antd-library
 
-[![NPM version](https://img.shields.io/npm/v/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
-[![NPM downloads](http://img.shields.io/npm/dm/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
+[![NPM version](https://img.shields.io/npm/v/react-antd-library.svg?style=flat)](https://npmjs.org/package/react-antd-library)
+[![NPM downloads](http://img.shields.io/npm/dm/react-antd-library.svg?style=flat)](https://npmjs.org/package/react-antd-library)
 
 ## 📚 文档
 
@@ -17,32 +17,56 @@
 ## 📦 安装
 
 ```bash
-$ npm install @react-spy/antd --save
+$ npm install react-antd-library --save
 ```
 或者
 ```bash
-$ yarn add @react-spy/antd
+$ yarn add react-antd-library
 ```
 
 ## 🔨 简单使用
 
 ```tsx
 /**
- * title: 自定义上传按钮组件
+ * title: 伸缩侧边栏
  * transform: true
  */
 import React from 'react';
-import { ButtonUpload } from "@react-spy/antd";
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
-  return (
-    <ButtonUpload
-       uploadButtonRender={
-          <div className='button'>
-              <div className="button__content">Hover me and Click me</div>
-          </div>
-       }
-    />
-  );
+    const siderHtml = (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 16,
+                fontWeight: "bold",
+                height: "100vh",
+            }}>
+            我是侧边栏，拖动中间线试试
+        </div>
+    );
+    const contentHtml = (
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 16,
+                fontWeight: "bold",
+                height: "100vh",
+            }}>
+            我是内容栏
+        </div>
+    );
+    return (
+        <SiderBar
+            isResizable
+            siderRender={siderHtml}
+            contentRender={contentHtml}
+        />
+    );
 };
 ```

@@ -13,7 +13,7 @@
  */
 import React from 'react';
 import { Tag, Space } from 'antd';
-import { ButtonTransferModal } from '@react-spy/antd';
+import { ButtonTransferModal } from 'react-antd-library';
 
 const list = [
     { key: '1', title: '张三' },

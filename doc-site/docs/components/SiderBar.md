@@ -12,7 +12,7 @@
  * iframe: 500
  */
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const siderHtml = (
@@ -58,7 +58,7 @@ export default () => {
  * desc: 通过属性direction='right'，将侧边栏放到右侧。
  */
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const siderHtml = (
@@ -105,7 +105,7 @@ export default () => {
  * desc: 通过属性mode='overlay'，将侧边栏更改为“覆盖”内容区域的模式。
  */
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const siderHtml = (
@@ -132,7 +132,7 @@ export default () => {
  * desc: 通过属性layoutHeight，设置侧边栏的布局高度。
  */
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const siderHtml = (
@@ -160,7 +160,7 @@ export default () => {
  * desc: 通过属性isResizable，开启侧边栏的伸缩功能。
  */
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const siderHtml = (
@@ -207,7 +207,7 @@ export default () => {
  * desc: 通过属性siderMinWidth和siderMaxWidth，设置侧边栏宽度的最大值和最小值。
  */
 import React from 'react';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const siderHtml = (
@@ -257,7 +257,7 @@ export default () => {
  */
 import React, { useState } from 'react';
 import { Button, Space } from 'antd';
-import { SiderBar } from '@react-spy/antd';
+import { SiderBar } from 'react-antd-library';
 
 export default () => {
     const [siderWidth, setSiderWidth] = useState(500);

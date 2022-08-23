@@ -2,7 +2,7 @@ import React from 'react';
 import {
   SelectTransferModal,
 } from '../../../../src';
-// import { SelectTransferModal } from '@react-spy/antd';
+// import { SelectTransferModal } from 'react-antd-library';
 import {
   Form,
   Input,

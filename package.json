@@ -1,6 +1,6 @@
 {
-  "name": "@react-spy/antd",
-  "version": "0.1.3",
+  "name": "react-antd-library",
+  "version": "0.1.5",
   "description": "An enterprise-class UI design language and React components implementation",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -42,7 +42,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:react-spy/antd.git"
+    "url": "git@github.com:react-spy/react-antd-library.git"
   },
   "homepage": "https://antd-react-spy.vercel.app",
   "devDependencies": {

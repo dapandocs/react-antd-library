@@ -6,10 +6,10 @@ nav:
   order: 0
 ---
 
-# @react-spy/antd
+# react-antd-library
 
-[![NPM version](https://img.shields.io/npm/v/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
-[![NPM downloads](http://img.shields.io/npm/dm/@react-spy/antd.svg?style=flat)](https://npmjs.org/package/@react-spy/antd)
+[![NPM version](https://img.shields.io/npm/v/react-antd-library.svg?style=flat)](https://npmjs.org/package/react-antd-library)
+[![NPM downloads](http://img.shields.io/npm/dm/react-antd-library.svg?style=flat)](https://npmjs.org/package/react-antd-library)
 
 ## 📚 文档
 
@@ -25,11 +25,11 @@ nav:
 ## 📦 安装
 
 ```bash
-$ npm install @react-spy/antd --save
+$ npm install react-antd-library --save
 ```
 或者
 ```bash
-$ yarn add @react-spy/antd
+$ yarn add react-antd-library
 ```
 
 ## 🔨 简单使用
@@ -44,7 +44,7 @@ $ yarn add @react-spy/antd
  * defaultShowCode: true
  */
 import React from 'react';
-import { ButtonUpload } from "@react-spy/antd";
+import { ButtonUpload } from "react-antd-library";
 import "../components/AntdUpload.md.less";
 
 export default () => {
