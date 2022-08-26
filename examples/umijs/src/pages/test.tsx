@@ -1,71 +1,39 @@
-import React, { useState } from 'react';
-import { Button, Space } from 'antd';
-// import { SiderBar } from 'react-antd-library';
-import { SiderBar } from '../../../../src'
 
-export default () => {
-    const [siderWidth, setSiderWidth] = useState(500);
-    const siderHtml = (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                fontSize: 16,
-                fontWeight: "bold",
-                height: "100vh",
-            }}>
-            我是侧边栏
-        </div>
-    );
-    const contentHtml = (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100vh",
-            }}>
-            <Space>
-                <div>我是内容栏</div>
-                <Button
-                    type="primary"
-                    onClick={() => setSiderWidth(500)}
-                    disabled={siderWidth === 500}
-                >
-                    展开
-                </Button>
-                <Button
-                    type="primary"
-                    onClick={() => setSiderWidth(0)}
-                    disabled={siderWidth === 0}
-                >
-                    折叠
-                </Button>
-            </Space>
-        </div>
-    );
+import React from 'react';
+import {
+    Tooltip,
+    Button,
+} from 'antd';
+import { DraggableModal, useDraggable } from '../../../../src';
+
+const Test = () => {
+    const [visible, setVisible] = React.useState(false);
+    const [visible2, setVisible2] = React.useState(false);
+    const { target } = useDraggable({
+        maxDistance: {
+            x: {  max: 200 },
+            y: {  max: 200 },
+        }
+    });
     return (
-        <SiderBar
-            isHasHandle={false}
-            siderWidth={siderWidth}
-            siderRender={siderHtml}
-            contentRender={contentHtml}
-        />
+        <div>
+            <Button onClick={() => setVisible(true)}>测试</Button>
+            <DraggableModal
+                title="测试"
+                visible={visible}
+                onCancel={() => setVisible(false)}
+            >
+                <Button onClick={() => setVisible2(true)}>测试2</Button>
+                <DraggableModal
+                    title="测试"
+                    visible={visible2}
+                    onCancel={() => setVisible2(false)}
+                >
+                    333
+                </DraggableModal>
+            </DraggableModal>
+            <Button ref={target}>测试44444</Button>
+        </div>
     );
 };
-
-// import React from 'react';
-// import {
-//     Tooltip,
-//     Button,
-// } from 'antd';
-
-// const Test = ()=>{
-//     return (
-//         <Tooltip title="测试">
-//             <Button>测试</Button>
-//         </Tooltip>
-//     );
-// };
-// export default Test;
+export default Test;
