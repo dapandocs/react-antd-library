@@ -23,7 +23,7 @@ export const DraggableModal: React.FC<React.PropsWithChildren<DraggableModalProp
 
     // 鼠标按下时的坐标
     const startXY = React.useRef<[number, number]>([0, 0])
-    // 上次移动的距离
+    // 上次移动的距离总和
     const prevPosition = React.useRef<[number, number]>([0, 0])
     const dragging = React.useRef<boolean>(false)
 
@@ -33,8 +33,8 @@ export const DraggableModal: React.FC<React.PropsWithChildren<DraggableModalProp
         const [prevX, prevY] = prevPosition.current
         let [x, y] = prevPosition.current
         dragging.current = true
-        x = e.pageX - prevX
-        y = e.pageY - prevY
+        x = e.clientX - prevX
+        y = e.clientY - prevY
         startXY.current = [x, y]
     }
 
@@ -43,8 +43,8 @@ export const DraggableModal: React.FC<React.PropsWithChildren<DraggableModalProp
 
         const [startX, startY] = startXY.current
         let [x, y] = prevPosition.current
-        x = e.pageX - startX
-        y = e.pageY - startY
+        x = e.clientX - startX
+        y = e.clientY - startY
         prevPosition.current = [x, y]
         // @ts-ignore
         modalContentRef.current.style.transform = `translate(${x}px, ${y}px)`
