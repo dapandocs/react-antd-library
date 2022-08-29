@@ -1,2 +1,2 @@
 export * from './components';
-export * from './hooks/useDraggable';
+export * from './hooks';
