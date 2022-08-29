@@ -9,9 +9,9 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "react-antd-library": "^0.0.30",
     "@umijs/max": "^4.0.7",
-    "antd": "^4.21.7"
+    "antd": "^4.21.7",
+    "react-antd-library": "^0.1.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
