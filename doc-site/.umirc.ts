@@ -39,6 +39,10 @@ export default defineConfig({
             title: "AntdTransfer 穿梭框",
             path: "/components/antd-transfer",
           },
+          {
+            title: "AntdModal 对话框",
+            path: "/components/antd-modal",
+          },
         ]
       },
       {

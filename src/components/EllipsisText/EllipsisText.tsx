@@ -1,5 +1,5 @@
 import React from 'react';
-import useResizeEffect from '../../hooks/useResizeEffect';
+import { useResizeEffect } from '../../hooks';
 import { useIsomorphicLayoutEffect, useControllableValue } from 'ahooks'
 
 export type EllipsisTextProps = {
