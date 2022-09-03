@@ -76,7 +76,6 @@ export const SiderRightBar: React.FC<SiderRightBarProps> = (props) => {
         });
     };
     const handleMouseMove = (event: React.MouseEvent) => {
-        console.log(siderWidth, event.pageX, startPageX);
         let currentSiderWidth;
         if (startPageX >= event.pageX) {
             // 向左拖动，sider逐渐变大
