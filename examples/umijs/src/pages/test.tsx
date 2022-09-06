@@ -1,28 +1,35 @@
+import {
+    Button,
+    Spin,
+} from 'antd';
+import { useSetState } from 'ahooks';
+import { importUtils } from '../../../../src';
 
-import React from 'react';
-import { Button } from 'antd';
-import { DraggableModal } from 'react-antd-library';
-
-export default () => {
-    const [visible, setVisible] = React.useState(false);
-    const [visible2, setVisible2] = React.useState(false);
+const ImportButton = () => {
+    const [state, setState] = useSetState({
+        loading: false,
+    });
+    const { loading } = state;
+    const onClick = () => {
+        importUtils.downloadFile({
+            url: "/xg_api/as_api/academic_ymd/export_md",
+            method: "post",
+            data: {
+                nj: '2019'
+            },
+            headers: {
+                Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiYmIyYmMyNGIyYjM5NDI5ZmI1NWM4M2ZiOWUxNzY5ZTUiLCJ1c2VyX2tleSI6IjE0ZmM4MDEzMDhlOTQ2NTRiYzFjOTQ4NTg3NWRmZmFjIiwidXNlcm5hbWUiOiJZSlNERVBUIn0.N6BT6OIf6VFTNQpDppE0L0IlUKIph6Glq4BHduzuXgOpWfptXQ2iGh5ZjZsov-AZMsFVdktCZW41pitHz6w_WA"
+            },
+            callback: (downloading) => {
+                setState({ loading: downloading });
+            },
+            fileName: "测试.xlsx"
+        });
+    }
     return (
-        <div>
-            <Button onClick={() => setVisible(true)}>打开Modal</Button>
-            <DraggableModal
-                title="可拖动Modal"
-                visible={visible}
-                onCancel={() => setVisible(false)}
-            >
-                <Button onClick={() => setVisible2(true)}>打开Modal2</Button>
-                <DraggableModal
-                    title="嵌套Modal"
-                    visible={visible2}
-                    onCancel={() => setVisible2(false)}
-                >
-                    我是内容
-                </DraggableModal>
-            </DraggableModal>
-        </div>
+        <Spin spinning={loading}>
+            <Button onClick={onClick}>测试</Button>
+        </Spin>
     );
 };
+export default ImportButton;
