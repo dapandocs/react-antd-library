@@ -3,7 +3,7 @@ import {
     Spin,
 } from 'antd';
 import { useSetState } from 'ahooks';
-import { importUtils } from '../../../../src';
+import { exportUtils } from '../../../../src';
 
 const ImportButton = () => {
     const [state, setState] = useSetState({
@@ -11,7 +11,7 @@ const ImportButton = () => {
     });
     const { loading } = state;
     const onClick = () => {
-        importUtils.downloadFile({
+        exportUtils.downloadFile({
             url: "/xg_api/as_api/academic_ymd/export_md",
             method: "post",
             data: {

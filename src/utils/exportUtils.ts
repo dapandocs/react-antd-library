@@ -15,7 +15,7 @@ type downloadFileOptions = {
     callback?: (downloading: boolean) => void;
 };
 
-export const importUtils = {
+export const exportUtils = {
     // response.setContentType("application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"); //设置文件类型，这里以.xlsx为例
     //设置文件的原文件名，若文件名中含有中文则需要解码，否则会出现乱码
     // response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "utf-8"));
