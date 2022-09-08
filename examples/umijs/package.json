@@ -9,7 +9,7 @@
     "start": "npm run dev"
   },
   "dependencies": {
-    "@umijs/max": "^4.0.7",
+    "@umijs/max": "^4.0.18",
     "antd": "^4.21.7",
     "react-antd-library": "^0.1.10"
   },
