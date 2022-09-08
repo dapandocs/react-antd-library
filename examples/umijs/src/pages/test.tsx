@@ -12,18 +12,19 @@ const ImportButton = () => {
     const { loading } = state;
     const onClick = () => {
         exportUtils.downloadFile({
-            url: "/xg_api/as_api/academic_ymd/export_md",
-            method: "post",
-            data: {
-                nj: '2019'
-            },
+            url: "/xg_api/as_api/import_ymd/download_template",
+            // url: "/xg_api/as_api/academic_ymd/export_md",
+            // method: "post",
+            // data: {
+            //     nj: '2019'
+            // },
             headers: {
-                Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiYmIyYmMyNGIyYjM5NDI5ZmI1NWM4M2ZiOWUxNzY5ZTUiLCJ1c2VyX2tleSI6IjE0ZmM4MDEzMDhlOTQ2NTRiYzFjOTQ4NTg3NWRmZmFjIiwidXNlcm5hbWUiOiJZSlNERVBUIn0.N6BT6OIf6VFTNQpDppE0L0IlUKIph6Glq4BHduzuXgOpWfptXQ2iGh5ZjZsov-AZMsFVdktCZW41pitHz6w_WA"
+                Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiYmIyYmMyNGIyYjM5NDI5ZmI1NWM4M2ZiOWUxNzY5ZTUiLCJ1c2VyX2tleSI6IjY1MTA4MzQxN2EyOTQ4NmNiMGY5YWYwZDJhNmFhYzUxIiwidXNlcm5hbWUiOiJZSlNERVBUIn0.oca3fE_DoYWQNA8aFn7HSDQKJKyRMbYhqPdThLWEXKgiGIjABNEwPrN_owUXXCP8Ry6akGWfwsvV77f57Le4xw"
             },
             callback: (downloading) => {
                 setState({ loading: downloading });
             },
-            fileName: "测试.xlsx"
+            // fileName: "测试.xlsx"
         });
     }
     return (
