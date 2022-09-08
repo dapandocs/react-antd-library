@@ -21,7 +21,7 @@ export const exportUtils = {
     // response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(fileName, "utf-8"));
     // 这步很关键，需要在给前端返回的请求头中添加Content-Disposition字段
     // response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
-    downloadFile: ({
+    downloadFile: async ({
         url,
         method = "get",
         data = {},
@@ -29,16 +29,12 @@ export const exportUtils = {
         fileName,
         callback,
     }: downloadFileOptions) => {
-        const params = method === "post" ? {
-            url,
-            body: JSON.stringify(data),
-        } : {
-            url: `${url}?${qs.stringify(data)}`
-        };
+        const params = method === "post" ? { body: JSON.stringify(data) } : {};
+        const queryUrl = method === "get" ? `${url}?${qs.stringify(data)}` : url;
         if (typeof callback === "function") {
             callback(true);
         }
-        fetch(url, {
+        const response: any = await fetch(queryUrl, {
             method,
             ...params,
             // @ts-ignore
@@ -46,20 +42,18 @@ export const exportUtils = {
                 ...headers,
                 "Content-Type": 'application/json',
             }
-        }).then((res: any) => {
-            return res.blob();
-        }).then((res: any) => {
-            if (res.size === 0) {
-                if (typeof callback === "function") callback(false);
-                message.info("文件下载失败");
-                return;
-            }
+        });
+        if (response.status === 200) {
             let newFileName;
             if (fileName && fileName.indexOf(".") > 0) {
                 newFileName = fileName;
             } else {
-                if (res.headers && res.headers["content-disposition"]) {
-                    newFileName = res.headers["content-disposition"].split(";")[1].split("filename=")[1];
+                try {
+                    if (response.headers.get("content-disposition")) {
+                        newFileName = response.headers.get("content-disposition").split(";")[1].split("filename=")[1];
+                    }
+                } catch (error) {
+                    console.log("exportUtils Error:", error);
                 }
             }
             if (!newFileName) {
@@ -67,15 +61,21 @@ export const exportUtils = {
                 message.info("文件名称为空");
                 return;
             }
+            const fileBlob = await response.blob();
+            if (fileBlob.size === 0) {
+                if (typeof callback === "function") callback(false);
+                message.info("文件下载失败");
+                return;
+            }
             if (typeof callback === "function") callback(false);
-            const blob = new Blob([res], { type: "application/octet-stream" });
+            const blob = new Blob([fileBlob], { type: "application/octet-stream" });
             const objectURL = URL.createObjectURL(blob);
             let btn: any = document.createElement('a');
-            btn.download = newFileName;
+            btn.download = decodeURI(newFileName);
             btn.href = objectURL;
             btn.click();
             URL.revokeObjectURL(objectURL);
             btn = null;
-        });
+        }
     }
 };
