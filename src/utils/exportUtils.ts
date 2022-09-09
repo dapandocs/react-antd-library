@@ -15,6 +15,16 @@ type downloadFileOptions = {
     callback?: (downloading: boolean) => void;
 };
 
+type exportExcelOptions = {
+    fileName: string;
+    isHasTitle?: boolean;
+    minColWidth?: number;
+    dataSource: any[];
+    columns: any[];
+    renderTitleStyle?: (cellValue: string) => string | { [k: string]: any },
+    renderCellStyle?: (cellValue: string, rowIndex: number, colIndex: number) => string | { [k: string]: any },
+};
+
 export const exportUtils = {
     // response.setContentType("application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8"); //设置文件类型，这里以.xlsx为例
     //设置文件的原文件名，若文件名中含有中文则需要解码，否则会出现乱码
@@ -77,5 +87,124 @@ export const exportUtils = {
             URL.revokeObjectURL(objectURL);
             btn = null;
         }
+    },
+    exportExcel: (XLSX: any, options: exportExcelOptions) => {
+        const {
+            fileName = "附件",
+            isHasTitle = false,
+            minColWidth = 4,
+            columns,
+            dataSource,
+            renderTitleStyle,
+            renderCellStyle,
+        } = options;
+        if (!XLSX || !XLSX.utils) {
+            message.info("缺少XLSX参数");
+            return;
+        }
+        if (!columns) {
+            message.info("缺少columns参数");
+            return;
+        }
+        if (!dataSource) {
+            message.info("缺少dataSource参数");
+            return;
+        }
+
+        // 筛选columns
+        const newColumns = columns.filter((cs: any) => cs.hiddenInExcel !== true);
+
+        // 表格数据
+        const rows = [];
+        if (isHasTitle) {
+            const firstRow = [];
+            if (typeof renderTitleStyle === "function") {
+                const renderStyleObj = renderTitleStyle(fileName);
+                firstRow.push(renderStyleObj || fileName);
+            } else {
+                firstRow.push({
+                    v: fileName,
+                    s: {
+                        alignment: { horizontal: "center" },
+                        font: {
+                            bold: true, // 加粗
+                            sz: 14, // 字号14
+                        }
+                    },
+                });
+            }
+            firstRow.push(...Array.from({ length: newColumns.length - 1 }).fill(null));
+            rows.push(firstRow);
+        }
+
+        // 列宽
+        const colsWidth: any = [];
+        dataSource.forEach((item: any, rowIndex: number) => {
+            const row = newColumns.map((column, index: number) => {
+                // 设置单元格自动宽度
+                let value: string;
+                if (typeof column.exportRender === "function") {
+                    value = column.exportRender(item)?.toString();
+                } else {
+                    value = item[column.dataIndex]?.toString();
+                }
+                if (value) {
+                    let curColWidth = minColWidth;
+                    if (value.charCodeAt(0) > 255) {
+                        // 中文,(value.length * 2 + 1)留出一个汉字的宽度
+                        curColWidth = Math.max((value.length * 2 + 2), colsWidth[index]?.wch ? colsWidth[index].wch : minColWidth);
+                    } else {
+                        // 英文和数字，留出一个汉字的宽度
+                        curColWidth = Math.max(value.length + 2, colsWidth[index]?.wch ? colsWidth[index].wch : minColWidth);
+                    }
+                    if (!colsWidth[index]?.wch) {
+                        colsWidth.push({
+                            wch: curColWidth,
+                        });
+                    } else {
+                        colsWidth[index].wch = curColWidth;
+                    }
+                }
+                if (typeof renderCellStyle === "function") {
+                    return renderCellStyle(value, rowIndex, index);
+                }
+                return {
+                    v: value,
+                    s: {
+                        alignment: { horizontal: "center" },
+                    },
+                };
+            });
+            rows.push(row);
+        });
+
+        // 创建worksheet
+        const ws: any = XLSX.utils.aoa_to_sheet(rows);
+
+        if (isHasTitle) {
+            // 合并单元格
+            ws["!merges"] = [
+                // 设置单元格合并
+                {
+                    // 开始
+                    s: {
+                        r: 0, // 开始row
+                        c: 0 // 开始cOl
+                    },
+                    // 结束
+                    e: {
+                        r: 0,
+                        c: newColumns.length - 1
+                    }
+                }
+            ]
+        }
+        // 设置列宽
+        ws['!cols'] = colsWidth;
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, fileName);
+
+        // 生成xlsx文件
+        XLSX.writeFile(wb, `${fileName}.xlsx`);
     }
 };
