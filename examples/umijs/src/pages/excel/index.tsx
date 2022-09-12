@@ -33,13 +33,13 @@ const ExcelPage = () => {
             title: '年龄',
             dataIndex: 'age',
             key: 'age',
-            hiddenInExcel: true,
+            // hiddenInExcel: true,s
         },
         {
             title: '住址',
             dataIndex: 'address',
             key: 'address',
-            exportRender: (item: any) => item.age
+            // exportRender: (item: any) => item.age
         },
     ];
 
@@ -49,31 +49,43 @@ const ExcelPage = () => {
             <Button
                 type="primary"
                 onClick={() => {
-                    exportUtils.exportExcel(XLSX, {
+                    exportUtils.jsonToExcel(XLSX, {
                         columns,
-                        dataSource,
+                        data:dataSource,
                         fileName: "测试22222",
-                        isHasTitle: true,
-                        renderTitleStyle: (fn: string) => {
-                            return {
-                                v: fn,
-                                s: {
-                                    alignment: { horizontal: "center" },
-                                    font: {
-                                        bold: true, // 加粗
-                                        sz: 14, // 字号14
-                                        // color: {
-                                        //     rgb: 'f81d22'
-                                        // }
-                                    },
-                                    fill: {
-                                        fgColor: {
-                                            rgb: 'f81d22'
-                                        },
-                                    }
-                                },
-                            }
-                        },
+                        // renderColumnTitleStyle: (fn: string) => {
+                        //     return {
+                        //         v: fn,
+                        //         s: {
+                        //             alignment: { horizontal: "center" },
+                        //             font: {
+                        //                 bold: true, // 加粗
+                        //                 sz: 18, // 字号14
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                        // isHasTitle: true,
+                        // renderTitleStyle: (fn: string) => {
+                        //     return {
+                        //         v: fn,
+                        //         s: {
+                        //             alignment: { horizontal: "center" },
+                        //             font: {
+                        //                 bold: true, // 加粗
+                        //                 sz: 14, // 字号14
+                        //                 // color: {
+                        //                 //     rgb: 'f81d22'
+                        //                 // }
+                        //             },
+                        //             fill: {
+                        //                 fgColor: {
+                        //                     rgb: 'f81d22'
+                        //                 },
+                        //             }
+                        //         },
+                        //     }
+                        // },
                         // renderCellStyle: (fn: string) => {
                         //     return {
                         //         v: fn,

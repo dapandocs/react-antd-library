@@ -15,13 +15,23 @@ type downloadFileOptions = {
     callback?: (downloading: boolean) => void;
 };
 
-type exportExcelOptions = {
+type jsonToExcelOptions = {
     fileName: string;
-    isHasTitle?: boolean;
+    isHasExcelTitle?: boolean;
+    isHasColumnTitle?: boolean;
     minColWidth?: number;
-    dataSource: any[];
-    columns: any[];
-    renderTitleStyle?: (cellValue: string) => string | { [k: string]: any },
+    data: any[];
+    columns: Array<{
+        title: string;
+        dataIndex: string;
+        [k: string]: any;
+    }>;
+    fieldNames?: {
+        title: string;
+        dataIndex: string;
+    };
+    renderExcelTitleStyle?: (cellValue: string) => string | { [k: string]: any },
+    renderColumnTitleStyle?: (cellValue: string, colIndex: number) => string | { [k: string]: any },
     renderCellStyle?: (cellValue: string, rowIndex: number, colIndex: number) => string | { [k: string]: any },
 };
 
@@ -88,14 +98,20 @@ export const exportUtils = {
             btn = null;
         }
     },
-    exportExcel: (XLSX: any, options: exportExcelOptions) => {
+    jsonToExcel: (XLSX: any, options: jsonToExcelOptions) => {
         const {
             fileName = "附件",
-            isHasTitle = false,
+            isHasExcelTitle = false,
+            isHasColumnTitle = true,
             minColWidth = 4,
             columns,
-            dataSource,
-            renderTitleStyle,
+            data,
+            fieldNames = {
+                title: "title",
+                dataIndex: "dataIndex",
+            },
+            renderExcelTitleStyle,
+            renderColumnTitleStyle,
             renderCellStyle,
         } = options;
         if (!XLSX || !XLSX.utils) {
@@ -106,8 +122,8 @@ export const exportUtils = {
             message.info("缺少columns参数");
             return;
         }
-        if (!dataSource) {
-            message.info("缺少dataSource参数");
+        if (!data) {
+            message.info("缺少data参数");
             return;
         }
 
@@ -116,10 +132,10 @@ export const exportUtils = {
 
         // 表格数据
         const rows = [];
-        if (isHasTitle) {
+        if (isHasExcelTitle) {
             const firstRow = [];
-            if (typeof renderTitleStyle === "function") {
-                const renderStyleObj = renderTitleStyle(fileName);
+            if (typeof renderExcelTitleStyle === "function") {
+                const renderStyleObj = renderExcelTitleStyle(fileName);
                 firstRow.push(renderStyleObj || fileName);
             } else {
                 firstRow.push({
@@ -137,16 +153,37 @@ export const exportUtils = {
             rows.push(firstRow);
         }
 
+        // 表头
+        if (isHasColumnTitle) {
+            const columnsTitle = newColumns.map((column: any, index: number) => {
+                if (typeof renderColumnTitleStyle === "function") {
+                    const renderStyleObj = renderColumnTitleStyle(column[fieldNames.title], index);
+                    return renderStyleObj || column[fieldNames.title];
+                }
+                return {
+                    v: column[fieldNames.title],
+                    s: {
+                        alignment: { horizontal: "center" },
+                        font: {
+                            bold: true, // 加粗
+                            sz: 12, // 字号14
+                        }
+                    }
+                };
+            });
+            rows.push(columnsTitle);
+        }
+
         // 列宽
         const colsWidth: any = [];
-        dataSource.forEach((item: any, rowIndex: number) => {
+        data.forEach((item: any, rowIndex: number) => {
             const row = newColumns.map((column, index: number) => {
                 // 设置单元格自动宽度
                 let value: string;
                 if (typeof column.exportRender === "function") {
                     value = column.exportRender(item)?.toString();
                 } else {
-                    value = item[column.dataIndex]?.toString();
+                    value = item[column[fieldNames.dataIndex]]?.toString();
                 }
                 if (value) {
                     let curColWidth = minColWidth;
@@ -181,7 +218,7 @@ export const exportUtils = {
         // 创建worksheet
         const ws: any = XLSX.utils.aoa_to_sheet(rows);
 
-        if (isHasTitle) {
+        if (isHasExcelTitle) {
             // 合并单元格
             ws["!merges"] = [
                 // 设置单元格合并

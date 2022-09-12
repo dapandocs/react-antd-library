@@ -1,6 +1,6 @@
 {
   "name": "react-antd-library",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "An enterprise-class UI design language and React components implementation",
   "main": "lib/index.js",
   "module": "es/index.js",
