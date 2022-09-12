@@ -1,46 +1,64 @@
 ---
-  title: exportUtils 导出工具函数
+  title: exportUtils 导出相关
   nav:
     title: 工具函数
-    order: 0
+    order: 3
 ---
 
-# exportUtils 导出工具函数
+# exportUtils 导出相关
 
-> 上传是将信息（网页、文字、图片、视频等）通过网页或者上传工具发布到远程服务器上的过程。
+> exportUtils是将下载附件、前端导出Excel等功能集成的工具函数。
 
 ## 代码演示
 
-### 按钮上传
+### exportUtils.downloadFile
 
-```tsx
+```tsx | pure
 /**
- * title: 按钮上传
+ * title: 下载附件
  * transform: true
- * desc: 经典款式，用户点击按钮弹出文件选择框。
+ * desc: 调用文件流接口，下载相应格式附件。
  */
-import React from 'react';
-import { ButtonUpload } from "react-antd-library";
+import React, { useState } from 'react';
+import { Button, Spin } from 'antd';
+import { exportUtils } from 'react-antd-library';
 
-export default () => {
-  return (
-    <ButtonUpload />
-  );
+const exportUser = () => {
+    const [downloading, setDownloading] = useState(false);
+    const hanldeDownloadUser = () => {
+        exportUtils.downloadFile({
+            url: "/api/user/downloadUser",
+            method: "post",
+            data: {
+                sex: 'male'
+            },
+            headers: {
+                Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiYmIyYmMyNGIy"
+            },
+            callback: (loading) => {
+                setDownloading(loading)
+            },
+            fileName: "用户列表.xlsx"
+        });
+    }
+    return (
+        <Spin spinning={downloading} tip="附件下载中...">
+            <Button onClick={hanldeDownloadUser}>下载附件</Button>
+        </Spin>
+    );
 };
+export default exportUser;
 ```
 
 ## API
 
-### ButtonUpload
+### downloadFile
 
 | 参数               | 说明                 | 类型                                                                     | 默认值 |
 | ------------------ | -------------------- | ------------------------------------------------------------------------ | ------ |
-| acceptUploadType   | 限制上传格式         | string[]                                                                 | [ ]    |
-| value              | 附件列表             | Array<{}>                                                                | [ ]    |
-| limitMaxCount      | 限制上传个数         | number                                                                   | 0      |
-| limitMaxSize       | 限制上传单个文件大小 | number                                                                   | 0      |
-| isShowUploadEntry  | 是否显示上传入口     | boolean                                                                  | true   |
-| uploadButtonRender | 自定义上传按钮       | ReactNode                                                                |        |
-| antdButtonProps    | antd Button属性      | [ButtonProps](https://ant-design.antgroup.com/components/button-cn/#API) |        |
-| antdUploadProps    | antd Upload属性      | [UploadProps](https://ant-design.antgroup.com/components/upload-cn/#API) |        |
-| onChange           | 附件发生改变后的回调 | (file: fileList) => void                                                 |        |
+| url   |  接口url         | string[]                                                                 |     |
+| method              |     请求方式         | `get` \| `post`                                                                | `get`    |
+| data      | url 请求参数         | object                                                                   |      |
+| headers       | 请求头 | object                                                                   | { }      |
+| fileName  | 文件名称,包含文件后缀；如果后端返回头中content-disposition含有文件名，该字段可不传     | string                                                                  |   |
+| callback           | 在附件下载前和下载完成后各调用一次 | ( downloading:boolean ) => void                                                 |        |

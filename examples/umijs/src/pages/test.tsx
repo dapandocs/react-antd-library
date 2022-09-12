@@ -1,36 +1,29 @@
-import {
-    Button,
-    Spin,
-} from 'antd';
-import { useSetState } from 'ahooks';
-import { exportUtils } from '../../../../src';
+import { useState } from 'react';
+import { Button, Spin } from 'antd';
+import { exportUtils } from 'react-antd-library';
 
-const ImportButton = () => {
-    const [state, setState] = useSetState({
-        loading: false,
-    });
-    const { loading } = state;
-    const onClick = () => {
+const exportUser = () => {
+    const [downloading, setDownloading] = useState(false);
+    const hanldeDownloadUser = () => {
         exportUtils.downloadFile({
-            // url: "/xg_api/as_api/import_ymd/download_template",
-            url: "/xg_api/as_api/academic_ymd/export_md",
+            url: "/api/user/downloadUser",
             method: "post",
             data: {
-                nj: '2019'
+                sex: 'male'
             },
             headers: {
-                Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiYmIyYmMyNGIyYjM5NDI5ZmI1NWM4M2ZiOWUxNzY5ZTUiLCJ1c2VyX2tleSI6ImRlZTc0ODIzNjAwMTQyNGFhOTgwZTBhNTZjYmU1ZjM2IiwidXNlcm5hbWUiOiJZSlNERVBUIn0.gCKEYoWYp1qA1RTikawlKFnx6kHASU9QiekVl_walCktnpDp3yByxvQ2bqQVUkF-_KbJ6FTEbiNGE-2hZWinxQ"
+                Authorization: "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VyX2lkIjoiYmIyYmMyNGIy"
             },
-            callback: (downloading) => {
-                setState({ loading: downloading });
+            callback: (loading) => {
+                setDownloading(loading)
             },
-            fileName: "测试.xls"
+            fileName: "用户列表.xls"
         });
     }
     return (
-        <Spin spinning={loading}>
-            <Button onClick={onClick}>测试</Button>
+        <Spin spinning={downloading} tip="附件下载中...">
+            <Button onClick={hanldeDownloadUser}>下载附件</Button>
         </Spin>
     );
 };
-export default ImportButton;
+export default exportUser;
