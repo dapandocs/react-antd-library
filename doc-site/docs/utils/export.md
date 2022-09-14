@@ -491,6 +491,49 @@ const exportUser = () => {
 export default exportUser;
 ```
 
+#### 单元格样式属性
+
+| 样式        | 子集样式       | 默认        | 选择值                                                                                            |
+| :---------- | :------------- | :---------- | ------------------------------------------------------------------------------------------------- |
+| `alignment` | `vertical`     | `bottom`    | `"top"` or `"center"` or `"bottom"`                                                               |
+|             | `horizontal`   | `left`      | `"left"` or `"center"` or `"right"`                                                               |
+|             | `wrapText`     | `false`     | `true` or `false`                                                                                 |
+|             | `textRotation` | `0`         | `0` to `180`, or `255` // `180` 向下旋转 180 度
+| `border`    | `top`          |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
+|             | `bottom`       |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
+|             | `left`         |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
+|             | `right`        |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
+|             | `diagonal`     |             | `{ style: BORDER_STYLE, color: COLOR_STYLE, diagonalUp: true/false, diagonalDown: true/false }`   |
+| `fill`      | `patternType`  | `"none"`    | `"solid"` or `"none"`                                                                             |
+|             | `fgColor`      |             | 前景色 `COLOR_STYLE`                                                                              |
+|             | `bgColor`      |             | 背景颜色                                                                                          |
+| `font`      | `bold`         | `false`     | 字体粗体 `true` or `false`                                                                        |
+|             | `color`        |             | 字体颜色                                                                                          |
+|             | `italic`       | `false`     | 字体斜体 `true` or `false`                                                                        |
+|             | `name`         | `"Calibri"` | 字体                                                                                              |
+|             | `strike`       | `false`     | 字体删除线 `true` or `false`                                                                      |
+|             | `sz`           | `"11"`      | 字体大小                                                                               |
+|             | `underline`    | `false`     | 字体下划线 `true` or `false`                                                                  |
+|             | `vertAlign`    |             | `"superscript"` or `"subscript"`                                                                  |
+
+
+#### `BORDER_STYLE` {string} 属性
+
+边框样式属性是以下值之一:
+
+-   `dashDotDot`
+-   `dashDot`
+-   `dashed`
+-   `dotted`
+-   `hair`
+-   `mediumDashDotDot`
+-   `mediumDashDot`
+-   `mediumDashed`
+-   `medium`
+-   `slantDashDot`
+-   `thick`
+-   `thin`
+
 ## API
 
 ### downloadFile
@@ -518,3 +561,4 @@ export default exportUser;
 | renderExcelTitleStyle  | 自定义表格标题内容样式                    | (cellValue: string) => string \| { [k: string]: any }                                          |                                        |
 | renderColumnTitleStyle | 自定义表格表头内容样式                    | (cellValue: string, colIndex: number) => string \| { [k: string]: any }                        |                                        |
 | renderCellStyle        | 自定义表格数据单元格内容样式              | (cellValue: string, rowIndex: number, colIndex: number) => string      \| { [k: string]: any } |                                        |
+
