@@ -1,3 +1,27 @@
+# importUtils 导入相关
+
+> importUtils目前提供解析Excel文件数据的功能。
+
+## 代码演示
+
+### importUtils.excelToJson
+
+```tsx | pure
+
+注:使用jsonToExcel前,请先安装 xlsx-js-style
+
+yarn add xlsx-js-style
+或
+npm install xlsx-js-style --save
+
+```
+
+```tsx
+/**
+ * title: 解析Excel文件数据
+ * transform: true
+ * desc: 前端解析Excel文件数据。
+ */
 import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 import XLSX from 'xlsx-js-style';
@@ -82,3 +106,16 @@ const exportUser = () => {
     );
 };
 export default exportUser;
+```
+
+## API
+
+### excelToJson
+
+| 参数       | 说明                                      | 类型                                                     | 默认值                                 |
+| ---------- | ----------------------------------------- | -------------------------------------------------------- | -------------------------------------- |
+| file       | 文件                                      | File                                                     |                                        |
+| columns    | 表格表头，可将antd table的columns传入即可 | Array<{title: string;dataIndex: string;[k:string]: any;> |                                        |
+| fieldNames | 自定义节点 title、dataIndex 的字段        | object                                                   | { title: title, dataIndex: dataIndex } |
+| onLoadEnd  | 文件加载完成时的回调函数                  | (jsonData: any[]) => void                                |                                        |
+

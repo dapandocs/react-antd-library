@@ -40,13 +40,11 @@ const ExcelPage = () => {
             title: '年龄',
             dataIndex: 'age',
             key: 'age',
-            hiddenInExcel: true,
         },
         {
             title: '住址',
             dataIndex: 'address',
             key: 'address',
-            exportRender: (item: any) => item.age
         },
     ];
 
@@ -65,7 +63,7 @@ const ExcelPage = () => {
                     });
                 }}
             />
-            <Table dataSource={list} columns={columns} rowKey="__rowNum__" />
+            <Table dataSource={list} columns={columns} rowKey="__rowNum__" pagination={false} />
         </div>
     );
 };
