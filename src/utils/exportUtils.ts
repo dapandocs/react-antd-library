@@ -24,6 +24,8 @@ type jsonToExcelOptions = {
     columns: Array<{
         title: string;
         dataIndex: string;
+        hiddenInExcel: boolean;
+        exportRender: (row: any) => string | number;
         [k: string]: any;
     }>;
     fieldNames?: {
