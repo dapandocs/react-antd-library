@@ -345,6 +345,150 @@ const exportUser = () => {
 export default exportUser;
 ```
 
+#### 隐藏某一列
+
+```tsx
+/**
+ * title: 导出Excel
+ * transform: true
+ * desc: 可通过columns.hiddenInExcel=false隐藏列。
+ */
+import React from 'react';
+import { Button, Table } from 'antd';
+import XLSX from 'xlsx-js-style';
+import { exportUtils } from 'react-antd-library';
+
+const exportUser = () => {
+    const dataSource = [
+        {
+            key: '1',
+            name: '胡彦斌',
+            age: 32,
+            address: '西湖区湖底公园1号',
+        },
+        {
+            key: '2',
+            name: '胡彦祖',
+            age: 42,
+            address: '西湖区湖底公园1号',
+        },
+    ];
+
+    const columns = [
+        {
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: '年龄',
+            dataIndex: 'age',
+            key: 'age',
+            hiddenInExcel: true,
+        },
+        {
+            title: '住址',
+            dataIndex: 'address',
+            key: 'address',
+        },
+    ];
+
+    const downloadExcel = () => {
+        exportUtils.jsonToExcel(XLSX, {
+            columns,
+            data: dataSource,
+            fileName: "用户列表",
+        });
+    }
+
+    return (
+        <div>
+            <Button
+                type="primary"
+                onClick={downloadExcel}
+            >
+                导出Excel(隐藏年龄列)
+            </Button>
+            <Table dataSource={dataSource} columns={columns} rowKey="key" pagination={false} />
+        </div>
+    );
+};
+export default exportUser;
+```
+
+#### 数据处理
+
+```tsx
+/**
+ * title: 导出Excel
+ * transform: true
+ * desc: 可通过columns.exportRender对数据处理。
+ */
+import React from 'react';
+import { Button, Table } from 'antd';
+import XLSX from 'xlsx-js-style';
+import { exportUtils } from 'react-antd-library';
+
+const exportUser = () => {
+    const dataSource = [
+        {
+            key: '1',
+            name: '胡彦斌',
+            age: 32,
+            address: '西湖区湖底公园1号',
+        },
+        {
+            key: '2',
+            name: '胡彦祖',
+            age: 42,
+            address: '西湖区湖底公园1号',
+        },
+    ];
+
+    const columns = [
+        {
+            title: '姓名',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: '年龄',
+            dataIndex: 'age',
+            key: 'age',
+            exportRender: (record: any) => {
+                return `我的年龄是：${record.age}`
+            },
+        },
+        {
+            title: '住址',
+            dataIndex: 'address',
+            key: 'address',
+        },
+    ];
+
+    const downloadExcel = () => {
+        exportUtils.jsonToExcel(XLSX, {
+            columns,
+            data: dataSource,
+            fileName: "用户列表",
+        });
+    }
+
+    return (
+        <div>
+            <Button
+                type="primary"
+                onClick={downloadExcel}
+            >
+                导出Excel(数据处理)
+            </Button>
+            <Table dataSource={dataSource} columns={columns} rowKey="key" pagination={false} />
+        </div>
+    );
+};
+export default exportUser;
+```
+
 #### 设置样式
 
 ```tsx
@@ -493,28 +637,28 @@ export default exportUser;
 
 #### 单元格样式属性
 
-| 样式        | 子集样式       | 默认        | 选择值                                                                                            |
-| :---------- | :------------- | :---------- | ------------------------------------------------------------------------------------------------- |
-| `alignment` | `vertical`     | `bottom`    | `"top"` or `"center"` or `"bottom"`                                                               |
-|             | `horizontal`   | `left`      | `"left"` or `"center"` or `"right"`                                                               |
-|             | `wrapText`     | `false`     | `true` or `false`                                                                                 |
-|             | `textRotation` | `0`         | `0` to `180`, or `255` // `180` 向下旋转 180 度
-| `border`    | `top`          |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
-|             | `bottom`       |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
-|             | `left`         |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
-|             | `right`        |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                     |
-|             | `diagonal`     |             | `{ style: BORDER_STYLE, color: COLOR_STYLE, diagonalUp: true/false, diagonalDown: true/false }`   |
-| `fill`      | `patternType`  | `"none"`    | `"solid"` or `"none"`                                                                             |
-|             | `fgColor`      |             | 前景色 `COLOR_STYLE`                                                                              |
-|             | `bgColor`      |             | 背景颜色                                                                                          |
-| `font`      | `bold`         | `false`     | 字体粗体 `true` or `false`                                                                        |
-|             | `color`        |             | 字体颜色                                                                                          |
-|             | `italic`       | `false`     | 字体斜体 `true` or `false`                                                                        |
-|             | `name`         | `"Calibri"` | 字体                                                                                              |
-|             | `strike`       | `false`     | 字体删除线 `true` or `false`                                                                      |
-|             | `sz`           | `"11"`      | 字体大小                                                                               |
-|             | `underline`    | `false`     | 字体下划线 `true` or `false`                                                                  |
-|             | `vertAlign`    |             | `"superscript"` or `"subscript"`                                                                  |
+| 样式        | 子集样式       | 默认        | 选择值                                                                                          |
+| :---------- | :------------- | :---------- | ----------------------------------------------------------------------------------------------- |
+| `alignment` | `vertical`     | `bottom`    | `"top"` or `"center"` or `"bottom"`                                                             |
+|             | `horizontal`   | `left`      | `"left"` or `"center"` or `"right"`                                                             |
+|             | `wrapText`     | `false`     | `true` or `false`                                                                               |
+|             | `textRotation` | `0`         | `0` to `180`, or `255` // `180` 向下旋转 180 度                                                 |
+| `border`    | `top`          |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                   |
+|             | `bottom`       |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                   |
+|             | `left`         |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                   |
+|             | `right`        |             | `{ style: BORDER_STYLE, color: COLOR_STYLE }`                                                   |
+|             | `diagonal`     |             | `{ style: BORDER_STYLE, color: COLOR_STYLE, diagonalUp: true/false, diagonalDown: true/false }` |
+| `fill`      | `patternType`  | `"none"`    | `"solid"` or `"none"`                                                                           |
+|             | `fgColor`      |             | 前景色 `COLOR_STYLE`                                                                            |
+|             | `bgColor`      |             | 背景颜色                                                                                        |
+| `font`      | `bold`         | `false`     | 字体粗体 `true` or `false`                                                                      |
+|             | `color`        |             | 字体颜色                                                                                        |
+|             | `italic`       | `false`     | 字体斜体 `true` or `false`                                                                      |
+|             | `name`         | `"Calibri"` | 字体                                                                                            |
+|             | `strike`       | `false`     | 字体删除线 `true` or `false`                                                                    |
+|             | `sz`           | `"11"`      | 字体大小                                                                                        |
+|             | `underline`    | `false`     | 字体下划线 `true` or `false`                                                                    |
+|             | `vertAlign`    |             | `"superscript"` or `"subscript"`                                                                |
 
 
 #### `BORDER_STYLE` {string} 属性

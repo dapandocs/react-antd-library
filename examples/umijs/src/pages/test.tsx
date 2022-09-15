@@ -29,6 +29,9 @@ const exportUser = () => {
             title: '年龄',
             dataIndex: 'age',
             key: 'age',
+            exportRender: (record: any) => {
+                return `我的年龄是：${record.age}`
+            },
         },
         {
             title: '住址',
@@ -42,82 +45,6 @@ const exportUser = () => {
             columns,
             data: dataSource,
             fileName: "用户列表",
-            minColWidth: 40,
-            isHasExcelTitle: true,
-            renderExcelTitleStyle: (v: string) => {
-                // 设置标题样式
-                return {
-                    v,
-                    s: {
-                        alignment: { horizontal: "center" },
-                        font: {
-                            bold: true, // 加粗
-                            sz: 12, // 字号14
-                            color: {
-                                rgb: 'f81d22' // 字体颜色
-                            }
-                        },
-                        fill: {
-                            fgColor: {
-                                rgb: 'e2e2e2'
-                            },
-                        }
-                    },
-                }
-            },
-            renderColumnTitleStyle: (v: string) => {
-                // 设置表头样式
-                return {
-                    v,
-                    s: {
-                        alignment: { horizontal: "center" },
-                        font: {
-                            bold: true, // 加粗
-                            sz: 12, // 字号14
-                            color: {
-                                rgb: 'ad2102' // 字体颜色
-                            }
-                        },
-                        fill: {
-                            fgColor: {
-                                rgb: 'ffffb8'
-                            },
-                            underline: true,
-                        },
-                        border: {
-                            top: { style: 'dashDotDot', color: { rgb: '4b0082' } },
-                            right: { style: 'thick', color: { rgb: '4b0082' } },
-                            bottom: { style: 'thick', color: { rgb: '4b0082' } },
-                            left: { style: 'thick', color: { rgb: '4b0082' } }
-                        }
-                    },
-                }
-            },
-            renderCellStyle: (v: string, rowIndex: number, colIndex: number) => {
-                // 设置数据单元格样式
-                return {
-                    v,
-                    s: {
-                        alignment: { horizontal: colIndex % 2 === 0 ? "left" : "right" },
-                        font: {
-                            color: {
-                                rgb: '000000' // 字体颜色
-                            }
-                        },
-                        fill: {
-                            fgColor: {
-                                rgb: colIndex % 2 === 0 ? "69c0ff" : "8c8c8c"
-                            },
-                        },
-                        border: {
-                            top: { style: 'thin', color: { rgb: '1890ff' } },
-                            right: { style: 'thin', color: { rgb: '1890ff' } },
-                            bottom: { style: 'thin', color: { rgb: '1890ff' } },
-                            left: { style: 'thin', color: { rgb: '1890ff' } }
-                        }
-                    },
-                }
-            },
         });
     }
 
@@ -127,7 +54,7 @@ const exportUser = () => {
                 type="primary"
                 onClick={downloadExcel}
             >
-                导出Excel(设置样式)
+                导出Excel(数据处理)
             </Button>
             <Table dataSource={dataSource} columns={columns} rowKey="key" pagination={false} />
         </div>
