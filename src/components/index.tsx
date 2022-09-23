@@ -7,3 +7,4 @@ export * from './PreviewText';
 export * from './EllipsisText';
 export * from './SiderBar';
 export * from './AntdModal';
+export * from './AntdTable';
