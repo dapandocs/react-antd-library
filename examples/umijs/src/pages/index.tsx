@@ -1,40 +1,45 @@
-import React, { useRef } from 'react';
-import {
-  DraggableModal,
-  useResizeEffect,
-} from '../../../../src';
+import React from 'react';
+import { Button, Space, Form, message } from 'antd';
+import { SelectTransferModal } from "../../../../src";
 // import { SelectTransferModal } from 'react-antd-library';
-import {
-  Form,
-  Input,
-  Select,
-  Button,
-  Space,
-} from 'antd';
-import { useSetState } from 'ahooks';
+
+const list = [
+    { key: '1', title: '张三' },
+    { key: '2', title: '李四' },
+    { key: '3', title: '小明' },
+    { key: '4', title: '小红' },
+    { key: '5', title: '小兰' },
+];
 
 export default () => {
-  const [state, setState] = useSetState({
-    visible: false,
-  });
-  const { visible } = state;
-  const ref = useRef(document.body);
 
-  useResizeEffect((target) => {
-    console.log("333",target);
-  }, ref);
+    const [form] = Form.useForm();
 
-  return (
-    <>
-      <Button onClick={() => setState({ visible: true })}>测试</Button>
-      <DraggableModal
-        title="测试"
-        visible={visible}
-        onCancel={() => setState({ visible: false })}
-      >
-        测试
-      </DraggableModal>
-    </>
-  );
-
-}
+    return (
+        <Form form={form}>
+            <Form.Item
+                label="晋级名单"
+                name="personList"
+            >
+                <SelectTransferModal dataSource={list} limitMaxCount={1} type="auto" />
+            </Form.Item>
+            <Space>
+                <Button onClick={() => form.resetFields()}>重置</Button>
+                <Button
+                    type="primary"
+                    onClick={async () => {
+                        const { personList } = await form.validateFields();
+                        if (Array.isArray(personList)) {
+                            const personNameList = list.filter(item => personList.includes(item.key))
+                                .map(item => item.title)
+                                .join('，');
+                            message.success(`晋级名单：${personNameList}`);
+                        }
+                    }}
+                >
+                    查询
+                </Button>
+            </Space>
+        </Form>
+    );
+};
