@@ -1,5 +1,5 @@
 import React from "react";
-import { EditableTable } from "../../../../../src";
+import { EditableTable, EditableTableColumns } from "../../../../../src";
 const dataSource = [
   {
     key: "1",
@@ -15,16 +15,33 @@ const dataSource = [
   },
 ];
 
-const columns = [
+const columns: EditableTableColumns<any>[] = [
   {
     title: "姓名",
     dataIndex: "name",
     key: "name",
+    valueType: "select",
+    antdComponentProps: {
+      select: {
+        allowClear:false,
+        options: [
+          {
+            label: "张三",
+            value: "zhangsan",
+          },
+          {
+            label: "李四",
+            value: "lisi",
+          },
+        ],
+      },
+    },
   },
   {
     title: "年龄",
     dataIndex: "age",
     key: "age",
+    valueType: "inputNumber",
   },
   {
     title: "住址",
