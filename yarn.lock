@@ -1859,7 +1859,7 @@ fastq@^1.6.0:
   dependencies:
     reusify "^1.0.4"
 
-father@^4.0.0-alpha.3:
+father@^4.0.5:
   version "4.0.5"
   resolved "https://registry.npmmirror.com/father/-/father-4.0.5.tgz#81bdb5a60c882a0bf682f2ed2d258473bb36a6ae"
   integrity sha512-2IHPHjvg+6MoRVsDPWhB7GmRvysrORsdNe+JzIAf3V7PYZ/cFhjiUVNyZwkvSmnlo/m4B+0EQvlvFMNzKNcKpw==
