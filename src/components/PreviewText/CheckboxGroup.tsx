@@ -49,7 +49,10 @@ const PreviewCheckboxGroup: React.FC<CheckboxGroupProps & PreviewTextProps> = (
   };
 
   const getLabels = () => {
-    const selected = props.value;
+    let selected = props.value;
+    if (selected && typeof selected === "string") {
+      selected = [selected];
+    }
     if (!selected?.length)
       return previewPlaceholder || contextValue?.previewPlaceholder;
     const options = getOptions();
