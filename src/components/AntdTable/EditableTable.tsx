@@ -10,19 +10,39 @@ import type {
   FormInstance,
   FormItemProps,
   DatePickerProps,
+  RadioGroupProps,
+  CascaderProps,
+  TimePickerProps,
+  TreeSelectProps,
 } from "antd";
-import { useDynamicList, useDeepCompareEffect } from "ahooks";
+import { CheckboxGroupProps } from "antd/lib/checkbox";
+import { useDynamicList, useDeepCompareEffect, useMount } from "ahooks";
 import { PreviewText } from "../PreviewText";
 import styles from "./EditableTable.less";
 
 export interface EditableTableColumns<RecordType>
   extends TableColumnProps<RecordType> {
-  valueType?: "input" | "select" | "inputNumber" | "datePicker" | "option";
+  valueType?:
+    | "input"
+    | "select"
+    | "inputNumber"
+    | "datePicker"
+    | "timePicker"
+    | "checkboxGroup"
+    | "radioGroup"
+    | "cascader"
+    | "treeSelect"
+    | "option";
   antdComponentProps?: {
     input?: InputProps;
     select?: SelectProps;
     inputNumber?: InputNumberProps;
     datePicker?: DatePickerProps;
+    timePicker?: TimePickerProps;
+    checkboxGroup?: CheckboxGroupProps;
+    radioGroup?: RadioGroupProps;
+    cascader?: CascaderProps<any>;
+    treeSelect?: TreeSelectProps;
   };
   formItemProps?:
     | ((
@@ -50,21 +70,47 @@ export interface EditableTableColumns<RecordType>
   ) => React.ReactNode | null;
 }
 
+export type onActionOptions = {
+  insert?: (index: number, item: any) => void;
+  replace?: (index: number, item: any) => void;
+  remove?: (index: number) => void;
+  getKey?: (index: number) => number;
+  push?: (item: any) => void;
+  sortList?: (result: any[]) => any[];
+  resetList?: (newList: any[]) => void;
+};
+
 export interface EditableTableProps extends TableProps<any> {
   columns?: EditableTableColumns<any>[];
   dataSource?: Record<string, any>[];
   showAddButton?: boolean;
   form?: FormInstance;
   listName?: string;
+  onAction?: (action: onActionOptions) => void;
 }
 
-const { Input, Select, InputNumber, DatePicker } = PreviewText;
+const {
+  Input,
+  Select,
+  InputNumber,
+  DatePicker,
+  TimePicker,
+  CheckboxGroup,
+  RadioGroup,
+  Cascader,
+  TreeSelect,
+} = PreviewText;
 
 const valueTypeMap: Record<string, any> = {
   input: Input,
   select: Select,
   inputNumber: InputNumber,
   datePicker: DatePicker,
+  timePicker: TimePicker,
+  checkboxGroup: CheckboxGroup,
+  radioGroup: RadioGroup,
+  cascader: Cascader,
+  treeSelect: TreeSelect,
 };
 export const EditableTable: React.FC<EditableTableProps> = ({
   columns,
@@ -72,14 +118,29 @@ export const EditableTable: React.FC<EditableTableProps> = ({
   listName = "list",
   dataSource = [],
   showAddButton = true,
+  onAction,
   ...restProps
 }) => {
-  const { list, remove, push, resetList, insert, replace, getKey } =
+  const { list, remove, push, resetList, insert, replace, getKey, sortList } =
     useDynamicList<any>([]);
 
   useDeepCompareEffect(() => {
     resetList(dataSource);
   }, [dataSource]);
+
+  useMount(() => {
+    if (typeof onAction === "function") {
+      onAction({
+        push,
+        remove,
+        insert,
+        replace,
+        sortList,
+        getKey,
+        resetList,
+      });
+    }
+  });
 
   const getColumns = React.useMemo(() => {
     if (!Array.isArray(columns) || columns.length === 0) {
@@ -106,7 +167,7 @@ export const EditableTable: React.FC<EditableTableProps> = ({
         AntdComponent = valueTypeMap[valueType];
       }
       if (
-        !["inputNumber"].includes(valueType) &&
+        !["inputNumber", "checkboxGroup", "radioGroup"].includes(valueType) &&
         !("allowClear" in antdProps)
       ) {
         Object.assign(antdProps, { allowClear: true });
