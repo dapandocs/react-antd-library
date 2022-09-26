@@ -17,6 +17,7 @@ export interface DragSortTableProps extends TableProps<any> {
     lineClassName?: string;
   };
   mode?: "row" | "column";
+  onDragEnd?: (list: any[]) => void;
 }
 
 export const DragSortTable: React.FC<DragSortTableProps> = ({
@@ -24,6 +25,7 @@ export const DragSortTable: React.FC<DragSortTableProps> = ({
   dataSource = [],
   dragProps = {},
   mode = "row",
+  onDragEnd,
 }) => {
   const [state, setState] = useSetState<any>({
     tableData: dataSource,
@@ -35,7 +37,6 @@ export const DragSortTable: React.FC<DragSortTableProps> = ({
     return (
       <ReactDragListView.DragColumn
         nodeSelector="th"
-        handleSelector=".ant-table-cell"
         {...dragProps}
         onDragEnd={(oldIndex: number, newIndex: number) => {
           const list = arrayUtils.arrayMove(
@@ -43,6 +44,9 @@ export const DragSortTable: React.FC<DragSortTableProps> = ({
             oldIndex,
             newIndex
           );
+          if (typeof onDragEnd === "function") {
+            onDragEnd(list);
+          }
           setState({ tableColumns: list });
         }}
       >
@@ -64,6 +68,9 @@ export const DragSortTable: React.FC<DragSortTableProps> = ({
       {...dragProps}
       onDragEnd={(oldIndex: number, newIndex: number) => {
         const data = arrayUtils.arrayMove([...tableData], oldIndex, newIndex);
+        if (typeof onDragEnd === "function") {
+          onDragEnd(data);
+        }
         setState({ tableData: data });
       }}
     >
