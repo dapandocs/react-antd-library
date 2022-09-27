@@ -18,7 +18,7 @@ import type {
 import { CheckboxGroupProps } from "antd/lib/checkbox";
 import { useDynamicList, useDeepCompareEffect, useMount } from "ahooks";
 import { PreviewText } from "../PreviewText";
-import styles from "./EditableTable.less";
+import "./EditableTable.less";
 
 export interface EditableTableColumns<RecordType>
   extends TableColumnProps<RecordType> {
@@ -173,7 +173,7 @@ export const EditableTable: React.FC<EditableTableProps> = ({
         Object.assign(antdProps, { allowClear: true });
       }
       if (isHidden) {
-        Object.assign(item, { className: styles["antd-editable-hidden"] });
+        Object.assign(item, { className: "antd-editable-hidden" });
       }
 
       if (valueType === "option") {
@@ -237,10 +237,10 @@ export const EditableTable: React.FC<EditableTableProps> = ({
       <PreviewText
         previewMode="text"
         previewPlaceholder="-"
-        previewClassName={styles["antd-editable-text"]}
+        previewClassName="antd-editable-text"
       >
         <Table
-          className={styles["antd-editable-table"]}
+          className="antd-editable-table"
           pagination={false}
           {...restProps}
           rowKey={(r: any) => Math.random().toString(36).substring(2)}
