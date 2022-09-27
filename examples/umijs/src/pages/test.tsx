@@ -17,10 +17,24 @@ const dataSource = [
   },
 ];
 
+interface RecordItem {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+}
+
 const AntdEditableTable = () => {
   const [form] = Form.useForm();
   const [list, setList] = React.useState([]);
-  const columns: EditableTableColumns<any>[] = [
+  const [isHidden, setIsHidden] = React.useState(false);
+  const columns: EditableTableColumns<RecordItem>[] = [
+    {
+      title: "ID",
+      dataIndex: "key",
+      width: 200,
+      isHidden,
+    },
     {
       title: "姓名",
       dataIndex: "name",
@@ -63,12 +77,15 @@ const AntdEditableTable = () => {
           type="primary"
           onClick={() => {
             const { list } = form.getFieldsValue();
-            setList(list);
+            setList(list.filter((i: Record<string, any>) => !!i));
           }}
         >
           提交
         </Button>
         <Button onClick={() => form.resetFields()}>重置</Button>
+        <Button type="dashed" onClick={() => setIsHidden(!isHidden)}>
+          列隐藏切换
+        </Button>
       </Space>
     </>
   );
