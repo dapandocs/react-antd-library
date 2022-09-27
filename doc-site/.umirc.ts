@@ -34,16 +34,20 @@ export default defineConfig({
         title: "基础组件",
         children: [
           {
-            title: "AntdUpload 上传",
-            path: "/components/antd-upload",
+            title: "ButtonUpload 上传",
+            path: "/components/button-upload",
           },
           {
             title: "AntdTransfer 穿梭框",
             path: "/components/antd-transfer",
           },
           {
-            title: "AntdModal 对话框",
-            path: "/components/antd-modal",
+            title: "DraggableModal 对话框",
+            path: "/components/draggable-modal",
+          },
+          {
+            title: "EditableTable 可编辑表格",
+            path: "/components/editable-table",
           },
         ]
       },

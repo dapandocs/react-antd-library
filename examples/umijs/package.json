@@ -11,7 +11,7 @@
   "dependencies": {
     "@umijs/max": "^4.0.18",
     "antd": "^4.21.7",
-    "react-antd-library": "^0.1.13",
+    "react-antd-library": "^0.1.16",
     "xlsx-js-style": "^1.2.0"
   },
   "devDependencies": {

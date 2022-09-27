@@ -1,6 +1,6 @@
 {
   "name": "react-antd-library",
-  "version": "0.1.13",
+  "version": "0.1.16",
   "description": "An enterprise-class UI design language and React components implementation",
   "main": "lib/index.js",
   "module": "es/index.js",
@@ -29,7 +29,12 @@
     "PreviewText",
     "AntdDragModal",
     "antd drag modal",
-    "export file"
+    "export file",
+    "editable table",
+    "edit table",
+    "drag sort table",
+    "EditableTable",
+    "DragSortTable"
   ],
   "authors": [
     "spy"

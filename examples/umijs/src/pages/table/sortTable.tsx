@@ -1,7 +1,8 @@
 import React from "react";
 import { Table } from "antd";
 import { DragOutlined } from "@ant-design/icons";
-import { DragSortTable } from "../../../../../src";
+import { DragSortTable } from "react-antd-library";
+// import { DragSortTable } from "../../../../../src";
 const dataSource = [
   {
     key: "1",
