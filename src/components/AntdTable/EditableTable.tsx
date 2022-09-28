@@ -53,6 +53,7 @@ export interface EditableTableColumns<RecordType>
           name?: string[];
           dataIndex?: string;
           listName?: string;
+          record?: Record<string, any>;
         }
       ) => FormItemProps)
     | FormItemProps;
@@ -115,7 +116,7 @@ const valueTypeMap: Record<string, any> = {
   cascader: Cascader,
   treeSelect: TreeSelect,
 };
-export function EditableTable<DateType extends Record<string, any>>({
+const EditableTableMemo = <DateType extends Record<string, any>>({
   columns,
   form,
   listName = "list",
@@ -123,7 +124,7 @@ export function EditableTable<DateType extends Record<string, any>>({
   showAddButton = true,
   onAction,
   ...restProps
-}: EditableTableProps<DateType>) {
+}: EditableTableProps<DateType>) => {
   const { list, remove, push, resetList, insert, replace, getKey, sortList } =
     useDynamicList<any>([]);
 
@@ -170,7 +171,9 @@ export function EditableTable<DateType extends Record<string, any>>({
         AntdComponent = valueTypeMap[valueType];
       }
       if (
-        !["inputNumber", "checkboxGroup", "radioGroup"].includes(valueType) &&
+        !["inputNumber", "checkboxGroup", "radioGroup", "select"].includes(
+          valueType
+        ) &&
         !("allowClear" in antdProps)
       ) {
         Object.assign(antdProps, { allowClear: true });
@@ -213,6 +216,7 @@ export function EditableTable<DateType extends Record<string, any>>({
                 name: [listName, getKey(rowIndex), item.dataIndex],
                 dataIndex: item.dataIndex,
                 listName,
+                record: row,
               });
             } else if (typeof formItemProps === "object") {
               formItemPropsResult = formItemProps;
@@ -236,7 +240,7 @@ export function EditableTable<DateType extends Record<string, any>>({
       }
     });
     return columnsResult;
-  }, [columns, list]);
+  }, [columns]);
 
   return (
     <Form form={form}>
@@ -266,4 +270,5 @@ export function EditableTable<DateType extends Record<string, any>>({
       </PreviewText>
     </Form>
   );
-}
+};
+export const EditableTable = React.memo(EditableTableMemo);
