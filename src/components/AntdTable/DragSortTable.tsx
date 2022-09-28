@@ -28,6 +28,7 @@ export function DragSortTable<DateType extends Record<string, any>>({
   dragProps = {},
   mode = "row",
   onDragEnd,
+  ...restProps
 }: DragSortTableProps<DateType>) {
   const [state, setState] = useSetState<{
     tableColumns: TableColumnProps<DateType>[];
@@ -56,12 +57,12 @@ export function DragSortTable<DateType extends Record<string, any>>({
         }}
       >
         <Table
+          {...restProps}
           className="drag-sort-table"
           columns={tableColumns}
           dataSource={tableData}
           rowKey={(r: any) => Math.random().toString(36).substring(2)}
           pagination={false}
-          bordered
         />
       </ReactDragListView.DragColumn>
     );
@@ -80,6 +81,7 @@ export function DragSortTable<DateType extends Record<string, any>>({
       }}
     >
       <Table
+        {...restProps}
         columns={columns}
         dataSource={tableData}
         rowKey={(r: any) => Math.random().toString(36).substring(2)}

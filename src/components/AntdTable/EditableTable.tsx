@@ -69,7 +69,6 @@ export interface EditableTableColumns<RecordType>
       replace?: (index: number, item: any) => void;
       getKey?: (index: number) => number;
       push?: (item: any) => void;
-      list?: any[];
     }
   ) => React.ReactNode | null;
 }
@@ -90,7 +89,9 @@ export type EditableTableProps<DateType> = TableProps<DateType> & {
   showAddButton?: boolean;
   form?: FormInstance;
   listName?: string;
+  minRowNumber?: number;
   onAction?: (action: onActionOptions) => void;
+  onRowChange?: (list: DateType[]) => void;
 };
 
 const {
@@ -122,15 +123,32 @@ const EditableTableMemo = <DateType extends Record<string, any>>({
   listName = "list",
   dataSource = [],
   showAddButton = true,
+  minRowNumber = 0,
   onAction,
+  onRowChange,
   ...restProps
 }: EditableTableProps<DateType>) => {
+  const [listLength, setListLength] = React.useState(0);
+
   const { list, remove, push, resetList, insert, replace, getKey, sortList } =
     useDynamicList<any>([]);
 
   useDeepCompareEffect(() => {
     resetList(dataSource);
   }, [dataSource]);
+
+  useDeepCompareEffect(() => {
+    if (form) {
+      const { [listName]: editableList } = form.getFieldsValue();
+      if (Array.isArray(editableList)) {
+        const tableList = editableList.filter((i: DateType) => !!i);
+        if (typeof onRowChange === "function") {
+          onRowChange(tableList);
+        }
+        setListLength(tableList.length);
+      }
+    }
+  }, [list]);
 
   useMount(() => {
     if (typeof onAction === "function") {
@@ -145,6 +163,16 @@ const EditableTableMemo = <DateType extends Record<string, any>>({
       });
     }
   });
+
+  const getDelectButtonDisable = () => {
+    if (minRowNumber === 0) {
+      return false;
+    }
+    if (listLength > minRowNumber) {
+      return false;
+    }
+    return true;
+  };
 
   const getColumns = React.useMemo(() => {
     if (!Array.isArray(columns) || columns.length === 0) {
@@ -171,9 +199,14 @@ const EditableTableMemo = <DateType extends Record<string, any>>({
         AntdComponent = valueTypeMap[valueType];
       }
       if (
-        !["inputNumber", "checkboxGroup", "radioGroup", "select"].includes(
-          valueType
-        ) &&
+        ![
+          "inputNumber",
+          "checkboxGroup",
+          "radioGroup",
+          "select",
+          "cascader",
+          "treeSelect",
+        ].includes(valueType) &&
         !("allowClear" in antdProps)
       ) {
         Object.assign(antdProps, { allowClear: true });
@@ -193,13 +226,13 @@ const EditableTableMemo = <DateType extends Record<string, any>>({
                 replace,
                 getKey,
                 push,
-                list,
               })
             ) : (
               <Tooltip title="删除此行">
                 <Button
                   icon={<DeleteOutlined />}
                   onClick={() => remove(rowIndex)}
+                  disabled={getDelectButtonDisable()}
                 />
               </Tooltip>
             ),
@@ -240,7 +273,7 @@ const EditableTableMemo = <DateType extends Record<string, any>>({
       }
     });
     return columnsResult;
-  }, [columns]);
+  }, [columns, listLength]);
 
   return (
     <Form form={form}>
