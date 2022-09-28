@@ -1,13 +1,15 @@
 import React from "react";
 import { Table } from "antd";
-import type { TableProps } from "antd";
+import type { TableProps, TableColumnProps } from "antd";
 import { useSetState } from "ahooks";
 // @ts-ignore
 import ReactDragListView from "../DragListView";
 import { arrayUtils } from "../../utils";
 import "./DragSortTable.less";
 
-export interface DragSortTableProps extends TableProps<any> {
+export type DragSortTableProps<DateType> = TableProps<DateType> & {
+  columns?: TableColumnProps<DateType>[];
+  dataSource?: DateType[];
   dragProps?: {
     nodeSelector?: string;
     handleSelector?: string;
@@ -18,16 +20,19 @@ export interface DragSortTableProps extends TableProps<any> {
   };
   mode?: "row" | "column";
   onDragEnd?: (list: any[]) => void;
-}
+};
 
-export const DragSortTable: React.FC<DragSortTableProps> = ({
+export function DragSortTable<DateType extends Record<string, any>>({
   columns = [],
   dataSource = [],
   dragProps = {},
   mode = "row",
   onDragEnd,
-}) => {
-  const [state, setState] = useSetState<any>({
+}: DragSortTableProps<DateType>) {
+  const [state, setState] = useSetState<{
+    tableColumns: TableColumnProps<DateType>[];
+    tableData: DateType[];
+  }>({
     tableData: dataSource,
     tableColumns: columns,
   });
@@ -82,4 +87,4 @@ export const DragSortTable: React.FC<DragSortTableProps> = ({
       />
     </ReactDragListView>
   );
-};
+}

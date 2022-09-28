@@ -66,6 +66,7 @@ export interface EditableTableColumns<RecordType>
       remove?: (index: number) => void;
       insert?: (index: number, item: any) => void;
       replace?: (index: number, item: any) => void;
+      getKey?: (index: number) => number;
     }
   ) => React.ReactNode | null;
 }
@@ -80,14 +81,14 @@ export type onActionOptions = {
   resetList?: (newList: any[]) => void;
 };
 
-export interface EditableTableProps extends TableProps<any> {
-  columns?: EditableTableColumns<any>[];
-  dataSource?: Record<string, any>[];
+export type EditableTableProps<DateType> = TableProps<DateType> & {
+  columns?: EditableTableColumns<DateType>[];
+  dataSource?: DateType[];
   showAddButton?: boolean;
   form?: FormInstance;
   listName?: string;
   onAction?: (action: onActionOptions) => void;
-}
+};
 
 const {
   Input,
@@ -112,7 +113,7 @@ const valueTypeMap: Record<string, any> = {
   cascader: Cascader,
   treeSelect: TreeSelect,
 };
-export const EditableTable: React.FC<EditableTableProps> = ({
+export function EditableTable<DateType extends Record<string, any>>({
   columns,
   form,
   listName = "list",
@@ -120,7 +121,7 @@ export const EditableTable: React.FC<EditableTableProps> = ({
   showAddButton = true,
   onAction,
   ...restProps
-}) => {
+}: EditableTableProps<DateType>) {
   const { list, remove, push, resetList, insert, replace, getKey, sortList } =
     useDynamicList<any>([]);
 
@@ -146,7 +147,7 @@ export const EditableTable: React.FC<EditableTableProps> = ({
     if (!Array.isArray(columns) || columns.length === 0) {
       return [];
     }
-    const columnsResult: EditableTableColumns<any>[] = [];
+    const columnsResult: EditableTableColumns<DateType>[] = [];
     columns.forEach((item: Record<string, any>, colIndex: number) => {
       let AntdComponent = Input;
       const {
@@ -179,12 +180,13 @@ export const EditableTable: React.FC<EditableTableProps> = ({
       if (valueType === "option") {
         columnsResult.push({
           ...item,
-          render: (t: any, row: Record<string, any>, rowIndex: number) =>
+          render: (t: any, row: DateType, rowIndex: number) =>
             typeof item?.render === "function" ? (
-              item.render(t, row, getKey(rowIndex), {
+              item.render(t, row, rowIndex, {
                 insert,
                 remove,
                 replace,
+                getKey,
               })
             ) : (
               <Tooltip title="删除此行">
@@ -198,7 +200,7 @@ export const EditableTable: React.FC<EditableTableProps> = ({
       } else {
         columnsResult.push({
           ...item,
-          render: (t: any, row: Record<string, any>, rowIndex: number) => {
+          render: (t: any, row: DateType, rowIndex: number) => {
             let formItemPropsResult = {};
             if (typeof formItemProps === "function") {
               formItemPropsResult = formItemProps(form, {
@@ -243,7 +245,7 @@ export const EditableTable: React.FC<EditableTableProps> = ({
           className="antd-editable-table"
           pagination={false}
           {...restProps}
-          rowKey={(r: any) => Math.random().toString(36).substring(2)}
+          rowKey={(r: DateType) => Math.random().toString(36).substring(2)}
           dataSource={list}
           columns={getColumns}
         />
@@ -260,4 +262,4 @@ export const EditableTable: React.FC<EditableTableProps> = ({
       </PreviewText>
     </Form>
   );
-};
+}
