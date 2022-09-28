@@ -67,6 +67,8 @@ export interface EditableTableColumns<RecordType>
       insert?: (index: number, item: any) => void;
       replace?: (index: number, item: any) => void;
       getKey?: (index: number) => number;
+      push?: (item: any) => void;
+      list?: any[];
     }
   ) => React.ReactNode | null;
 }
@@ -187,6 +189,8 @@ export function EditableTable<DateType extends Record<string, any>>({
                 remove,
                 replace,
                 getKey,
+                push,
+                list,
               })
             ) : (
               <Tooltip title="删除此行">
@@ -232,7 +236,7 @@ export function EditableTable<DateType extends Record<string, any>>({
       }
     });
     return columnsResult;
-  }, [columns]);
+  }, [columns, list]);
 
   return (
     <Form form={form}>
