@@ -614,6 +614,589 @@ const AntdEditableTable = () => {
 export default AntdEditableTable;
 ```
 
+### 设置最小行数
+
+```tsx
+/**
+ * title: 设置最小行数
+ * transform: true
+ * desc: 可通过设置minRowNumber，当行数小于等于最小行数，默认删除按钮将disable。
+ */
+import React from "react";
+import { Form, Button, Space } from "antd";
+import { EditableTable, EditableTableColumns } from "react-antd-library";
+
+const dataSource = [
+  {
+    key: "1",
+    name: "zhangsan",
+    age: 32,
+    address: "西湖区湖底公园1号",
+  },
+  {
+    key: "2",
+    name: "lisi",
+    age: 42,
+    address: "西湖区湖底公园1号",
+  },
+];
+
+interface RecordItem {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const AntdEditableTable = () => {
+  const [form] = Form.useForm();
+  const [list, setList] = React.useState([]);
+  const columns: EditableTableColumns<RecordItem>[] = [
+    {
+      title: "姓名",
+      dataIndex: "name",
+      valueType: "select",
+      antdComponentProps: {
+        select: {
+          options: [
+            {
+              label: "张三",
+              value: "zhangsan",
+            },
+            {
+              label: "李四",
+              value: "lisi",
+            },
+          ],
+        },
+      },
+    },
+    {
+      title: "年龄",
+      dataIndex: "age",
+      valueType: "inputNumber",
+    },
+    {
+      title: "住址",
+      dataIndex: "address",
+    },
+    {
+      title: "操作",
+      valueType: "option",
+      align: "center",
+    },
+  ];
+  return (
+    <>
+      <EditableTable
+        form={form}
+        columns={columns}
+        dataSource={dataSource}
+        minRowNumber={1}
+      />
+      <pre>{JSON.stringify(list, null, 2)}</pre>
+      <Space>
+        <Button
+          type="primary"
+          onClick={() => {
+            const { list } = form.getFieldsValue();
+            setList(list.filter((i: Record<string, any>) => !!i));
+          }}
+        >
+          提交
+        </Button>
+        <Button onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </>
+  );
+};
+export default AntdEditableTable;
+```
+
+### 与 FormItem 配合设置表单校验
+
+```tsx
+/**
+ * title: 与 FormItem 配合设置表单校验
+ * transform: true
+ * desc: 可通过设置columns.formItemProps，设置列表单的FormItem参数。
+ */
+import React from "react";
+import { Form, Button, Space } from "antd";
+import { EditableTable, EditableTableColumns } from "react-antd-library";
+
+const dataSource = [
+  {
+    key: "1",
+  },
+  {
+    key: "2",
+    name: "lisi",
+    age: 42,
+    address: "西湖区湖底公园1号",
+  },
+];
+
+interface RecordItem {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const AntdEditableTable = () => {
+  const [form] = Form.useForm();
+  const [list, setList] = React.useState([]);
+  const columns: EditableTableColumns<RecordItem>[] = [
+    {
+      title: "姓名",
+      dataIndex: "name",
+      valueType: "select",
+      antdComponentProps: {
+        select: {
+          allowClear: true,
+          options: [
+            {
+              label: "张三",
+              value: "zhangsan",
+            },
+            {
+              label: "李四",
+              value: "lisi",
+            },
+          ],
+        },
+      },
+      formItemProps: (form, { rowIndex }) => {
+        if (rowIndex === 0) {
+          // 仅第一行做必填校验
+          return {
+            rules: [{ message: "请选择", required: true }],
+          };
+        }
+        return {};
+      },
+    },
+    {
+      title: "年龄",
+      dataIndex: "age",
+      valueType: "inputNumber",
+      formItemProps: {
+        rules: [{ message: "请输入", required: true }],
+      },
+    },
+    {
+      title: "住址",
+      dataIndex: "address",
+    },
+    {
+      title: "操作",
+      valueType: "option",
+      align: "center",
+    },
+  ];
+  const getColumns = React.useMemo(() => columns, []);
+  return (
+    <>
+      <EditableTable
+        form={form}
+        columns={getColumns}
+        dataSource={dataSource}
+        showAddButton={false}
+      />
+      <pre>{JSON.stringify(list, null, 2)}</pre>
+      <Space>
+        <Button
+          type="primary"
+          onClick={async () => {
+            const { list } = await form.validateFields();
+            setList(list.filter((i: Record<string, any>) => !!i));
+          }}
+        >
+          提交
+        </Button>
+        <Button onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </>
+  );
+};
+export default AntdEditableTable;
+```
+
+### 自定义操作栏
+
+```tsx
+/**
+ * title: 自定义操作栏
+ * transform: true
+ * desc: 可通过设置columns.render，可自定义操作栏。
+ */
+import React from "react";
+import { Form, Button, Space } from "antd";
+import { EditableTable, EditableTableColumns } from "react-antd-library";
+
+const dataSource = [
+  {
+    key: "1",
+    name: "zhangsan",
+    age: 32,
+    address: "西湖区湖底公园1号",
+  },
+  {
+    key: "2",
+    name: "lisi",
+    age: 42,
+    address: "西湖区湖底公园1号",
+  },
+];
+
+interface RecordItem {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const AntdEditableTable = () => {
+  const [form] = Form.useForm();
+  const [list, setList] = React.useState([]);
+  const [curList, setCurList] = React.useState([]);
+  const columns: EditableTableColumns<RecordItem>[] = [
+    {
+      title: "姓名",
+      dataIndex: "name",
+      valueType: "select",
+      antdComponentProps: {
+        select: {
+          options: [
+            {
+              label: "张三",
+              value: "zhangsan",
+            },
+            {
+              label: "李四",
+              value: "lisi",
+            },
+          ],
+        },
+      },
+    },
+    {
+      title: "年龄",
+      dataIndex: "age",
+      valueType: "inputNumber",
+    },
+    {
+      title: "住址",
+      dataIndex: "address",
+    },
+    {
+      title: "操作",
+      valueType: "option",
+      align: "center",
+      render: (t, row, index, action) => {
+        return (
+          <Space>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => {
+                action.insert(index + 1, {});
+              }}
+            >
+              下方插入一行
+            </Button>
+            <Button
+              type="link"
+              size="small"
+              onClick={() => {
+                const { list } = form.getFieldsValue();
+                const curRow = list[action.getKey(index)];
+                action?.push(curRow);
+              }}
+            >
+              复制此行到末尾
+            </Button>
+            <Button
+              type="link"
+              size="small"
+              danger
+              disabled={curList.length <= 1}
+              onClick={() => {
+                if (action?.remove) {
+                  action.remove(index);
+                }
+              }}
+            >
+              删除当前行
+            </Button>
+          </Space>
+        );
+      },
+    },
+  ];
+  return (
+    <>
+      <EditableTable
+        form={form}
+        columns={columns}
+        dataSource={dataSource}
+        onRowChange={(t) => setCurList(t)}
+      />
+      <pre>{JSON.stringify(list, null, 2)}</pre>
+      <Space>
+        <Button
+          type="primary"
+          onClick={() => {
+            const { list } = form.getFieldsValue();
+            setList(list.filter((i: Record<string, any>) => !!i));
+          }}
+        >
+          提交
+        </Button>
+        <Button onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </>
+  );
+};
+export default AntdEditableTable;
+```
+
+### 自定义添加按钮及数据控制
+
+```tsx
+/**
+ * title: 自定义添加按钮及数据控制
+ * transform: true
+ */
+import React from "react";
+import { Form, Button, Space } from "antd";
+import {
+  EditableTable,
+  EditableTableColumns,
+  onActionOptions,
+} from "react-antd-library";
+
+const dataSource = [
+  {
+    key: "1",
+    name: "zhangsan",
+    age: 32,
+    address: "西湖区湖底公园1号",
+  },
+  {
+    key: "2",
+    name: "lisi",
+    age: 42,
+    address: "西湖区湖底公园1号",
+  },
+];
+
+interface RecordItem {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const AntdEditableTable = () => {
+  const [form] = Form.useForm();
+  const [list, setList] = React.useState([]);
+  const [action, setAction] = React.useState<onActionOptions>({});
+  const columns: EditableTableColumns<RecordItem>[] = [
+    {
+      title: "姓名",
+      dataIndex: "name",
+      valueType: "select",
+      antdComponentProps: {
+        select: {
+          options: [
+            {
+              label: "张三",
+              value: "zhangsan",
+            },
+            {
+              label: "李四",
+              value: "lisi",
+            },
+          ],
+        },
+      },
+    },
+    {
+      title: "年龄",
+      dataIndex: "age",
+      valueType: "inputNumber",
+    },
+    {
+      title: "住址",
+      dataIndex: "address",
+    },
+    {
+      title: "操作",
+      valueType: "option",
+      align: "center",
+    },
+  ];
+  return (
+    <>
+      <Space>
+        <Button type="primary" onClick={() => action.push({})}>
+          新增一行
+        </Button>
+        <Button type="primary" danger onClick={() => action.resetList([])}>
+          全部删除
+        </Button>
+      </Space>
+      <EditableTable
+        form={form}
+        columns={columns}
+        dataSource={dataSource}
+        showAddButton={false}
+        onAction={(at) => setAction(at)}
+      />
+      <pre>{JSON.stringify(list, null, 2)}</pre>
+      <Space>
+        <Button
+          type="primary"
+          onClick={() => {
+            const { list } = form.getFieldsValue();
+            setList(list.filter((i: Record<string, any>) => !!i));
+          }}
+        >
+          提交
+        </Button>
+        <Button onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </>
+  );
+};
+export default AntdEditableTable;
+```
+
+### 与Form表单配合使用
+
+```tsx
+/**
+ * title: 与Form表单配合使用
+ * transform: true
+ */
+import React from "react";
+import { Form, Button, Space, Select } from "antd";
+import { EditableTable, EditableTableColumns } from "react-antd-library";
+
+const dataSource = [
+  {
+    key: "1",
+    name: "zhangsan",
+    age: 32,
+    address: "西湖区湖底公园1号",
+  },
+  {
+    key: "2",
+    name: "lisi",
+    age: 42,
+    address: "西湖区湖底公园1号",
+  },
+];
+
+interface RecordItem {
+  key: string;
+  name: string;
+  age: number;
+  address: string;
+}
+
+const AntdEditableTable = () => {
+  const [form] = Form.useForm();
+  const [userInfo, setUserInfo] = React.useState({});
+  const columns: EditableTableColumns<RecordItem>[] = [
+    {
+      title: "姓名",
+      dataIndex: "name",
+      valueType: "select",
+      antdComponentProps: {
+        select: {
+          allowClear: true,
+          options: [
+            {
+              label: "张三",
+              value: "zhangsan",
+            },
+            {
+              label: "李四",
+              value: "lisi",
+            },
+          ],
+        },
+      },
+    },
+    {
+      title: "年龄",
+      dataIndex: "age",
+      valueType: "inputNumber",
+    },
+    {
+      title: "住址",
+      dataIndex: "address",
+    },
+    {
+      title: "操作",
+      valueType: "option",
+      align: "center",
+    },
+  ];
+
+  const getColumns = React.useMemo(() => columns, []);
+  
+  return (
+    <>
+      <Form form={form}>
+        <Form.Item label="班级" name="className" initialValue="一年级">
+          <Select placeholder="请选择">
+            <Select.Option key="1" value="一年级">
+              一年级
+            </Select.Option>
+            <Select.Option key="2" value="二年级">
+              二年级
+            </Select.Option>
+            <Select.Option key="3" value="三年级">
+              三年级
+            </Select.Option>
+          </Select>
+        </Form.Item>
+      </Form>
+      <EditableTable
+        form={form}
+        columns={getColumns}
+        dataSource={dataSource}
+        listName="userList"
+      />
+      <pre>{JSON.stringify(userInfo, null, 2)}</pre>
+      <Space>
+        <Button
+          type="primary"
+          onClick={async () => {
+            const values = await form.validateFields();
+            const { userList } = values;
+            if (Array.isArray(userList)) {
+              Object.assign(values, {
+                userList: userList.filter((i: RecordItem) => !!i),
+              });
+            }
+            setUserInfo(values);
+          }}
+        >
+          提交
+        </Button>
+        <Button onClick={() => form.resetFields()}>重置</Button>
+      </Space>
+    </>
+  );
+};
+export default AntdEditableTable;
+```
+
 ## API
 
 ### AntdTransfer
