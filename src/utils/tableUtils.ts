@@ -20,14 +20,16 @@ const mergeRows = (data: any[], dataIndex: string) => {
 };
 
 export const tableUtils = {
-  // eg: 在clumns.render返回 { children: t, props: { rowSpan: row.nameRowSpan }}
   mergeTableRows: (data: any[], dataIndexList: string[]) =>
     dataIndexList.reduce(
       (pre: any[], dataIndex: string) => mergeRows(pre, dataIndex),
       data
     ),
-  mergeTableField: (row: any, dataIndex: any) => ({
-    children: row[dataIndex],
-    props: { rowSpan: row[`${dataIndex}RowSpan`] },
+  // renderTableField: (row: any, dataIndex: any) => ({
+  //   children: row[dataIndex],
+  //   props: { rowSpan: row[`${dataIndex}RowSpan`] },
+  // }),
+  onCellTableField: (row: any, dataIndex: any) => ({
+    rowSpan: row[`${dataIndex}RowSpan`],
   }),
 };
