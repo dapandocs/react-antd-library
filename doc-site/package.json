@@ -33,7 +33,7 @@
     "@ant-design/icons": "^4.7.0",
     "antd": "4.19.0",
     "react": "^18.2.0",
-    "react-antd-library": "^0.1.20",
+    "react-antd-library": "^0.1.21",
     "xlsx-js-style": "^1.2.0"
   },
   "devDependencies": {

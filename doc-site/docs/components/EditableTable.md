@@ -1199,14 +1199,56 @@ export default AntdEditableTable;
 
 ## API
 
-### AntdTransfer
+### EditableTable
 
-| 参数          | 说明                                                              | 类型                                                                         | 默认值 |
-| ------------- | ----------------------------------------------------------------- | ---------------------------------------------------------------------------- | ------ |
-| idKey         | 穿梭框对应对应的key名称                                           | string                                                                       | key    |
-| nameKey       | 穿梭框对应的title名称                                             | string                                                                       | title  |
-| limitMaxCount | 限制上传个数                                                      | number                                                                       | 0      |
-| dataSource    | 数据源，其中的数据将会被渲染到左边一栏中，targetKeys 中指定的除外 | Array<{}>                                                                    | [ ]    |
-| value         | 穿梭框右侧的targetKeys                                            | string[]                                                                     | [ ]    |
-| onChange      | 选项在两栏之间转移时的回调函数                                    | (targetKeys: string[], options: any[])=>void                                 |        |
-| antdProps     | antd Transfer属性                                                 | [TransferProps](https://ant-design.antgroup.com/components/transfer-cn/#API) |        |
+| 参数          | 说明                 | 类型                                                                                                                           | 默认值 |
+| ------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------ |
+| showAddButton | 是否显示添加一行按钮 | boolean                                                                                                                        | `true` |
+| form          | `Form` 实例          | -                                                                                                                              | -      |
+| minRowNumber  | 最小行数             | number                                                                                                                         | 0      |
+| listName      | 表格数据对象名称     | string                                                                                                                         | `list` |
+| onAction      | 自定义操作           | ( action: [onActionOptions](https://react-spy.gitee.io/react-antd-library/components/editable-table#onactionoptions) ) => void | -      |
+| onRowChange   | 行数变化时的回调函数 | ( list: DateType[] ) => void                                                                                                   |        |
+
+其它Table参数请参考：[Antd Table](https://ant-design.antgroup.com/components/table-cn/#API)
+
+### Column
+
+| 参数               | 说明             | 类型                                                                                                                                                      | 默认值  |
+| ------------------ | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| isEditable         | 是否编辑         | boolean                                                                                                                                                   | `true`  |
+| isHidden           | 是否隐藏         | boolean                                                                                                                                                   | `false` |
+| valueType          | 值类型           | `input` \| `select`  \| `inputNumber`  \| `datePicker`  \| `timePicker`  \| `checkboxGroup`  \| `radioGroup`  \| `cascader`  \| `treeSelect`  \| `option` | `input` |
+| antdComponentProps | 组件参数         | [AntdComponentProps](https://react-spy.gitee.io/react-antd-library/components/editable-table#antdcomponentprops)                                          | 0       |
+| formItemProps      | FormItem参数     | ( form, config )=>  FormItemProps \| FormItemProps                                                                                                        | { }     |
+| render             | 自定义渲染操作栏 | ( text, row, index, action) =>React.ReactNode                                                                                                             | -       |
+
+其它Column参数请参考：[Antd Table Column](https://ant-design.antgroup.com/components/table-cn/#Column)
+
+### AntdComponentProps
+```
+{
+    input?: InputProps;
+    select?: SelectProps;
+    inputNumber?: InputNumberProps;
+    datePicker?: DatePickerProps;
+    timePicker?: TimePickerProps;
+    checkboxGroup?: CheckboxGroupProps;
+    radioGroup?: RadioGroupProps;
+    cascader?: CascaderProps<T>;
+    treeSelect?: TreeSelectProps;
+}
+```
+
+### onActionOptions
+```
+{
+  insert?: (index: number, item: any[]) => void;
+  replace?: (index: number, item: any[]) => void;
+  remove?: (index: number) => void;
+  getKey?: (index: number) => number;
+  push?: (item: any) => void;
+  sortList?: (result: any[]) => any[];
+  resetList?: (newList: any[]) => void;
+}
+```

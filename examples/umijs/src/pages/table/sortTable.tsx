@@ -48,9 +48,7 @@ const columns = [
 ];
 const SortTable = () => {
   return (
-    <div style={{ margin: 20 }}>
-      <DragSortTable dataSource={dataSource} columns={columns} mode="column" />
-    </div>
+    <DragSortTable dataSource={dataSource} columns={columns} mode="column" />
   );
 };
 export default SortTable;

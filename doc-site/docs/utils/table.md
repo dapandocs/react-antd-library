@@ -1,3 +1,16 @@
+# tableUtils 表格相关
+
+> tableUtils目前提供合并Table单元格的能力。
+
+## 代码演示
+
+### importUtils.mergeTableRows
+
+```tsx
+/**
+ * title: 合并单元格
+ * transform: true
+ */
 import React from "react";
 import { Table } from "antd";
 import { tableUtils } from "react-antd-library";
@@ -47,7 +60,7 @@ const columns = [
     title: "住址",
     dataIndex: "address",
     key: "address",
-    onCell: (row: Record<string, any>) => onCellTableField(row, "name"),
+    onCell: (row: Record<string, any>) => onCellTableField(row, "address"),
   },
 ];
 const MergeTableRows = () => {
@@ -61,3 +74,20 @@ const MergeTableRows = () => {
   );
 };
 export default MergeTableRows;
+```
+
+## API
+
+```
+{
+    const newDataSource = mergeTableRows(dataSource: any[], dataIndexList: string[]);
+}
+```
+
+### mergeTableRows
+
+| 参数          | 说明                               | 类型                      | 默认值                                 |
+| ------------- | ---------------------------------- | ------------------------- | -------------------------------------- |
+| dataSource    | 数据数组                           | any[ ]                     |                                        |
+| dataIndexList | 合并字段集合                       | string[ ]                  |                                        |
+

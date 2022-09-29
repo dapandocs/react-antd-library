@@ -34,7 +34,7 @@ export default defineConfig({
         title: "基础组件",
         children: [
           {
-            title: "ButtonUpload 上传",
+            title: "ButtonUpload 按钮上传",
             path: "/components/button-upload",
           },
           {
@@ -42,12 +42,16 @@ export default defineConfig({
             path: "/components/antd-transfer",
           },
           {
-            title: "DraggableModal 对话框",
+            title: "DraggableModal 拖动对话框",
             path: "/components/draggable-modal",
           },
           {
             title: "EditableTable 可编辑表格",
             path: "/components/editable-table",
+          },
+          {
+            title: "DragSortTable 拖动排序表格",
+            path: "/components/dragsort-table",
           },
         ]
       },
