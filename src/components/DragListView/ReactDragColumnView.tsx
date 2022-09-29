@@ -21,7 +21,7 @@ class ReactDragColumnView extends ReactDragListView {
     return this.dragLine;
   }
 
-  resolveAutoScroll(e, target) {
+  resolveAutoScroll(e: any, target: any) {
     if (!this.scrollElement) {
       return;
     }
@@ -37,6 +37,7 @@ class ReactDragColumnView extends ReactDragListView {
     }
     if (this.direction) {
       if (this.scrollTimerId < 0) {
+        // @ts-ignore
         this.scrollTimerId = setInterval(this.autoScroll, 20);
       }
     } else {
@@ -61,7 +62,7 @@ class ReactDragColumnView extends ReactDragListView {
     }
   }
 
-  fixDragLine(target) {
+  fixDragLine(target: any) {
     const dragLine = this.getDragLine();
     if (!target || this.state.fromIndex < 0) {
       this.hideDragLine();

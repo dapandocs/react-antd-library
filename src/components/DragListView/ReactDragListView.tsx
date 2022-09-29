@@ -21,8 +21,16 @@ class ReactDragListView extends Component {
     lineClassName: "",
     children: null,
   };
+  dragLine: any;
+  cacheDragTarget: any;
+  scrollElement: any;
+  direction: number;
+  scrollTimerId: number;
+  state: any;
+  props: any;
+  static DragColumn: any;
 
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.onTouchStart = this.onTouchStart.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
@@ -35,7 +43,6 @@ class ReactDragListView extends Component {
       fromIndex: -1,
       toIndex: -1,
     };
-
     this.scrollElement = null;
     this.scrollTimerId = -1;
     this.direction = DIRECTIONS.BOTTOM;
@@ -49,21 +56,21 @@ class ReactDragListView extends Component {
     }
   }
 
-  onTouchStart(e) {
+  onTouchStart(e: any) {
     if (!isTouchScreen()) {
       return;
     }
     this.startDrag(e);
   }
 
-  onMouseDown(e) {
+  onMouseDown(e: any) {
     if (isTouchScreen()) {
       return;
     }
     this.startDrag(e);
   }
 
-  onDragStart(e) {
+  onDragStart(e: any) {
     const target = this.getDragNode(e.target);
     const eventData = e;
     if (target) {
@@ -71,7 +78,7 @@ class ReactDragListView extends Component {
       eventData.dataTransfer.setData("Text", "");
       eventData.dataTransfer.effectAllowed = "move";
       parentNode.ondragenter = this.onDragEnter;
-      parentNode.ondragover = function (ev) {
+      parentNode.ondragover = function (ev: any) {
         ev.preventDefault();
         return true;
       };
@@ -81,7 +88,7 @@ class ReactDragListView extends Component {
     }
   }
 
-  onDragEnter(e) {
+  onDragEnter(e: any) {
     const target = this.getDragNode(e.target);
     const eventData = e;
     let toIndex;
@@ -99,7 +106,7 @@ class ReactDragListView extends Component {
     this.fixDragLine(target);
   }
 
-  onDragEnd(e) {
+  onDragEnd(e: any) {
     const target = this.getDragNode(e.target);
     this.stopAutoScroll();
     if (target) {
@@ -119,11 +126,14 @@ class ReactDragListView extends Component {
     this.setState({ fromIndex: -1, toIndex: -1 });
   }
 
-  getDragNode(target) {
+  getDragNode(target: any) {
     return closest(target, this.props.nodeSelector, this.dragList);
   }
+  dragList(target: any, nodeSelector: any, dragList: any) {
+    throw new Error("Method not implemented.");
+  }
 
-  getHandleNode(target) {
+  getHandleNode(target: any) {
     return closest(
       target,
       this.props.handleSelector || this.props.nodeSelector,
@@ -141,7 +151,7 @@ class ReactDragListView extends Component {
     return this.dragLine;
   }
 
-  startDrag(e) {
+  startDrag(e: any) {
     const handle = this.getHandleNode(e.target);
     if (handle) {
       const target =
@@ -158,7 +168,7 @@ class ReactDragListView extends Component {
     }
   }
 
-  resolveAutoScroll(e, target) {
+  resolveAutoScroll(e: any, target: any) {
     if (!this.scrollElement) {
       return;
     }
@@ -174,6 +184,7 @@ class ReactDragListView extends Component {
     }
     if (this.direction) {
       if (this.scrollTimerId < 0) {
+        // @ts-ignore
         this.scrollTimerId = setInterval(this.autoScroll, 20);
       }
     } else {
@@ -210,7 +221,7 @@ class ReactDragListView extends Component {
     }
   }
 
-  fixDragLine(target) {
+  fixDragLine(target: any) {
     const dragLine = this.getDragLine();
     if (!target || this.state.fromIndex < 0) {
       this.hideDragLine();
@@ -240,6 +251,7 @@ class ReactDragListView extends Component {
         onTouchStart={this.onTouchStart}
         onMouseDown={this.onMouseDown}
         ref={(c) => {
+          // @ts-ignore
           this.dragList = c;
         }}
       >
