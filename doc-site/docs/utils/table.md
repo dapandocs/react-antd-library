@@ -4,7 +4,7 @@
 
 ## 代码演示
 
-### importUtils.mergeTableRows
+### tableUtils.mergeTableRows
 
 ```tsx
 /**

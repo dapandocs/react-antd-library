@@ -19,17 +19,35 @@ const mergeRows = (data: any[], dataIndex: string) => {
     }, []);
 };
 
-export const tableUtils = {
-  mergeTableRows: (data: any[], dataIndexList: string[]) =>
-    dataIndexList.reduce(
-      (pre: any[], dataIndex: string) => mergeRows(pre, dataIndex),
-      data
-    ),
-  // renderTableField: (row: any, dataIndex: any) => ({
-  //   children: row[dataIndex],
-  //   props: { rowSpan: row[`${dataIndex}RowSpan`] },
-  // }),
-  onCellTableField: (row: any, dataIndex: any) => ({
-    rowSpan: row[`${dataIndex}RowSpan`],
-  }),
-};
+// export const renderTableField = (row: any, dataIndex: any) => ({
+//   children: row[dataIndex],
+//   props: { rowSpan: row[`${dataIndex}RowSpan`] },
+// });
+
+/**
+ * data追加 `${dataIndex}RowSpan`
+ * @param data 表格数据
+ * @param dataIndexList 合并字段集合
+ * @returns
+ */
+export const mergeTableRows = <DataType extends Record<string, any>>(
+  data: DataType[],
+  dataIndexList: string[]
+) =>
+  dataIndexList.reduce(
+    (pre: any[], dataIndex: string) => mergeRows(pre, dataIndex),
+    data
+  );
+
+/**
+ * columns.onCell 配合mergeTableRows使用
+ * @param row 当前行数据对象
+ * @param dataIndex 字段名称
+ * @returns
+ */
+export const onCellTableField = <DataType extends Record<string, any>>(
+  row: DataType,
+  dataIndex: string[]
+) => ({
+  rowSpan: row[`${dataIndex}RowSpan`],
+});
