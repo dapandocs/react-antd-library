@@ -1,23 +1,43 @@
 /**
  * 树形数据forEach遍历
  * @param data
- * @param childrenName
  * @param callback
+ * @param fieldNames
  * @param level
+ * @param paths
  */
 export const forEachTree = <TreeDataType extends Record<string, any>>(
   data: TreeDataType[],
-  callback: (node: TreeDataType, level: number) => void,
-  childrenName: string = "children",
-  level: number = 1
+  callback: (node: TreeDataType, level: number, paths: string[]) => void,
+  fieldNames: {
+    children: string;
+    title?: string;
+    key: string;
+  } = {
+    children: "children",
+    title: "title",
+    key: "key",
+  },
+  level: number = 1,
+  paths: string[] = []
 ) => {
   if (!Array.isArray(data) || data.length === 0) {
     return [];
   }
   for (let i = 0; i < data.length; i++) {
-    callback(data[i], level);
-    if (data[i][childrenName] && data[i][childrenName].length > 0) {
-      forEachTree(data[i][childrenName], callback, childrenName, level + 1);
+    paths.push(data[i][fieldNames.key]);
+    callback(data[i], level, paths);
+    if (
+      data[i][fieldNames.children] &&
+      data[i][fieldNames.children].length > 0
+    ) {
+      forEachTree(
+        data[i][fieldNames.children],
+        callback,
+        fieldNames,
+        level + 1,
+        paths
+      );
     }
   }
 };
