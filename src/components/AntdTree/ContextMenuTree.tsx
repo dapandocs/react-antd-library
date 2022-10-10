@@ -1,5 +1,5 @@
 import React from "react";
-import { Tree, Input } from "antd";
+import { Tree, Input, Dropdown, Menu } from "antd";
 import type { TreeProps, TreeDataNode } from "antd";
 import type { SearchProps } from "antd/lib/input/Search";
 import { useSetState, useDebounceFn, useControllableValue } from "ahooks";
@@ -8,7 +8,7 @@ import "./MenuTree.less";
 
 const { Search } = Input;
 
-type MenuTreeProps = TreeProps & {
+type ContextMenuTreeProps = TreeProps & {
   fieldNames?: {
     title?: "title";
     key?: "key";
@@ -18,11 +18,13 @@ type MenuTreeProps = TreeProps & {
   mode?: "primary" | "directory";
   showSearch?: boolean;
   searchParams?: SearchProps;
+  contextMenuItems: React.ReactElement;
   onAutoExpandParent?: (autoExpandParent: boolean) => void;
 };
 
-export const MenuTree: React.FC<MenuTreeProps> = (props) => {
+export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
   const {
+    contextMenuItems = <span />,
     fieldNames = {
       title: "title",
       key: "key",
@@ -35,7 +37,12 @@ export const MenuTree: React.FC<MenuTreeProps> = (props) => {
     searchParams = {},
     ...restProps
   } = props;
+  const dropdownElement: React.RefObject<HTMLDivElement> = React.useRef(null);
+
   const [state, setState] = useSetState({
+    pageX: 0,
+    pageY: 0,
+    showContextMenu: false,
     searchValue: "",
   });
 
@@ -54,7 +61,14 @@ export const MenuTree: React.FC<MenuTreeProps> = (props) => {
       trigger: "onAutoExpandParent",
     }
   );
-  const { searchValue } = state;
+
+  const { pageX, pageY, showContextMenu, searchValue } = state;
+
+  React.useEffect(() => {
+    if (dropdownElement.current) {
+      dropdownElement.current?.focus();
+    }
+  }, [showContextMenu]);
 
   const onChange = (value: string) => {
     const expandedKeys = [];
@@ -70,29 +84,6 @@ export const MenuTree: React.FC<MenuTreeProps> = (props) => {
     setExpandedKeys(expandedKeys);
   };
   const { run } = useDebounceFn(onChange, { wait: 300 });
-  const onExpand = (expandedKeys: string[], { node }: Record<string, any>) => {
-    const expandedKey = node.key;
-    setAutoExpandParent(false);
-    setExpandedKeys(expandedKeys);
-    setSelectedKeys([expandedKey]);
-  };
-
-  const onSelect = (
-    selectedKeys: string[],
-    { selected, node }: Record<string, any>
-  ) => {
-    const selectedKey = node.key;
-    if (selected) {
-      // 未选中
-      if (expandedKeys.includes(selectedKey)) {
-        setSelectedKeys(selectedKeys);
-      } else {
-        setAutoExpandParent(false);
-        setSelectedKeys(selectedKeys);
-        setExpandedKeys([...selectedKeys, ...expandedKeys]);
-      }
-    }
-  };
 
   const renderTreeNodes = (data: TreeDataNode[]): any =>
     data.map((item: any) => {
@@ -125,8 +116,45 @@ export const MenuTree: React.FC<MenuTreeProps> = (props) => {
         isLeaf: item[fieldNames.isLeaf],
       };
     });
+
+  const renderContextMenu = () => {
+    if (pageX && pageY) {
+      return (
+        <div
+          tabIndex={-1}
+          style={{
+            display: showContextMenu ? "inherit" : "none",
+            position: "fixed",
+            left: pageX - 16,
+            top: pageY + 8,
+            zIndex: 100,
+            boxShadow:
+              "0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d",
+          }}
+          ref={dropdownElement}
+          onBlur={(e) => {
+            e.stopPropagation();
+            setState({ showContextMenu: false });
+          }}
+        >
+          {contextMenuItems}
+        </div>
+      );
+    }
+    return null;
+  };
+
+  const handleRightClick = ({ event, node }: any) => {
+    event.stopPropagation();
+    setState({
+      pageX: event.pageX,
+      pageY: event.pageY,
+      showContextMenu: true,
+    });
+  };
+
   return (
-    <div className={mode === "primary" ? "antd-menu-tree" : ""}>
+    <div>
       {showSearch && (
         <Search
           style={{ marginBottom: 8 }}
@@ -140,13 +168,15 @@ export const MenuTree: React.FC<MenuTreeProps> = (props) => {
         showIcon={false}
         defaultExpandParent={false}
         {...restProps}
-        onExpand={onExpand}
-        onSelect={onSelect}
+        // onExpand={onExpand}
+        // onSelect={onSelect}
         expandedKeys={expandedKeys}
         selectedKeys={selectedKeys}
         autoExpandParent={autoExpandParent}
+        onRightClick={handleRightClick}
         treeData={renderTreeNodes(treeData)}
       />
+      {renderContextMenu()}
     </div>
   );
 };

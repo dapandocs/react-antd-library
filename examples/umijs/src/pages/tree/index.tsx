@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Tree, Button } from "antd";
-import { MenuTree } from "../../../../../src";
+import { Tree, Button, Menu } from "antd";
+import { MenuTree, ContextMenuTree } from "../../../../../src";
 
 const treeData = [
   {
@@ -39,22 +39,51 @@ const treeData = [
   },
 ];
 
+const menu = (
+  <Menu
+    items={[
+      {
+        label: "1st menu item",
+        key: "1",
+      },
+      {
+        label: "2nd menu item",
+        key: "2",
+      },
+      {
+        label: "3rd menu item",
+        key: "3",
+      },
+    ]}
+  />
+);
+
 const MenuTreePage = () => {
   const [keys, setKeys] = useState(["0-0-2-1"]);
-  const [selectKeys, setSelectKeys] = useState(["0-0-2-1"]);
+  const [selectKeys, setSelectKeys] = useState([]);
   const [auto, setAuto] = useState(true);
 
   return (
     <>
-      <MenuTree
+      <ContextMenuTree
         treeData={treeData}
         expandedKeys={keys}
         selectedKeys={selectKeys}
         // autoExpandParent={auto}
-        onExpand={(k: any) => setKeys(k)}
-        onSelect={(s: any) => setSelectKeys(s)}
-        mode="directory"
+        onExpand={(k: any) => {
+          console.log("k", k);
+          setKeys(k);
+        }}
+        onSelect={(s: any) => {
+          console.log("s", s);
+          setSelectKeys(s);
+        }}
+        // mode="directory"
         // onAutoExpandParent={(b) => setAuto(b)}
+        contextMenuItems={menu}
+        searchParams={{
+          placeholder: "测试",
+        }}
       />
       <Button onClick={() => setKeys(["0-0-2-1"])}>测试</Button>
       <Button
