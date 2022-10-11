@@ -39,24 +39,6 @@ const treeData = [
   },
 ];
 
-const menu = (
-  <Menu
-    items={[
-      {
-        label: "1st menu item",
-        key: "1",
-      },
-      {
-        label: "2nd menu item",
-        key: "2",
-      },
-      {
-        label: "3rd menu item",
-        key: "3",
-      },
-    ]}
-  />
-);
 
 const MenuTreePage = () => {
   const [keys, setKeys] = useState(["0-0-2-1"]);
@@ -78,9 +60,25 @@ const MenuTreePage = () => {
           console.log("s", s);
           setSelectKeys(s);
         }}
-        // mode="directory"
+        // mode="primary"
         // onAutoExpandParent={(b) => setAuto(b)}
-        contextMenuItems={menu}
+        contextMenuItems={[
+          {
+            label: "1st menu item",
+            key: "1",
+          },
+          {
+            label: "2nd menu item",
+            key: "2",
+          },
+          {
+            label: "3rd menu item",
+            key: "3",
+          },
+        ]}
+        onClickContextMenu={(key,node)=>{
+          console.log(key,node);
+        }}
         searchParams={{
           placeholder: "测试",
         }}

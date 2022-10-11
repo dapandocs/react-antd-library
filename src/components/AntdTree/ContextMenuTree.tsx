@@ -1,5 +1,5 @@
 import React from "react";
-import { Tree, Input, Dropdown, Menu } from "antd";
+import { Tree, Input, Menu } from "antd";
 import type { TreeProps, TreeDataNode } from "antd";
 import type { SearchProps } from "antd/lib/input/Search";
 import { useSetState, useDebounceFn, useControllableValue } from "ahooks";
@@ -8,7 +8,7 @@ import "./MenuTree.less";
 
 const { Search } = Input;
 
-type ContextMenuTreeProps = TreeProps & {
+export type ContextMenuTreeProps = TreeProps & {
   fieldNames?: {
     title?: "title";
     key?: "key";
@@ -18,13 +18,20 @@ type ContextMenuTreeProps = TreeProps & {
   mode?: "primary" | "directory";
   showSearch?: boolean;
   searchParams?: SearchProps;
-  contextMenuItems: React.ReactElement;
+  contextMenuItems: {
+    key: string;
+    label: string;
+  }[];
+  onClickContextMenu?: (
+    contextKey: string,
+    node: { key: string; title: string }
+  ) => void;
   onAutoExpandParent?: (autoExpandParent: boolean) => void;
 };
 
 export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
   const {
-    contextMenuItems = <span />,
+    contextMenuItems = [],
     fieldNames = {
       title: "title",
       key: "key",
@@ -35,14 +42,16 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
     mode = "primary",
     showSearch = true,
     searchParams = {},
+    onClickContextMenu,
     ...restProps
   } = props;
   const dropdownElement: React.RefObject<HTMLDivElement> = React.useRef(null);
 
-  const [state, setState] = useSetState({
+  const [state, setState] = useSetState<any>({
     pageX: 0,
     pageY: 0,
     showContextMenu: false,
+    currentTreeNode: {},
     searchValue: "",
   });
 
@@ -62,7 +71,7 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
     }
   );
 
-  const { pageX, pageY, showContextMenu, searchValue } = state;
+  const { pageX, pageY, showContextMenu, searchValue, currentTreeNode } = state;
 
   React.useEffect(() => {
     if (dropdownElement.current) {
@@ -105,6 +114,10 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
       if (item[fieldNames.children]) {
         return {
           title,
+          data: {
+            key: item[fieldNames.key],
+            title: item[fieldNames.title],
+          },
           key: item[fieldNames.key],
           isLeaf: item[fieldNames.isLeaf],
           children: renderTreeNodes(item[fieldNames.children]),
@@ -112,13 +125,22 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
       }
       return {
         title,
+        data: {
+          key: item[fieldNames.key],
+          title: item[fieldNames.title],
+        },
         key: item[fieldNames.key],
         isLeaf: item[fieldNames.isLeaf],
       };
     });
 
   const renderContextMenu = () => {
-    if (pageX && pageY) {
+    if (
+      pageX &&
+      pageY &&
+      Array.isArray(contextMenuItems) &&
+      contextMenuItems.length
+    ) {
       return (
         <div
           tabIndex={-1}
@@ -134,10 +156,21 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
           ref={dropdownElement}
           onBlur={(e) => {
             e.stopPropagation();
-            setState({ showContextMenu: false });
+            setTimeout(() => {
+              setState({ showContextMenu: false });
+            }, 300);
           }}
         >
-          {contextMenuItems}
+          <Menu
+            // @ts-ignore
+            items={contextMenuItems}
+            selectedKeys={[]}
+            onSelect={({ key }) => {
+              if (typeof onClickContextMenu === "function") {
+                onClickContextMenu(key, currentTreeNode.data);
+              }
+            }}
+          />
         </div>
       );
     }
@@ -150,11 +183,12 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
       pageX: event.pageX,
       pageY: event.pageY,
       showContextMenu: true,
+      currentTreeNode: node,
     });
   };
 
   return (
-    <div>
+    <div className={mode === "primary" ? "antd-menu-tree" : ""}>
       {showSearch && (
         <Search
           style={{ marginBottom: 8 }}
@@ -168,8 +202,6 @@ export const ContextMenuTree: React.FC<ContextMenuTreeProps> = (props) => {
         showIcon={false}
         defaultExpandParent={false}
         {...restProps}
-        // onExpand={onExpand}
-        // onSelect={onSelect}
         expandedKeys={expandedKeys}
         selectedKeys={selectedKeys}
         autoExpandParent={autoExpandParent}
