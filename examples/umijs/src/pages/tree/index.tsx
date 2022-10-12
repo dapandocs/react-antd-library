@@ -49,17 +49,17 @@ const MenuTreePage = () => {
     <>
       <ContextMenuTree
         treeData={treeData}
-        expandedKeys={keys}
-        selectedKeys={selectKeys}
-        // autoExpandParent={auto}
-        onExpand={(k: any) => {
-          console.log("k", k);
-          setKeys(k);
-        }}
-        onSelect={(s: any) => {
-          console.log("s", s);
-          setSelectKeys(s);
-        }}
+        // expandedKeys={keys}
+        // selectedKeys={selectKeys}
+        // // autoExpandParent={auto}
+        // onExpand={(k: any) => {
+        //   console.log("k", k);
+        //   setKeys(k);
+        // }}
+        // onSelect={(s: any) => {
+        //   console.log("s", s);
+        //   setSelectKeys(s);
+        // }}
         // mode="primary"
         // onAutoExpandParent={(b) => setAuto(b)}
         contextMenuItems={[
