@@ -95,7 +95,7 @@ export const MenuTree: React.FC<MenuTreeProps> = (props) => {
   };
 
   const renderTreeNodes = (data: TreeDataNode[]): any =>
-    data.map((item: any) => {
+    data.map((item: Record<string, any>) => {
       const index = item[fieldNames.title].indexOf(searchValue);
       const beforeStr = item[fieldNames.title].substr(0, index);
       const afterStr = item[fieldNames.title].substr(
