@@ -2,6 +2,7 @@ import React from "react";
 import { Radio, RadioGroupProps } from "antd";
 import cls from "classnames";
 import { PreviewTextContext, PreviewTextProps } from "./index";
+import { isEmpty } from "./util";
 import "./styles.less";
 
 const PreviewRadioGroup: React.FC<RadioGroupProps & PreviewTextProps> = (
@@ -49,7 +50,7 @@ const PreviewRadioGroup: React.FC<RadioGroupProps & PreviewTextProps> = (
 
   const getLabels = () => {
     const selected = props.value;
-    if (!selected)
+    if (isEmpty(selected))
       return previewPlaceholder || contextValue?.previewPlaceholder;
     const options = getOptions();
     return (
