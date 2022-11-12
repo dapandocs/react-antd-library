@@ -29,62 +29,74 @@ export default defineConfig({
     },
   ],
   menus: {
-    "/components": [
+    '/components': [
       {
-        title: "基础组件",
+        title: '基础组件',
         children: [
           {
-            title: "ButtonUpload 按钮上传",
-            path: "/components/button-upload",
+            title: 'ButtonUpload 按钮上传',
+            path: '/components/button-upload',
           },
           {
-            title: "AntdTransfer 穿梭框",
-            path: "/components/antd-transfer",
+            title: 'AntdTransfer 穿梭框',
+            path: '/components/antd-transfer',
           },
           {
-            title: "DraggableModal 拖动对话框",
-            path: "/components/draggable-modal",
+            title: 'DraggableModal 拖动对话框',
+            path: '/components/draggable-modal',
           },
           {
-            title: "EditableTable 可编辑表格",
-            path: "/components/editable-table",
+            title: 'EditableTable 可编辑表格',
+            path: '/components/editable-table',
           },
           {
-            title: "DragSortTable 拖动排序表格",
-            path: "/components/dragsort-table",
+            title: 'DragSortTable 拖动排序表格',
+            path: '/components/dragsort-table',
           },
-        ]
+          {
+            title: 'MenuTree 菜单树',
+            path: '/components/menu-tree',
+          },
+          {
+            title: 'OperateMenuTree 操作菜单树',
+            path: '/components/operate-menu-tree',
+          },
+          {
+            title: 'ContextMenuTree 右键菜单树',
+            path: '/components/context-menu-tree',
+          },
+        ],
       },
       {
-        title: "扩展组件",
+        title: '扩展组件',
         children: [
           {
-            title: "PreviewText 表单阅读态",
-            path: "/components/preview-text",
+            title: 'PreviewText 表单阅读态',
+            path: '/components/preview-text',
           },
           {
-            title: "EllipsisText 文本省略",
-            path: "/components/ellipsis-text",
+            title: 'EllipsisText 文本省略',
+            path: '/components/ellipsis-text',
           },
           {
-            title: "SiderBar 伸缩侧边栏",
-            path: "/components/sider-bar",
+            title: 'SiderBar 伸缩侧边栏',
+            path: '/components/sider-bar',
           },
-        ]
+        ],
       },
       {
-        title: "组合组件",
+        title: '组合组件',
         children: [
           {
-            title: "SelectTransferModal 弹框式选择器",
-            path: "/components/select-transfer-modal",
+            title: 'SelectTransferModal 弹框式选择器',
+            path: '/components/select-transfer-modal',
           },
           {
-            title: "ButtonTransferModal 弹框式选择器",
-            path: "/components/button-transfer-modal",
+            title: 'ButtonTransferModal 弹框式选择器',
+            path: '/components/button-transfer-modal',
           },
-        ]
+        ],
       },
-    ]
-  }
+    ],
+  },
 });

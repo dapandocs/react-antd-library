@@ -106,7 +106,7 @@ const MenuTreePage = () => {
         // autoExpandParent={auto}
         // mode="directory"
         // onAutoExpandParent={(b) => setAuto(b)}
-        renderOperationMenuItems={renderOperation2}
+        renderOperationMenuItems={renderOperation}
         searchParams={{
           placeholder: "测试",
         }}
