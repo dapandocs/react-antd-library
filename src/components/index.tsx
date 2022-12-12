@@ -9,3 +9,4 @@ export * from './SiderBar';
 export * from './AntdModal';
 export * from './AntdTable';
 export * from './AntdTree';
+export * from './WrapLine';

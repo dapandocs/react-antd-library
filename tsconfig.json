@@ -7,5 +7,6 @@
     "baseUrl": "./",
     "esModuleInterop": true,
     "sourceMap": true,
+    "downlevelIteration": true,
   }
 }

@@ -1,5 +1,5 @@
-import qs from "querystring";
 import { message } from "antd";
+import { stringify } from "./commonUtils";
 
 type downloadFileOptions = {
   url: string;
@@ -58,7 +58,7 @@ export const downloadFile = async ({
   callback,
 }: downloadFileOptions) => {
   const params = method === "post" ? { body: JSON.stringify(data) } : {};
-  const queryUrl = method === "get" ? `${url}?${qs.stringify(data)}` : url;
+  const queryUrl = method === "get" ? `${url}?${stringify(data)}` : url;
   if (typeof callback === "function") {
     callback(true);
   }
