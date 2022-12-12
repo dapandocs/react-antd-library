@@ -6626,10 +6626,10 @@ rc-virtual-list@^3.2.0, rc-virtual-list@^3.4.2, rc-virtual-list@^3.4.8:
     rc-resize-observer "^1.0.0"
     rc-util "^5.15.0"
 
-react-antd-library@^0.1.22:
-  version "0.1.22"
-  resolved "https://registry.npmjs.org/react-antd-library/-/react-antd-library-0.1.22.tgz#a76b0265b41a5b690ad608f64f24938cc84c571f"
-  integrity sha512-1RKevFqs9TBEOFmKKxEJ4v7IEdizQkBqTVJ0Bi4rtQ7WX1nR1rmsLf3eoJ0347gJ5ol30lD6Bhf4w6QHUbgeYg==
+react-antd-library@^0.1.23:
+  version "0.1.23"
+  resolved "https://registry.npmmirror.com/react-antd-library/-/react-antd-library-0.1.23.tgz#bc5dfe24c759b74b95dbeb34edd8c6065ea2a204"
+  integrity sha512-uHj6Qp34IHB1SaOsEdvEwefKBL9GzC24eq7sd+VLtGcNqF4nnTDlcB021T0BJLhRuXAzejwt7VUwk67Y5ekNhw==
   dependencies:
     ahooks "^3.5.2"
     antd "4.19.0"

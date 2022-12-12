@@ -17,6 +17,7 @@ import PreviewCheckbox from "./Checkbox";
 import PreviewCheckboxGroup from "./CheckboxGroup";
 import PreviewRadio from "./Radio";
 import PreviewRadioGroup from "./RadioGroup";
+import { isEmpty } from "./util";
 
 export interface PreviewTextProps {
   previewPlaceholder?: string;
@@ -46,7 +47,7 @@ interface CompoundedComponent
 }
 
 export const usePlaceholder = (value: any, text: string | undefined) => {
-  if (!value) {
+  if (isEmpty(value)) {
     return text;
   }
   return value;

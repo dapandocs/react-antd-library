@@ -20,7 +20,8 @@ export type ContextMenuTreeProps = TreeProps & {
   searchParams?: SearchProps;
   contextMenuItems: {
     key: string;
-    label: string;
+    label: React.ReactNode;
+    icon?: React.ReactNode;
   }[];
   onClickContextMenu?: (
     contextKey: string,
